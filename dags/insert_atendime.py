@@ -6,31 +6,7 @@ from connections.oracle.connections import connect_rhp, connect_rhp_2
 from collections import OrderedDict as od
 import unidecode
 
-from queries.rhp.atendime import query_atendime
-from queries.rhp.cid import query_cid
-from queries.rhp.classificacao_risco import query_classificacao_risco
-from queries.rhp.classificacao import query_classificacao
-from queries.rhp.convenio import query_convenio
-from queries.rhp.cor_referencia import query_cor_referencia
-from queries.rhp.diagnostico_atendime import query_diagnostico_atendime
-from queries.rhp.documento_clinico import query_documento_clinico
-from queries.rhp.esp_med import query_esp_med
-from queries.rhp.especialidad import query_especialidad
-from queries.rhp.gru_cid import query_gru_cid
-from queries.rhp.mot_alt import query_mot_alt
-from queries.rhp.multi_empresa import query_multi_empresa
-from queries.rhp.ori_ate import query_ori_ate
-from queries.rhp.paciente import query_paciente
-from queries.rhp.pagu_objeto import query_pagu_objeto
-from queries.rhp.registro_alta import query_registro_alta
-from queries.rhp.setor import query_setor
-from queries.rhp.sgru_cid import query_sgru_cid
-from queries.rhp.sintoma_avaliacao import query_sintoma_avaliacao
-from queries.rhp.tempo_processo import query_tempo_processo
-from queries.rhp.tip_mar import query_tip_mar
-from queries.rhp.tip_res import query_tip_res
-from queries.rhp.triagem_atendimento import query_triagem_atendimento
-from queries.rhp.usuario import query_usuario
+from queries.rhp.queries import *
 
 import pandas as pd
 import numpy as np
@@ -233,6 +209,244 @@ def df_usuario():
 
     print(df)
 
+def df_pre_med():
+    print("Entrou no df_pre_med")
+
+    df = pd.read_sql(query_pre_med, connect_rhp())
+
+    print(df)
+
+def df_itpre_med():
+    print("Entrou no df_itpre_med")
+
+    df = pd.read_sql(query_itpre_med, connect_rhp())
+
+    print(df)
+
+def df_tip_presc():
+    print("Entrou no df_tip_presc")
+
+    df = pd.read_sql(query_tip_presc, connect_rhp())
+
+    print(df)
+
+def df_for_apl():
+    print("Entrou no df_for_apl")
+
+    df = pd.read_sql(query_for_apl, connect_rhp())
+
+    print(df)
+
+def df_tip_esq():
+    print("Entrou no df_tip_esq")
+
+    df = pd.read_sql(query_tip_esq, connect_rhp())
+
+    print(df)
+
+def df_tip_fre():
+    print("Entrou no df_tip_fre")
+
+    df = pd.read_sql(query_tip_fre, connect_rhp())
+
+    print(df)
+
+def df_de_para_tuss():
+    print("Entrou no df_de_para_tuss")
+
+    df = pd.read_sql(query_de_para_tuss, connect_rhp())
+
+    print(df)
+
+def df_gru_fat():
+    print("Entrou no df_gru_fat")
+
+    df = pd.read_sql(query_gru_fat, connect_rhp())
+
+    print(df)
+
+def df_gru_pro():
+    print("Entrou no df_gru_pro")
+
+    df = pd.read_sql(query_gru_pro, connect_rhp())
+
+    print(df)
+
+def df_produto():
+    print("Entrou no df_produto")
+
+    df = pd.read_sql(query_produto, connect_rhp())
+
+    print(df)
+
+def df_pro_fat():
+    print("Entrou no df_pro_fat")
+
+    df = pd.read_sql(query_pro_fat, connect_rhp())
+
+    print(df)
+
+def df_tuss():
+    print("Entrou no df_tuss")
+
+    df = pd.read_sql(query_tuss, connect_rhp())
+
+    print(df)
+
+def df_uni_pro():
+    print("Entrou no df_uni_pro")
+
+    df = pd.read_sql(query_uni_pro, connect_rhp())
+
+    print(df)
+
+def df_reg_amb():
+    print("Entrou no df_reg_amb")
+
+    df = pd.read_sql(query_reg_amb, connect_rhp())
+
+    print(df)
+
+def df_itreg_amb():
+    print("Entrou no df_itreg_amb")
+
+    df = pd.read_sql(query_itreg_amb, connect_rhp())
+
+    print(df)
+
+def df_reg_fat():
+    print("Entrou no df_reg_fat")
+
+    df = pd.read_sql(query_reg_fat, connect_rhp())
+
+    print(df)
+
+def df_itreg_fat():
+    print("Entrou no df_itreg_fat")
+
+    df = pd.read_sql(query_itreg_fat, connect_rhp())
+
+    print(df)
+
+def df_custo_final():
+    print("Entrou no df_custo_final")
+
+    df = pd.read_sql(query_custo_final, connect_rhp())
+
+    print(df)
+
+def df_mvto_estoque():
+    print("Entrou no df_mvto_estoque")
+
+    df = pd.read_sql(query_mvto_estoque, connect_rhp())
+
+    print(df)
+
+def df_itmvto_estoque():
+    print("Entrou no df_itmvto_estoque")
+
+    df = pd.read_sql(query_itmvto_estoque, connect_rhp())
+
+    print(df)
+
+def df_quantidade_diarias():
+    print("Entrou no df_quantidade_diarias")
+
+    df = pd.read_sql(query_quantidade_diarias, connect_rhp())
+
+    print(df)
+
+def df_remessa_fatura():
+    print("Entrou no df_remessa_fatura")
+
+    df = pd.read_sql(query_remessa_fatura, connect_rhp())
+
+    print(df)
+
+def df_repasse():
+    print("Entrou no df_repasse")
+
+    df = pd.read_sql(query_repasse, connect_rhp())
+
+    print(df)
+
+def df_it_repasse():
+    print("Entrou no df_it_repasse")
+
+    df = pd.read_sql(query_it_repasse, connect_rhp())
+
+    print(df)
+
+def df_itent_pro():
+    print("Entrou no df_itent_pro")
+
+    df = pd.read_sql(query_itent_pro, connect_rhp())
+
+    print(df)
+
+def df_glosas():
+    print("Entrou no df_glosas")
+
+    df = pd.read_sql(query_glosas, connect_rhp())
+
+    print(df)
+
+def df_custo_medio_mensal():
+    print("Entrou no df_custo_medio_mensal")
+
+    df = pd.read_sql(query_custo_medio_mensal, connect_rhp())
+
+    print(df)
+
+def df_fa_custo_atendimento():
+    print("Entrou no df_fa_custo_atendimento")
+
+    df = pd.read_sql(query_fa_custo_atendimento, connect_rhp())
+
+    print(df)
+
+def df_especie():
+    print("Entrou no df_especie")
+
+    df = pd.read_sql(query_especie, connect_rhp())
+
+    print(df)
+
+def df_exa_lab():
+    print("Entrou no df_exa_lab")
+
+    df = pd.read_sql(query_exa_lab, connect_rhp())
+
+    print(df)
+
+def df_exa_rx():
+    print("Entrou no df_exa_rx")
+
+    df = pd.read_sql(query_exa_rx, connect_rhp())
+
+    print(df)
+
+def df_gru_fat():
+    print("Entrou no df_gru_fat")
+
+    df = pd.read_sql(query_gru_fat, connect_rhp())
+
+    print(df)
+
+def df_motivo_glosa():
+    print("Entrou no df_motivo_glosa")
+
+    df = pd.read_sql(query_motivo_glosa, connect_rhp())
+
+    print(df)
+
+def df_mot_dev():
+    print("Entrou no df_mot_dev")
+
+    df = pd.read_sql(query_mot_dev, connect_rhp())
+
+    print(df)
+
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
 t0 = PythonOperator(
@@ -360,4 +574,169 @@ t24 = PythonOperator(
     python_callable=df_usuario,
     dag=dag)
 
-t0 >> t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13 >> t14 >> t15 >> t16 >> t17 >> t18 >> t19 >> t20 >> t21 >> t22 >> t23 >> t24
+t25 = PythonOperator(
+    task_id="insert_pre_med_rhp",
+    python_callable=df_pre_med,
+    dag=dag)
+
+t26 = PythonOperator(
+    task_id="insert_itpre_med_rhp",
+    python_callable=df_itpre_med,
+    dag=dag)
+
+t27 = PythonOperator(
+    task_id="insert_tip_presc_rhp",
+    python_callable=df_tip_presc,
+    dag=dag)
+
+t28 = PythonOperator(
+    task_id="insert_for_apl_rhp",
+    python_callable=df_for_apl,
+    dag=dag)
+
+t29 = PythonOperator(
+    task_id="insert_tip_esq_rhp",
+    python_callable=df_tip_esq,
+    dag=dag)
+
+t30 = PythonOperator(
+    task_id="insert_tip_fre_rhp",
+    python_callable=df_tip_fre,
+    dag=dag)
+
+t31 = PythonOperator(
+    task_id="insert_de_para_tuss_rhp",
+    python_callable=df_de_para_tuss,
+    dag=dag)
+
+t32 = PythonOperator(
+    task_id="insert_gru_pro_rhp",
+    python_callable=df_gru_pro,
+    dag=dag)
+
+t33 = PythonOperator(
+    task_id="insert_produto_rhp",
+    python_callable=df_produto,
+    dag=dag)
+
+t34 = PythonOperator(
+    task_id="insert_pro_fat_rhp",
+    python_callable=df_pro_fat,
+    dag=dag)
+
+t35 = PythonOperator(
+    task_id="insert_tuss_rhp",
+    python_callable=df_tuss,
+    dag=dag)
+
+t36 = PythonOperator(
+    task_id="insert_uni_pro_rhp",
+    python_callable=df_uni_pro,
+    dag=dag)
+
+t37 = PythonOperator(
+    task_id="insert_reg_amb_rhp",
+    python_callable=df_reg_amb,
+    dag=dag)
+
+t38 = PythonOperator(
+    task_id="insert_itreg_amb_rhp",
+    python_callable=df_itreg_amb,
+    dag=dag)
+
+t39 = PythonOperator(
+    task_id="insert_reg_fat_rhp",
+    python_callable=df_reg_fat,
+    dag=dag)
+
+t40 = PythonOperator(
+    task_id="insert_itreg_fat_rhp",
+    python_callable=df_itreg_fat,
+    dag=dag)
+
+t41 = PythonOperator(
+    task_id="insert_custo_final_rhp",
+    python_callable=df_custo_final,
+    dag=dag)
+
+t42 = PythonOperator(
+    task_id="insert_mvto_estoque_rhp",
+    python_callable=df_mvto_estoque,
+    dag=dag)
+
+t43 = PythonOperator(
+    task_id="insert_itmvto_estoque_rhp",
+    python_callable=df_itmvto_estoque,
+    dag=dag)
+
+t44 = PythonOperator(
+    task_id="insert_quantidade_diarias_rhp",
+    python_callable=df_quantidade_diarias,
+    dag=dag)
+
+t45 = PythonOperator(
+    task_id="insert_remessa_fatura_rhp",
+    python_callable=df_remessa_fatura,
+    dag=dag)
+
+t46 = PythonOperator(
+    task_id="insert_repasse_rhp",
+    python_callable=df_repasse,
+    dag=dag)
+
+t47 = PythonOperator(
+    task_id="insert_it_repasse_rhp",
+    python_callable=df_it_repasse,
+    dag=dag)
+
+t48 = PythonOperator(
+    task_id="insert_itent_pro_rhp",
+    python_callable=df_itent_pro,
+    dag=dag)
+
+t49 = PythonOperator(
+    task_id="insert_glosas_rhp",
+    python_callable=df_glosas,
+    dag=dag)
+
+t50 = PythonOperator(
+    task_id="insert_custo_medio_mensal_rhp",
+    python_callable=df_custo_medio_mensal,
+    dag=dag)
+
+t51 = PythonOperator(
+    task_id="insert_fa_custo_atendimento_rhp",
+    python_callable=df_fa_custo_atendimento,
+    dag=dag)
+
+t52 = PythonOperator(
+    task_id="insert_especie_rhp",
+    python_callable=df_especie,
+    dag=dag)
+
+t53 = PythonOperator(
+    task_id="insert_exa_lab_rhp",
+    python_callable=df_exa_lab,
+    dag=dag)
+
+t54 = PythonOperator(
+    task_id="insert_exa_rx_rhp",
+    python_callable=df_exa_rx,
+    dag=dag)
+
+t55 = PythonOperator(
+    task_id="insert_gru_fat_rhp",
+    python_callable=df_gru_fat,
+    dag=dag)
+
+t56 = PythonOperator(
+    task_id="insert_motivo_glosa_rhp",
+    python_callable=df_motivo_glosa,
+    dag=dag)
+
+t57 = PythonOperator(
+    task_id="insert_mot_dev_rhp",
+    python_callable=df_mot_dev,
+    dag=dag)
+
+t0 >> t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13 >> t14 >> t15 >> t16 >> t17 >> t18 >> t19 >> t20 >> t21 >> t22 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t31 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57

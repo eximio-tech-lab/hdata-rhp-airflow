@@ -1,6 +1,0 @@
-query_esp_med = '''
-SELECT CD_ESPECIALID,
-       CD_PRESTADOR,
-       SN_ESPECIAL_PRINCIPAL
-FROM ESP_MED;
-'''

@@ -1,5 +1,0 @@
-query_usuario = '''
-SELECT CD_USUARIO,
-       NM_USUARIO
-FROM DBASGU.USUARIOS;
-'''

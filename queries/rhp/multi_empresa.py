@@ -1,5 +1,0 @@
-query_multi_empresa = '''
-SELECT CD_MULTI_EMPRESA,
-       DS_MULTI_EMPRESA
-FROM MULTI_EMPRESAS;
-'''

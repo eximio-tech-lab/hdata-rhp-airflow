@@ -1,3 +1,0 @@
-query_convenio = '''
-SELECT CD_CONVENIO, NM_CONVENIO FROM CONVENIO;
-'''

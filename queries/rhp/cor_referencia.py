@@ -1,4 +1,0 @@
-query_cor_referencia = '''
-SELECT CD_COR_REFERENCIA
-FROM SACR_COR_REFERENCIA;
-'''
