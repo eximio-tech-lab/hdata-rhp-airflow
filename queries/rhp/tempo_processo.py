@@ -1,0 +1,6 @@
+query_tempo_processo = '''
+SELECT DH_PROCESSO,
+        CD_TIPO_TEMPO_PROCESSO,
+        CD_ATENDIMENTO
+FROM SACR_TEMPO_PROCESSO;
+'''

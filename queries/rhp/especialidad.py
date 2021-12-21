@@ -1,0 +1,3 @@
+query_especialidad = '''
+SELECT CD_ESPECIALID, DS_ESPECIALID FROM ESPECIALID;
+'''

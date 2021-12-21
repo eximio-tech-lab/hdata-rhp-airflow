@@ -1,0 +1,5 @@
+query_multi_emrpesa = '''
+SELECT CD_MULTI_EMPRESA,
+       DS_MULTI_EMPRESA
+FROM MULTI_EMPRESAS;
+'''

@@ -1,0 +1,5 @@
+query_registro_alta = '''
+SELECT HR_ALTA_MEDICA,
+       CD_ATENDIMENTO
+FROM PW_REGISTRO_ALTA;
+'''

@@ -1,0 +1,4 @@
+query_mot_alt = '''
+SELECT CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA
+FROM DBAMV.MOT_ALT;
+'''

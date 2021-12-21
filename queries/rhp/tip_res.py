@@ -1,0 +1,4 @@
+query_tip_res = '''
+SELECT CD_TIP_RES, DS_TIP_RES, SN_OBITO
+FROM DBAMV.TIP_RES;
+'''

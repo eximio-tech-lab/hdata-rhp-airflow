@@ -1,0 +1,24 @@
+query_atendime = '''
+SELECT A.CD_MULTI_EMPRESA,
+      CD_PACIENTE,
+      CD_ATENDIMENTO,
+      CD_CID,
+      CD_MOT_ALT,
+      CD_TIP_RES,
+      CD_CONVENIO,
+      CD_ESPECIALID,
+      CD_PRESTADOR,
+      CD_ATENDIMENTO_PAI,
+      CD_LEITO,
+      A.CD_ORI_ATE,
+      CD_SERVICO,
+      TP_ATENDIMENTO,
+      DT_ATENDIMENTO,
+      HR_ATENDIMENTO,
+      HR_ALTA,
+      HR_ALTA_MEDICA,
+      CD_TIP_MAR,
+      CD_SINTOMA_AVALIACAO,
+      NM_USUARIO_ALTA_MEDICA
+FROM ATENDIME A;
+'''

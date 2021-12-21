@@ -1,0 +1,8 @@
+query_triagem_atendimento = '''
+SELECT CD_ATENDIMENTO,
+       CD_TRIAGEM_ATENDIMENTO,
+       CD_SINTOMA_AVALIACAO,
+       DS_SENHA,
+       DH_PRE_ATENDIMENTO
+FROM TRIAGEM_ATENDIMENTO;
+'''

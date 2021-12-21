@@ -1,0 +1,3 @@
+query_sgru_cid = '''
+SELECT CD_SGRU_CID, CD_GRU_CID, DS_SGRU_CID FROM SGRU_CID;
+'''
