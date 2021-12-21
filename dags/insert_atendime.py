@@ -2,12 +2,11 @@ import airflow
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
-from connections.oracle.connections import connect_rhp
+from connections.oracle.connections import connect_rhp, connect_rhp_2
 from collections import OrderedDict as od
 import unidecode
 
 from queries.rhp.atendime import query_atendime
-
 
 import pandas as pd
 import numpy as np
@@ -30,8 +29,8 @@ HOSPITAL = 'REAL HOSPITAL PORTGUES'
 
 def df_atendime():
     print("Entrou no df_atendime")
-    
-    df = pd.read_sql(query_atendime, connect_rhp_2())
+
+    df = pd.read_sql(query_atendime, connect_rhp())
 
     print(df)
 
@@ -40,7 +39,6 @@ dag = DAG("insert_atendime_rhp", default_args=default_args, schedule_interval=No
 t0 = PythonOperator(
     task_id="insert_atendime_rhp",
     python_callable=df_atendime,
-    on_failure_callback=None,
     dag=dag)
 
 t0
