@@ -89,4 +89,4 @@ t4 = PythonOperator(
     python_callable=df_convenio,
     dag=dag)
 
-t0 > t1 > t2 > t3 > t4
+t0 >> t1 >> t2 >> t3 >> t4
