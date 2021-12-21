@@ -29,7 +29,7 @@ default_args = {
 HOSPITAL = 'REAL HOSPITAL PORTGUES'
 
 def df_atendime():
-    df = pd.read_sql(query_atendime, connect_rhp())
+    df = pd.read_sql(query_atendime, connect_rhp_2())
 
     print(df)
 
@@ -38,7 +38,6 @@ dag = DAG("insert_atendime_rhp", default_args=default_args, schedule_interval=No
 t0 = PythonOperator(
     task_id="insert_atendime_rhp",
     python_callable=df_atendime,
-    op_kwargs={'connect_rhp': connect_rhp},
     on_failure_callback=None,
     dag=dag)
 
