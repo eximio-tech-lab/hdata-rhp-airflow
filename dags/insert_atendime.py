@@ -34,11 +34,59 @@ def df_atendime():
 
     print(df)
 
-dag = DAG("insert_atendime_rhp", default_args=default_args, schedule_interval=None)
+def df_cid():
+    print("Entrou no df_cid")
+
+    df = pd.read_sql(query_cid, connect_rhp())
+
+    print(df)
+
+def df_classificacao_risco():
+    print("Entrou no df_classificacao_risco")
+
+    df = pd.read_sql(query_classificacao_risco, connect_rhp())
+
+    print(df)
+
+def df_classificacao():
+    print("Entrou no df_classificacao")
+
+    df = pd.read_sql(query_classificacao, connect_rhp())
+
+    print(df)
+
+def df_convenio():
+    print("Entrou no df_convenio")
+
+    df = pd.read_sql(query_convenio, connect_rhp())
+
+    print(df)
+
+dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
 t0 = PythonOperator(
     task_id="insert_atendime_rhp",
     python_callable=df_atendime,
     dag=dag)
 
-t0
+t1 = PythonOperator(
+    task_id="insert_cid_rhp",
+    python_callable=df_cid,
+    dag=dag)
+
+t2 = PythonOperator(
+    task_id="insert_classificacao_risco_rhp",
+    python_callable=df_classificacao_risco,
+    dag=dag)
+
+t3 = PythonOperator(
+    task_id="insert_classificacao_rhp",
+    python_callable=df_classificacao,
+    dag=dag)
+
+t4 = PythonOperator(
+    task_id="insert_convenio_rhp",
+    python_callable=df_convenio,
+    dag=dag)
+
+t0 > t1 > t2 > t3 > t4
