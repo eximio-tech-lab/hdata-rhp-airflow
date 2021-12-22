@@ -2,7 +2,7 @@ import airflow
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
-from connections.oracle.connections import connect_rhp, connect_rhp_2
+from connections.oracle.connections import connect_rhp_2
 from collections import OrderedDict as od
 import unidecode
 
@@ -37,413 +37,413 @@ def df_atendime():
 def df_cid():
     print("Entrou no df_cid")
 
-    df = pd.read_sql(query_cid, connect_rhp())
+    df = pd.read_sql(query_cid, connect_rhp_2())
 
     print(df)
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
 
-    df = pd.read_sql(query_classificacao_risco, connect_rhp())
+    df = pd.read_sql(query_classificacao_risco, connect_rhp_2())
 
     print(df)
 
 def df_classificacao():
     print("Entrou no df_classificacao")
 
-    df = pd.read_sql(query_classificacao, connect_rhp())
+    df = pd.read_sql(query_classificacao, connect_rhp_2())
 
     print(df)
 
 def df_convenio():
     print("Entrou no df_convenio")
 
-    df = pd.read_sql(query_convenio, connect_rhp())
+    df = pd.read_sql(query_convenio, connect_rhp_2())
 
     print(df)
 
 def df_cor_referencia():
     print("Entrou no df_cor_referencia")
 
-    df = pd.read_sql(query_cor_referencia, connect_rhp())
+    df = pd.read_sql(query_cor_referencia, connect_rhp_2())
 
     print(df)
 
 def df_diagnostico_atendime():
     print("Entrou no df_diagnostico_atendime")
 
-    df = pd.read_sql(query_diagnostico_atendime, connect_rhp())
+    df = pd.read_sql(query_diagnostico_atendime, connect_rhp_2())
 
     print(df)
 
 def df_cor_referencia():
     print("Entrou no df_cor_referencia")
 
-    df = pd.read_sql(query_cor_referencia, connect_rhp())
+    df = pd.read_sql(query_cor_referencia, connect_rhp_2())
 
     print(df)
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
 
-    df = pd.read_sql(query_documento_clinico, connect_rhp())
+    df = pd.read_sql(query_documento_clinico, connect_rhp_2())
 
     print(df)
 
 def df_esp_med():
     print("Entrou no df_esp_med")
 
-    df = pd.read_sql(query_esp_med, connect_rhp())
+    df = pd.read_sql(query_esp_med, connect_rhp_2())
 
     print(df)
 
 def df_especialidad():
     print("Entrou no df_especialidad")
 
-    df = pd.read_sql(query_especialidad, connect_rhp())
+    df = pd.read_sql(query_especialidad, connect_rhp_2())
 
     print(df)
 
 def df_gru_cid():
     print("Entrou no df_gru_cid")
 
-    df = pd.read_sql(query_gru_cid, connect_rhp())
+    df = pd.read_sql(query_gru_cid, connect_rhp_2())
 
     print(df)
 
 def df_mot_alt():
     print("Entrou no df_mot_alt")
 
-    df = pd.read_sql(query_mot_alt, connect_rhp())
+    df = pd.read_sql(query_mot_alt, connect_rhp_2())
 
     print(df)
 
 def df_multi_empresa():
     print("Entrou no df_multi_empresa")
 
-    df = pd.read_sql(query_multi_empresa, connect_rhp())
+    df = pd.read_sql(query_multi_empresa, connect_rhp_2())
 
     print(df)
 
 def df_ori_ate():
     print("Entrou no df_ori_ate")
 
-    df = pd.read_sql(query_ori_ate, connect_rhp())
+    df = pd.read_sql(query_ori_ate, connect_rhp_2())
 
     print(df)
 
 def df_paciente():
     print("Entrou no df_paciente")
 
-    df = pd.read_sql(query_paciente, connect_rhp())
+    df = pd.read_sql(query_paciente, connect_rhp_2())
 
     print(df)
 
 def df_pagu_objeto():
     print("Entrou no df_pagu_objeto")
 
-    df = pd.read_sql(query_pagu_objeto, connect_rhp())
+    df = pd.read_sql(query_pagu_objeto, connect_rhp_2())
 
     print(df)
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
 
-    df = pd.read_sql(query_registro_alta, connect_rhp())
+    df = pd.read_sql(query_registro_alta, connect_rhp_2())
 
     print(df)
 
 def df_setor():
     print("Entrou no df_setor")
 
-    df = pd.read_sql(query_setor, connect_rhp())
+    df = pd.read_sql(query_setor, connect_rhp_2())
 
     print(df)
 
 def df_sgru_cid():
     print("Entrou no df_sgru_cid")
 
-    df = pd.read_sql(query_sgru_cid, connect_rhp())
+    df = pd.read_sql(query_sgru_cid, connect_rhp_2())
 
     print(df)
 
 def df_sintoma_avaliacao():
     print("Entrou no df_sintoma_avaliacao")
 
-    df = pd.read_sql(query_sintoma_avaliacao, connect_rhp())
+    df = pd.read_sql(query_sintoma_avaliacao, connect_rhp_2())
 
     print(df)
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
 
-    df = pd.read_sql(query_tempo_processo, connect_rhp())
+    df = pd.read_sql(query_tempo_processo, connect_rhp_2())
 
     print(df)
 
 def df_tip_mar():
     print("Entrou no df_tip_mar")
 
-    df = pd.read_sql(query_tip_mar, connect_rhp())
+    df = pd.read_sql(query_tip_mar, connect_rhp_2())
 
     print(df)
 
 def df_tip_res():
     print("Entrou no df_tip_res")
 
-    df = pd.read_sql(query_tip_res, connect_rhp())
+    df = pd.read_sql(query_tip_res, connect_rhp_2())
 
     print(df)
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
 
-    df = pd.read_sql(query_triagem_atendimento, connect_rhp())
+    df = pd.read_sql(query_triagem_atendimento, connect_rhp_2())
 
     print(df)
 
 def df_usuario():
     print("Entrou no df_usuario")
 
-    df = pd.read_sql(query_usuario, connect_rhp())
+    df = pd.read_sql(query_usuario, connect_rhp_2())
 
     print(df)
 
 def df_pre_med():
     print("Entrou no df_pre_med")
 
-    df = pd.read_sql(query_pre_med, connect_rhp())
+    df = pd.read_sql(query_pre_med, connect_rhp_2())
 
     print(df)
 
 def df_itpre_med():
     print("Entrou no df_itpre_med")
 
-    df = pd.read_sql(query_itpre_med, connect_rhp())
+    df = pd.read_sql(query_itpre_med, connect_rhp_2())
 
     print(df)
 
 def df_tip_presc():
     print("Entrou no df_tip_presc")
 
-    df = pd.read_sql(query_tip_presc, connect_rhp())
+    df = pd.read_sql(query_tip_presc, connect_rhp_2())
 
     print(df)
 
 def df_for_apl():
     print("Entrou no df_for_apl")
 
-    df = pd.read_sql(query_for_apl, connect_rhp())
+    df = pd.read_sql(query_for_apl, connect_rhp_2())
 
     print(df)
 
 def df_tip_esq():
     print("Entrou no df_tip_esq")
 
-    df = pd.read_sql(query_tip_esq, connect_rhp())
+    df = pd.read_sql(query_tip_esq, connect_rhp_2())
 
     print(df)
 
 def df_tip_fre():
     print("Entrou no df_tip_fre")
 
-    df = pd.read_sql(query_tip_fre, connect_rhp())
+    df = pd.read_sql(query_tip_fre, connect_rhp_2())
 
     print(df)
 
 # def df_de_para_tuss():
 #     print("Entrou no df_de_para_tuss")
 
-#     df = pd.read_sql(query_de_para_tuss, connect_rhp())
+#     df = pd.read_sql(query_de_para_tuss, connect_rhp_2())
 
 #     print(df)
 
 def df_gru_fat():
     print("Entrou no df_gru_fat")
 
-    df = pd.read_sql(query_gru_fat, connect_rhp())
+    df = pd.read_sql(query_gru_fat, connect_rhp_2())
 
     print(df)
 
 def df_gru_pro():
     print("Entrou no df_gru_pro")
 
-    df = pd.read_sql(query_gru_pro, connect_rhp())
+    df = pd.read_sql(query_gru_pro, connect_rhp_2())
 
     print(df)
 
 def df_produto():
     print("Entrou no df_produto")
 
-    df = pd.read_sql(query_produto, connect_rhp())
+    df = pd.read_sql(query_produto, connect_rhp_2())
 
     print(df)
 
 def df_pro_fat():
     print("Entrou no df_pro_fat")
 
-    df = pd.read_sql(query_pro_fat, connect_rhp())
+    df = pd.read_sql(query_pro_fat, connect_rhp_2())
 
     print(df)
 
 def df_tuss():
     print("Entrou no df_tuss")
 
-    df = pd.read_sql(query_tuss, connect_rhp())
+    df = pd.read_sql(query_tuss, connect_rhp_2())
 
     print(df)
 
 def df_uni_pro():
     print("Entrou no df_uni_pro")
 
-    df = pd.read_sql(query_uni_pro, connect_rhp())
+    df = pd.read_sql(query_uni_pro, connect_rhp_2())
 
     print(df)
 
 def df_reg_amb():
     print("Entrou no df_reg_amb")
 
-    df = pd.read_sql(query_reg_amb, connect_rhp())
+    df = pd.read_sql(query_reg_amb, connect_rhp_2())
 
     print(df)
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
 
-    df = pd.read_sql(query_itreg_amb, connect_rhp())
+    df = pd.read_sql(query_itreg_amb, connect_rhp_2())
 
     print(df)
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
 
-    df = pd.read_sql(query_reg_fat, connect_rhp())
+    df = pd.read_sql(query_reg_fat, connect_rhp_2())
 
     print(df)
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
 
-    df = pd.read_sql(query_itreg_fat, connect_rhp())
+    df = pd.read_sql(query_itreg_fat, connect_rhp_2())
 
     print(df)
 
 def df_custo_final():
     print("Entrou no df_custo_final")
 
-    df = pd.read_sql(query_custo_final, connect_rhp())
+    df = pd.read_sql(query_custo_final, connect_rhp_2())
 
     print(df)
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
 
-    df = pd.read_sql(query_mvto_estoque, connect_rhp())
+    df = pd.read_sql(query_mvto_estoque, connect_rhp_2())
 
     print(df)
 
 def df_itmvto_estoque():
     print("Entrou no df_itmvto_estoque")
 
-    df = pd.read_sql(query_itmvto_estoque, connect_rhp())
+    df = pd.read_sql(query_itmvto_estoque, connect_rhp_2())
 
     print(df)
 
 def df_quantidade_diarias():
     print("Entrou no df_quantidade_diarias")
 
-    df = pd.read_sql(query_quantidade_diarias, connect_rhp())
+    df = pd.read_sql(query_quantidade_diarias, connect_rhp_2())
 
     print(df)
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
 
-    df = pd.read_sql(query_remessa_fatura, connect_rhp())
+    df = pd.read_sql(query_remessa_fatura, connect_rhp_2())
 
     print(df)
 
 def df_repasse():
     print("Entrou no df_repasse")
 
-    df = pd.read_sql(query_repasse, connect_rhp())
+    df = pd.read_sql(query_repasse, connect_rhp_2())
 
     print(df)
 
 def df_it_repasse():
     print("Entrou no df_it_repasse")
 
-    df = pd.read_sql(query_it_repasse, connect_rhp())
+    df = pd.read_sql(query_it_repasse, connect_rhp_2())
 
     print(df)
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
 
-    df = pd.read_sql(query_itent_pro, connect_rhp())
+    df = pd.read_sql(query_itent_pro, connect_rhp_2())
 
     print(df)
 
 def df_glosas():
     print("Entrou no df_glosas")
 
-    df = pd.read_sql(query_glosas, connect_rhp())
+    df = pd.read_sql(query_glosas, connect_rhp_2())
 
     print(df)
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
 
-    df = pd.read_sql(query_custo_medio_mensal, connect_rhp())
+    df = pd.read_sql(query_custo_medio_mensal, connect_rhp_2())
 
     print(df)
 
 def df_fa_custo_atendimento():
     print("Entrou no df_fa_custo_atendimento")
 
-    df = pd.read_sql(query_fa_custo_atendimento, connect_rhp())
+    df = pd.read_sql(query_fa_custo_atendimento, connect_rhp_2())
 
     print(df)
 
 def df_especie():
     print("Entrou no df_especie")
 
-    df = pd.read_sql(query_especie, connect_rhp())
+    df = pd.read_sql(query_especie, connect_rhp_2())
 
     print(df)
 
 def df_exa_lab():
     print("Entrou no df_exa_lab")
 
-    df = pd.read_sql(query_exa_lab, connect_rhp())
+    df = pd.read_sql(query_exa_lab, connect_rhp_2())
 
     print(df)
 
 def df_exa_rx():
     print("Entrou no df_exa_rx")
 
-    df = pd.read_sql(query_exa_rx, connect_rhp())
+    df = pd.read_sql(query_exa_rx, connect_rhp_2())
 
     print(df)
 
 def df_gru_fat():
     print("Entrou no df_gru_fat")
 
-    df = pd.read_sql(query_gru_fat, connect_rhp())
+    df = pd.read_sql(query_gru_fat, connect_rhp_2())
 
     print(df)
 
 def df_motivo_glosa():
     print("Entrou no df_motivo_glosa")
 
-    df = pd.read_sql(query_motivo_glosa, connect_rhp())
+    df = pd.read_sql(query_motivo_glosa, connect_rhp_2())
 
     print(df)
 
 def df_mot_dev():
     print("Entrou no df_mot_dev")
 
-    df = pd.read_sql(query_mot_dev, connect_rhp())
+    df = pd.read_sql(query_mot_dev, connect_rhp_2())
 
     print(df)
 
