@@ -251,12 +251,12 @@ def df_tip_fre():
 
     print(df)
 
-def df_de_para_tuss():
-    print("Entrou no df_de_para_tuss")
+# def df_de_para_tuss():
+#     print("Entrou no df_de_para_tuss")
 
-    df = pd.read_sql(query_de_para_tuss, connect_rhp())
+#     df = pd.read_sql(query_de_para_tuss, connect_rhp())
 
-    print(df)
+#     print(df)
 
 def df_gru_fat():
     print("Entrou no df_gru_fat")
@@ -604,10 +604,10 @@ t30 = PythonOperator(
     python_callable=df_tip_fre,
     dag=dag)
 
-t31 = PythonOperator(
-    task_id="insert_de_para_tuss_rhp",
-    python_callable=df_de_para_tuss,
-    dag=dag)
+# t31 = PythonOperator(
+#     task_id="insert_de_para_tuss_rhp",
+#     python_callable=df_de_para_tuss,
+#     dag=dag)
 
 t32 = PythonOperator(
     task_id="insert_gru_pro_rhp",
@@ -739,4 +739,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-t0 >> t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13 >> t14 >> t15 >> t16 >> t17 >> t18 >> t19 >> t20 >> t21 >> t22 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t31 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57
+t0 >> t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13 >> t14 >> t15 >> t16 >> t17 >> t18 >> t19 >> t20 >> t21 >> t22 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57
