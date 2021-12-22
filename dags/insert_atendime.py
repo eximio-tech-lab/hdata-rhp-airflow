@@ -237,12 +237,12 @@ def df_for_apl():
 
     print(df)
 
-def df_tip_esq():
-    print("Entrou no df_tip_esq")
+# def df_tip_esq():
+#     print("Entrou no df_tip_esq")
 
-    df = pd.read_sql(query_tip_esq, connect_rhp_2())
+#     df = pd.read_sql(query_tip_esq, connect_rhp_2())
 
-    print(df)
+#     print(df)
 
 def df_tip_fre():
     print("Entrou no df_tip_fre")
@@ -594,10 +594,10 @@ t28 = PythonOperator(
     python_callable=df_for_apl,
     dag=dag)
 
-t29 = PythonOperator(
-    task_id="insert_tip_esq_rhp",
-    python_callable=df_tip_esq,
-    dag=dag)
+# t29 = PythonOperator(
+#     task_id="insert_tip_esq_rhp",
+#     python_callable=df_tip_esq,
+#     dag=dag)
 
 t30 = PythonOperator(
     task_id="insert_tip_fre_rhp",
@@ -739,4 +739,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-t0 >> t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13 >> t14 >> t15 >> t16 >> t17 >> t18 >> t19 >> t20 >> t21 >> t22 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57
+t0 >> t1 >> t2 >> t3 >> t4 >> t5 >> t6 >> t7 >> t8 >> t9 >> t10 >> t11 >> t12 >> t13 >> t14 >> t15 >> t16 >> t17 >> t18 >> t19 >> t20 >> t21 >> t22 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57
