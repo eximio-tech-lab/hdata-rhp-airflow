@@ -237,12 +237,12 @@ def df_for_apl():
 
     print(df)
 
-# def df_tip_esq():
-#     print("Entrou no df_tip_esq")
+def df_tip_esq():
+    print("Entrou no df_tip_esq")
 
-#     df = pd.read_sql(query_tip_esq, connect_rhp_2())
+    df = pd.read_sql(query_tip_esq, connect_rhp_2())
 
-#     print(df)
+    print(df)
 
 def df_tip_fre():
     print("Entrou no df_tip_fre")
@@ -349,12 +349,12 @@ def df_itmvto_estoque():
 
     print(df)
 
-# def df_quantidade_diarias():
-#     print("Entrou no df_quantidade_diarias")
+def df_quantidade_diarias():
+    print("Entrou no df_quantidade_diarias")
 
-#     df = pd.read_sql(query_quantidade_diarias, connect_rhp_2())
+    df = pd.read_sql(query_quantidade_diarias, connect_rhp_2())
 
-#     print(df)
+    print(df)
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
@@ -391,12 +391,12 @@ def df_glosas():
 
     print(df)
 
-# def df_custo_medio_mensal():
-#     print("Entrou no df_custo_medio_mensal")
+def df_custo_medio_mensal():
+    print("Entrou no df_custo_medio_mensal")
 
-#     df = pd.read_sql(query_custo_medio_mensal, connect_rhp_2())
+    df = pd.read_sql(query_custo_medio_mensal, connect_rhp_2())
 
-#     print(df)
+    print(df)
 
 def df_fa_custo_atendimento():
     print("Entrou no df_fa_custo_atendimento")
