@@ -12,7 +12,7 @@ def connect_rhp():
 
 def connect_rhp_2():
     os.environ["NLS_LANG"] = ".UTF8"
-    dsn_tns = cx_Oracle.makedsn('10.0.38.7', 1522, service_name='dbamv')  # 172.17.0.1
+    dsn_tns = cx_Oracle.makedsn('10.0.38.7', 1521, service_name='sml')  # 172.17.0.1
     return cx_Oracle.connect('hdata', 'hhhdatadata22191', dsn_tns)
 
 def engine():

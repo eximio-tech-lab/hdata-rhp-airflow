@@ -30,7 +30,7 @@ HOSPITAL = 'REAL HOSPITAL PORTGUES'
 def df_atendime():
     print("Entrou no df_atendime")
 
-    df = pd.read_sql(query_atendime, connect_rhp())
+    df = pd.read_sql(query_atendime, connect_rhp_2())
 
     print(df)
 
