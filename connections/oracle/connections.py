@@ -11,9 +11,9 @@ def connect_rhp():
     return cx_Oracle.connect('hdata', 'hhhdatadata22191', dsn_tns)
 
 def connect_rhp_hdata():
-    os.environ["NLS_LANG"] = ".UTF8"
-    dsn_tns = cx_Oracle.makedsn('orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com', 61521, service_name='orcl')
-    return cx_Oracle.connect(user='mv_rhp', password='zaDU0$qd', dsn=dsn_tns, encoding='UTF-8')
+    # os.environ["NLS_LANG"] = ".UTF8"
+    # dsn_tns = cx_Oracle.makedsn('orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com', 61521, service_name='orcl')
+    return cx_Oracle.connect(user='mv_rhp', password='zaDU0$qd', dsn='orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com:61521/orcl', encoding='UTF-8')
 
 def engine():
     engine = create_engine(connect_rhp(), max_identifier_length=128)
