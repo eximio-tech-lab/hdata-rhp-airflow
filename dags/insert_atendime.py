@@ -33,10 +33,13 @@ def df_atendime():
 
     df_dim = pd.read_sql(query_atendime, connect_rhp())
 
+    connect_rhp.close()
+
     print(df_dim)
 
     df_dim_dw = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
+    connect_rhp_hdata.close()
     # # Seleciona a diferença entre os dois dataframes
     df_diff = df_dim.merge(df_dim_dw[cd_col], indicator=True, how='left').loc[lambda x: x['_merge'] != 'both']
     df_diff = df_diff.drop(columns=['_merge'])
