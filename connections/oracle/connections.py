@@ -12,7 +12,7 @@ def connect_rhp():
 
 def connect_rhp_hdata():
     os.environ["NLS_LANG"] = ".UTF8"
-    dsn_tns = cx_Oracle.makedsn('orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com', 61521, service_name='orcl')
+    dsn_tns = cx_Oracle.makedsn('orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com', 1522, service_name='orcl')
     return cx_Oracle.connect('MV_RHP', 'MVRHP', dsn_tns)
 
 def engine():
