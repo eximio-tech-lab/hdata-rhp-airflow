@@ -43,9 +43,7 @@ def df_atendime():
 
     # connect_rhp_hdata.close()
     # # Seleciona a diferença entre os dois dataframes
-    df_diff = df_dim.merge(df_dim_dw[cd_col], indicator=True, how='left').loc[lambda x: x['_merge'] != 'both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+    df_diff = df_dim.merge(df_dim_dw,how='left', on=['cd_atendimento'])
 
     print('dados para incremento')
     print(df_diff.info())
