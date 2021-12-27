@@ -4,11 +4,11 @@ FROM python:3.7-slim-buster
 RUN apt-get -y update
 RUN apt-get install -y libpq-dev vim alien autossh
 
-ADD ./instantclient/oracle-instantclient19.13-basic-19.13.0.0.0-1.x86_64.rpm  ./
-RUN alien ./oracle-instantclient19.13-basic-19.13.0.0.0-1.x86_64.rpm
+ADD ./instantclient/oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm  ./
+RUN alien ./oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm
 RUN apt-get install libaio1
-RUN dpkg -i ./oracle-instantclient19.13-basic_19.13.0.0.0-2_amd64.deb
-RUN rm -rf ./oracle-instantclient19.13-basic-19.13.0.0.0-1.x86_64.rpm
+RUN dpkg -i ./oracle-instantclient19.5-basic_19.5.0.0.0-2_amd64.deb
+RUN rm -rf ./oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm
 
 # Install Airflow pre-requisites: https://airflow.apache.org/docs/apache-airflow/2.0.0/installation.html#getting-airflow
 RUN apt install build-essential -y
