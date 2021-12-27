@@ -48,7 +48,9 @@ def df_atendime():
     print('dados para incremento')
     print(df_diff.info())
 
-    df_diff.to_sql(name='MV_RHP.ATENDIME', con=connect_rhp_hdata(), if_exists='append', index=False, index=False, method='multi', chunksize=10000)
+    engine = connect_rhp_hdata()
+
+    df_diff.to_sql(name='MV_RHP.ATENDIME', con=engine, if_exists='append', index=False, index=False, method='multi', chunksize=10000)
 
 def df_cid():
     print("Entrou no df_cid")
