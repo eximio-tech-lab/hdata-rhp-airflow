@@ -48,11 +48,11 @@ def df_atendime():
     print('dados para incremento')
     print(df_diff.info())
 
-    rows = [tuple(x) for x in df_diff.values]
+    # rows = [tuple(x) for x in df_diff.values]
 
-    connect_rhp_hdata().execute("INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4)", rows)
+    # connect_rhp_hdata().execute("INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4)", rows)
 
-    # df_diff.to_sql(name='MV_RHP.ATENDIME', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=10000)
+    df_diff.to_sql('MV_RHP.ATENDIME', con=connect_rhp_hdata().cursor(), if_exists='append', index=False, method='multi', chunksize=10000)
 
 def df_cid():
     print("Entrou no df_cid")
