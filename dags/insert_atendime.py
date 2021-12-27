@@ -31,11 +31,11 @@ HOSPITAL = 'REAL HOSPITAL PORTGUES'
 def df_atendime():
     print("Entrou no df_atendime")
 
-    # df_dim = pd.read_sql(query_atendime, connect_rhp())
+    df_dim = pd.read_sql(query_atendime, connect_rhp())
 
     # connect_rhp.close()
 
-    # print(df_dim)
+    print(df_dim)
 
     df_dim_dw = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
