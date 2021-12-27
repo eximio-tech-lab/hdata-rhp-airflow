@@ -50,7 +50,7 @@ def df_atendime():
 
     rows = [tuple(x) for x in df_diff.values]
 
-    connect_rhp_hdata().executemany("INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4)", rows)
+    connect_rhp_hdata().execute("INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4)", rows)
 
     # df_diff.to_sql(name='MV_RHP.ATENDIME', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=10000)
 
