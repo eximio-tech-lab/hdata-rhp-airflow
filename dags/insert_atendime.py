@@ -6,7 +6,7 @@ import numpy as np
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
-from connections.oracle.connections import connect_rhp, connect_rhp_hdata
+from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
@@ -52,7 +52,7 @@ def df_atendime():
 
     # connect_rhp_hdata().execute("INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4)", rows)
 
-    df_diff.to_sql('MV_RHP.ATENDIME', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=10000)
+    df_diff.to_sql('MV_RHP.ATENDIME', con=engine_rhp(), if_exists='append', index=False, method='multi', chunksize=10000)
 
 def df_cid():
     print("Entrou no df_cid")

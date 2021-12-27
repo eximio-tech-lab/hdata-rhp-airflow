@@ -20,7 +20,7 @@ def engine():
     return engine
 
 def engine_rhp():
-    engine_rhp = create_engine(connect_rhp(), max_identifier_length=128)
+    engine_rhp = create_engine(connect_rhp_hdata(), max_identifier_length=128)
     return engine_rhp
 
 Session = sessionmaker(bind=engine)
