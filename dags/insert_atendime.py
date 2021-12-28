@@ -58,7 +58,7 @@ def df_atendime():
     df_list = df_dim.values.tolist()
     n = 0
     
-    for i in dataset.iterrows():
+    for i in df_dim.iterrows():
         cursor.execute(sql, df_list[n])
         n += 1
 
