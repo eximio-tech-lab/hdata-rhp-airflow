@@ -47,6 +47,10 @@ def df_atendime():
     # df_diff = df_diff.drop(columns=['_merge'])
     # df_diff = df_diff.reset_index(drop=True)
 
+    df_dim['DT_ATENDIMENTO'] = df_dim['DT_ATENDIMENTO'].fillna('00.00.0000 00:00:00')
+    df_dim['HR_ATENDIMENTO'] = df_dim['HR_ATENDIMENTO'].fillna('00.00.0000 00:00:00')
+    df_dim['HR_ALTA'] = df_dim['HR_ALTA'].fillna('00.00.0000 00:00:00')
+    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].fillna('00.00.0000 00:00:00')
     df_dim = df_dim.fillna(np.nan)
 
     print(df_dim)
