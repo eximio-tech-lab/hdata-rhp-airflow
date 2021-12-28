@@ -26,7 +26,7 @@ default_args = {
     "provide_context": True,
 }
 
-HOSPITAL = 'REAL HOSPITAL PORTGUES'
+HOSPITAL = "REAL HOSPITAL PORTGUES"
 
 def df_atendime():
     print("Entrou no df_atendime")
@@ -35,38 +35,38 @@ def df_atendime():
 
     print(df_dim)
 
-    df_dim['DT_ATENDIMENTO'] = df_dim['DT_ATENDIMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['HR_ATENDIMENTO'] = df_dim['HR_ATENDIMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['HR_ALTA'] = df_dim['HR_ALTA'].fillna('01.01.1899 00:00:00')
-    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].fillna('01.01.1899 00:00:00')
-    df_dim['CD_MULTI_EMPRESA'] = df_dim['CD_MULTI_EMPRESA'].fillna(0)
-    df_dim['CD_PACIENTE'] = df_dim['CD_PACIENTE'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_CID'] = df_dim['CD_CID'].fillna('0')
-    df_dim['CD_MOT_ALT'] = df_dim['CD_MOT_ALT'].fillna(0)
-    df_dim['CD_TIP_RES'] = df_dim['CD_TIP_RES'].fillna(0)
-    df_dim['CD_CONVENIO'] = df_dim['CD_CONVENIO'].fillna(0)
-    df_dim['CD_ESPECIALID'] = df_dim['CD_ESPECIALID'].fillna(0)
-    df_dim['CD_PRESTADOR'] = df_dim['CD_PRESTADOR'].fillna(0)
-    df_dim['CD_ATENDIMENTO_PAI'] = df_dim['CD_ATENDIMENTO_PAI'].fillna(0)
-    df_dim['CD_LEITO'] = df_dim['CD_LEITO'].fillna(0)
-    df_dim['CD_ORI_ATE'] = df_dim['CD_ORI_ATE'].fillna(0)
-    df_dim['CD_SERVICO'] = df_dim['CD_SERVICO'].fillna(0)
-    df_dim['TP_ATENDIMENTO'] = df_dim['TP_ATENDIMENTO'].fillna('0')
-    df_dim['CD_TIP_MAR'] = df_dim['CD_TIP_MAR'].fillna(0)
-    df_dim['CD_SINTOMA_AVALIACAO'] = df_dim['CD_SINTOMA_AVALIACAO'].fillna(0)
-    df_dim['NM_USUARIO_ALTA_MEDICA'] = df_dim['NM_USUARIO_ALTA_MEDICA'].fillna('0')
+    df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["HR_ALTA"] = df_dim["HR_ALTA"].fillna("01.01.1899 00:00:00")
+    df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
+    df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
+    df_dim["CD_MOT_ALT"] = df_dim["CD_MOT_ALT"].fillna(0)
+    df_dim["CD_TIP_RES"] = df_dim["CD_TIP_RES"].fillna(0)
+    df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
+    df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
+    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+    df_dim["CD_ATENDIMENTO_PAI"] = df_dim["CD_ATENDIMENTO_PAI"].fillna(0)
+    df_dim["CD_LEITO"] = df_dim["CD_LEITO"].fillna(0)
+    df_dim["CD_ORI_ATE"] = df_dim["CD_ORI_ATE"].fillna(0)
+    df_dim["CD_SERVICO"] = df_dim["CD_SERVICO"].fillna(0)
+    df_dim["TP_ATENDIMENTO"] = df_dim["TP_ATENDIMENTO"].fillna("0")
+    df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
     print(df_dim)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:16, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:17, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:18, 'DD.MM.YYYY HH24:MI:SS'), :19, :20, :21)"
+    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:16, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:17, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:18, "DD.MM.YYYY HH24:MI:SS"), :19, :20, :21)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -89,11 +89,11 @@ def df_cid():
 
     print(df_dim)
 
-    df_dim['CD_CID'] = df_dim['CD_CID'].fillna('0')
-    df_dim['DS_CID'] = df_dim['DS_CID'].fillna('0')
-    df_dim['CD_SGRU_CID'] = df_dim['CD_SGRU_CID'].fillna('0')
+    df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
+    df_dim["DS_CID"] = df_dim["DS_CID"].fillna("0")
+    df_dim["CD_SGRU_CID"] = df_dim["CD_SGRU_CID"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -123,19 +123,19 @@ def df_classificacao_risco():
 
     print(df_dim)
 
-    df_dim['CD_CLASSIFICACAO_RISCO'] = df_dim['CD_CLASSIFICACAO_RISCO'].fillna(0)
-    df_dim['CD_COR_REFERENCIA'] = df_dim['CD_COR_REFERENCIA'].fillna(0)
-    df_dim['CD_TRIAGEM_ATENDIMENTO'] = df_dim['CD_TRIAGEM_ATENDIMENTO'].fillna(0)
-    df_dim['DH_CLASSIFICACAO_RISCO'] = df_dim['DH_CLASSIFICACAO_RISCO'].fillna('01.01.1899 00:00:00')
+    df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
+    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
+    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+    df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, TO_DATE(:4, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -158,10 +158,10 @@ def df_classificacao():
 
     print(df_dim)
 
-    df_dim['CD_CLASSIFICACAO'] = df_dim['CD_CLASSIFICACAO'].fillna(0)
-    df_dim['DS_TIPO_RISCO'] = df_dim['DS_TIPO_RISCO'].fillna('0')
+    df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
+    df_dim["DS_TIPO_RISCO"] = df_dim["DS_TIPO_RISCO"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -191,17 +191,17 @@ def df_convenio():
 
     print(df_dim)
 
-    df_dim['CD_CONVENIO'] = df_dim['CD_CONVENIO'].fillna(0)
-    df_dim['NM_CONVEIO'] = df_dim['NM_CONVEIO'].fillna('0')
+    df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
+    df_dim["NM_CONVENIO"] = df_dim["NM_CONVENIO"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CONVENIO (CD_CONVENIO, NM_CONVEIO) VALUES (:1, :2)"
+    sql="INSERT INTO MV_RHP.CONVENIO (CD_CONVENIO, NM_CONVENIO) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -224,9 +224,9 @@ def df_cor_referencia():
 
     print(df_dim)
 
-    df_dim['CD_COR_REFERENCIA'] = df_dim['CD_COR_REFERENCIA'].fillna(0)
+    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -256,11 +256,11 @@ def df_diagnostico_atendime():
 
     print(df_dim)
 
-    df_dim['CD_CID'] = df_dim['CD_CID'].fillna('0')
-    df_dim['CD_DIAGNOSTICO_ATENDIME'] = df_dim['CD_DIAGNOSTICO_ATENDIME'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
+    df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
+    df_dim["CD_DIAGNOSTICO_ATENDIME"] = df_dim["CD_DIAGNOSTICO_ATENDIME"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -290,20 +290,20 @@ def df_documento_clinico():
 
     print(df_dim)
 
-    df_dim['CD_OBJETO'] = df_dim['CD_OBJETO'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_TIPO_DOCUMENTO'] = df_dim['CD_TIPO_DOCUMENTO'].fillna(0)
-    df_dim['TP_STATUS'] = df_dim['TP_STATUS'].fillna('0')
-    df_dim['DH_CRIACAO'] = df_dim['DH_CRIACAO'].fillna('01.01.1899 00:00:00')
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, "DD.MM.YYYY HH24:MI:SS))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -326,11 +326,11 @@ def df_esp_med():
 
     print(df_dim)
 
-    df_dim['CD_ESPECIALID'] = df_dim['CD_ESPECIALID'].fillna(0)
-    df_dim['CD_PRESTADOR'] = df_dim['CD_PRESTADOR'].fillna(0)
-    df_dim['SN_ESPECIAL_PRINCIPAL'] = df_dim['SN_ESPECIAL_PRINCIPAL'].fillna('N')
+    df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
+    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+    df_dim["SN_ESPECIAL_PRINCIPAL"] = df_dim["SN_ESPECIAL_PRINCIPAL"].fillna("N")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -360,10 +360,10 @@ def df_especialidad():
 
     print(df_dim)
 
-    df_dim['CD_ESPECIALID'] = df_dim['CD_ESPECIALID'].fillna(0)
-    df_dim['DS_ESPECIALID'] = df_dim['DS_ESPECIALID'].fillna('0')
+    df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
+    df_dim["DS_ESPECIALID"] = df_dim["DS_ESPECIALID"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -393,10 +393,10 @@ def df_gru_cid():
 
     print(df_dim)
 
-    df_dim['CD_GRU_CID'] = df_dim['CD_GRU_CID'].fillna(0)
-    df_dim['DS_GRU_CID'] = df_dim['DS_GRU_CID'].fillna('0')
+    df_dim["CD_GRU_CID"] = df_dim["CD_GRU_CID"].fillna(0)
+    df_dim["DS_GRU_CID"] = df_dim["DS_GRU_CID"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -426,18 +426,18 @@ def df_mot_alt():
 
     print(df_dim)
 
-    df_dim['CD_MOT_ALT'] = df_dim['CD_MOT_ALT'].fillna(0)
-    df_dim['DS_MOT_ALT'] = df_dim['DS_MOT_ALT'].fillna('0')
-    df_dim['TP_MOT_ALT'] = df_dim['TP_MOT_ALT'].fillna('0')
+    df_dim["CD_MOT_ALT"] = df_dim["CD_MOT_ALT"].fillna(0)
+    df_dim["DS_MOT_ALT"] = df_dim["DS_MOT_ALT"].fillna("0")
+    df_dim["TP_MOT_ALTA"] = df_dim["TP_MOT_ALTA"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALT) VALUES (:1, :2, :3)"
+    sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -460,10 +460,10 @@ def df_multi_empresa():
 
     print(df_dim)
 
-    df_dim['CD_MULTI_EMPRESA'] = df_dim['CD_MULTI_EMPRESA'].fillna(0)
-    df_dim['DS_MULTI_EMPRESA'] = df_dim['DS_MULTI_EMPRESA'].fillna('0')
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
+    df_dim["DS_MULTI_EMPRESA"] = df_dim["DS_MULTI_EMPRESA"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -493,12 +493,12 @@ def df_ori_ate():
 
     print(df_dim)
 
-    df_dim['CD_ORI_ATE'] = df_dim['CD_ORI_ATE'].fillna(0)
-    df_dim['DS_ORI_ATE'] = df_dim['DS_ORI_ATE'].fillna('0')
-    df_dim['TP_ORIGEM'] = df_dim['TP_ORIGEM'].fillna('0')
-    df_dim['CD_SETOR'] = df_dim['CD_SETOR'].fillna(0)
+    df_dim["CD_ORI_ATE"] = df_dim["CD_ORI_ATE"].fillna(0)
+    df_dim["DS_ORI_ATE"] = df_dim["DS_ORI_ATE"].fillna("0")
+    df_dim["TP_ORIGEM"] = df_dim["TP_ORIGEM"].fillna("0")
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -528,20 +528,20 @@ def df_paciente():
 
     print(df_dim)
 
-    df_dim['CD_PACIENTE'] = df_dim['CD_PACIENTE'].fillna(0)
-    df_dim['DT_NASCIMENTO'] = df_dim['DT_NASCIMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['TP_SEXO'] = df_dim['TP_SEXO'].fillna('0')
-    df_dim['DT_CADSTRO'] = df_dim['DT_CADSTRO'].fillna('01.01.1899 00:00:00')
-    df_dim['NM_BAIRRO'] = df_dim['NM_BAIRRO'].fillna('0')
+    df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
+    df_dim["DT_NASCIMENTO"] = df_dim["DT_NASCIMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["TP_SEXO"] = df_dim["TP_SEXO"].fillna("0")
+    df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
+    df_dim["NM_BAIRRO"] = df_dim["NM_BAIRRO"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADSTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'), :3, TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'), :5)"
+    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, "DD.MM.YYYY HH24:MI:SS"), :3, TO_DATE(:4, "DD.MM.YYYY HH24:MI:SS"), :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -564,17 +564,17 @@ def df_pagu_objeto():
 
     print(df_dim)
 
-    df_dim['CD_PAGU_OBJETO'] = df_dim['CD_PAGU_OBJETO'].fillna(0)
-    df_dim['TP_OBJETO'] = df_dim['TP_OBJETO'].fillna('0')
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["TP_OBJETO"] = df_dim["TP_OBJETO"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PAGU_OBJETO (CD_PAGU_OBJETO, TP_OBJETO) VALUES (:1, :2)"
+    sql="INSERT INTO MV_RHP.PAGU_OBJETO (CD_OBJETO, TP_OBJETO) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -597,17 +597,17 @@ def df_registro_alta():
 
     print(df_dim)
 
-    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].fillna('01.01.1899 00:00:00')
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
+    df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(:1, 'DD.MM.YYYY HH24:MI:SS'), :2)"
+    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(:1, "DD.MM.YYYY HH24:MI:SS"), :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -630,10 +630,10 @@ def df_setor():
 
     print(df_dim)
 
-    df_dim['CD_SETOR'] = df_dim['CD_SETOR'].fillna(0)
-    df_dim['NM_SETOR'] = df_dim['NM_SETOR'].fillna('0')
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["NM_SETOR"] = df_dim["NM_SETOR"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -663,11 +663,12 @@ def df_sgru_cid():
 
     print(df_dim)
 
-    df_dim['CD_SGRU_CID'] = df_dim['CD_SGRU_CID'].fillna(0)
-    df_dim['CD_GRU_CID'] = df_dim['CD_GRU_CID'].fillna(0)
-    df_dim['DS_SGRU_CID'] = df_dim['DS_SGRU_CID'].fillna('0')
+    df_dim["CD_SGRU_CID"] = df_dim["CD_SGRU_CID"].fillna(0)
+    df_dim["CD_GRU_CID"] = df_dim["CD_GRU_CID"].fillna(0)
+    df_dim["DS_SGRU_CID"] = df_dim["DS_SGRU_CID"].fillna("0")
+    df_dim["DS_SGRU_CID"] = df_dim["DS_SGRU_CID"].replace('"', "'")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -697,10 +698,10 @@ def df_sintoma_avaliacao():
 
     print(df_dim)
 
-    df_dim['CD_SINTOMA_AVALIACAO'] = df_dim['CD_SINTOMA_AVALIACAO'].fillna(0)
-    df_dim['DS_SINTOMA'] = df_dim['DS_SINTOMA'].fillna('0')
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["DS_SINTOMA"] = df_dim["DS_SINTOMA"].fillna("0")
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -730,18 +731,18 @@ def df_tempo_processo():
 
     print(df_dim)
 
-    df_dim['DH_PROCESSO'] = df_dim['DH_PROCESSO'].fillna('01.01.1899 00:00:00')
-    df_dim['CD_TIPO_TEMPO_PROCESSO'] = df_dim['CD_TIPO_TEMPO_PROCESSO'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
+    df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (TO_DATE(:1, 'DD.MM.YYYY HH24:MI:SS'), :2, :3)"
+    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (TO_DATE(:1, "DD.MM.YYYY HH24:MI:SS"), :2, :3)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -764,9 +765,9 @@ def df_tip_mar():
 
     print(df_dim)
 
-    df_dim['CD_TIP_MAR'] = df_dim['CD_TIP_MAR'].fillna(0)
+    df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
 
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -796,11 +797,11 @@ def df_tip_res():
 
     print(df_dim)
 
-    df_dim['CD_TIP_RES'] = df_dim['CD_TIP_RES'].fillna(0)
-    df_dim['DS_TIP_RES'] = df_dim['DS_TIP_RES'].fillna('0')
-    df_dim['SN_OBITO'] = df_dim['SN_OBITO'].fillna('0')
+    df_dim["CD_TIP_RES"] = df_dim["CD_TIP_RES"].fillna(0)
+    df_dim["DS_TIP_RES"] = df_dim["DS_TIP_RES"].fillna("0")
+    df_dim["SN_OBITO"] = df_dim["SN_OBITO"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -830,20 +831,20 @@ def df_triagem_atendimento():
 
     print(df_dim)
 
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_TRIAGEM_ATENDIMENTO'] = df_dim['CD_TRIAGEM_ATENDIMENTO'].fillna(0)
-    df_dim['CD_SINTOMA_AVALIACAO'] = df_dim['CD_SINTOMA_AVALIACAO'].fillna(0)
-    df_dim['DS_SENHA'] = df_dim['DS_SENHA'].fillna('0')
-    df_dim['DH_PRE_ATENDIMENTO'] = df_dim['DH_PRE_ATENDIMENTO'].fillna('01.01.1899 00:00:00')
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
+    df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, TO_DATE(:5, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -866,10 +867,10 @@ def df_usuario():
 
     print(df_dim)
 
-    df_dim['CD_USUARIO'] = df_dim['CD_USUARIO'].fillna('0')
-    df_dim['NM_USUARIO'] = df_dim['NM_USUARIO'].fillna('0')
+    df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna("0")
+    df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -899,22 +900,22 @@ def df_pre_med():
 
     print(df_dim)
 
-    df_dim['CD_PRE_MED'] = df_dim['CD_PRE_MED'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_PRESTADOR'] = df_dim['CD_PRESTADOR'].fillna(0)
-    df_dim['CD_DOCUMENTO_CLINICO'] = df_dim['CD_DOCUMENTO_CLINICO'].fillna('0')
-    df_dim['DT_PRE_MED'] = df_dim['DT_PRE_MED'].fillna('01.01.1899 00:00:00')
-    df_dim['TP_PRE_MED'] = df_dim['TP_PRE_MED'].fillna('0')
-    df_dim['CD_SETOR'] = df_dim['CD_SETOR'].fillna(0)
+    df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna("0")
+    df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
+    df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7)"
+    sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, TO_DATE(:5, "DD.MM.YYYY HH24:MI:SS"), :6, :7)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -937,16 +938,16 @@ def df_itpre_med():
 
     print(df_dim)
 
-    df_dim['CD_PRE_MED'] = df_dim['CD_PRE_MED'].fillna(0)
-    df_dim['CD_IT_PRE_MED'] = df_dim['CD_IT_PRE_MED'].fillna(0)
-    df_dim['CD_PRODUTO'] = df_dim['CD_PRODUTO'].fillna(0)
-    df_dim['CD_TIP_PRESC'] = df_dim['CD_TIP_PRESC'].fillna(0)
-    df_dim['CD_TIP_ESQ'] = df_dim['CD_TIP_ESQ'].fillna('0')
-    df_dim['CD_FOR_APL'] = df_dim['CD_FOR_APL'].fillna('0')
-    df_dim['CD_TIP_FRE'] = df_dim['CD_TIP_FRE'].fillna(0)
-    df_dim['TP_JUSTIFICATIVA'] = df_dim['TP_JUSTIFICATIVA'].fillna('0')
+    df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
+    df_dim["CD_IT_PRE_MED"] = df_dim["CD_IT_PRE_MED"].fillna(0)
+    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+    df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
+    df_dim["CD_TIP_ESQ"] = df_dim["CD_TIP_ESQ"].fillna("0")
+    df_dim["CD_FOR_APL"] = df_dim["CD_FOR_APL"].fillna("0")
+    df_dim["CD_TIP_FRE"] = df_dim["CD_TIP_FRE"].fillna(0)
+    df_dim["TP_JUSTIFICATIVA"] = df_dim["TP_JUSTIFICATIVA"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -976,11 +977,11 @@ def df_tip_presc():
 
     print(df_dim)
 
-    df_dim['CD_TIP_PRESC'] = df_dim['CD_TIP_PRESC'].fillna(0)
-    df_dim['DS_TIP_PRESC'] = df_dim['DS_TIP_PRESC'].fillna('0')
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
+    df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
+    df_dim["DS_TIP_PRESC"] = df_dim["DS_TIP_PRESC"].fillna("0")
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1010,10 +1011,10 @@ def df_for_apl():
 
     print(df_dim)
 
-    df_dim['CD_FOR_APL'] = df_dim['CD_FOR_APL'].fillna(0)
-    df_dim['DS_FOR_APL'] = df_dim['DS_FOR_APL'].fillna('0')
+    df_dim["CD_FOR_APL"] = df_dim["CD_FOR_APL"].fillna(0)
+    df_dim["DS_FOR_APL"] = df_dim["DS_FOR_APL"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1043,10 +1044,10 @@ def df_tip_esq():
 
     print(df_dim)
 
-    df_dim['CD_TIP_ESQ'] = df_dim['CD_TIP_ESQ'].fillna('0')
-    df_dim['DS_TIP_ESQ'] = df_dim['DS_TIP_ESQ'].fillna('0')
+    df_dim["CD_TIP_ESQ"] = df_dim["CD_TIP_ESQ"].fillna("0")
+    df_dim["DS_TIP_ESQ"] = df_dim["DS_TIP_ESQ"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1076,10 +1077,10 @@ def df_tip_fre():
 
     print(df_dim)
 
-    df_dim['CD_TIP_FRE'] = df_dim['CD_TIP_FRE'].fillna(0)
-    df_dim['DS_TIP_FRE'] = df_dim['DS_TIP_FRE'].fillna('0')
+    df_dim["CD_TIP_FRE"] = df_dim["CD_TIP_FRE"].fillna(0)
+    df_dim["DS_TIP_FRE"] = df_dim["DS_TIP_FRE"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1116,11 +1117,11 @@ def df_gru_fat():
 
     print(df_dim)
 
-    df_dim['CD_GRU_FAT'] = df_dim['CD_GRU_FAT'].fillna(0)
-    df_dim['DS_GRU_FAT'] = df_dim['DS_GRU_FAT'].fillna('0')
-    df_dim['TP_GRU_FAT'] = df_dim['TP_GRU_FAT'].fillna('0')
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["DS_GRU_FAT"] = df_dim["DS_GRU_FAT"].fillna("0")
+    df_dim["TP_GRU_FAT"] = df_dim["TP_GRU_FAT"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1150,13 +1151,13 @@ def df_gru_pro():
 
     print(df_dim)
 
-    df_dim['CD_GRU_PRO'] = df_dim['CD_GRU_PRO'].fillna(0)
-    df_dim['CD_GRU_FAT'] = df_dim['CD_GRU_FAT'].fillna(0)
-    df_dim['DS_GRU_PRO'] = df_dim['DS_GRU_PRO'].fillna('0')
-    df_dim['TP_GRU_PRO'] = df_dim['TP_GRU_PRO'].fillna('0')
-    df_dim['TP_CUSTO'] = df_dim['TP_CUSTO'].fillna('0')
+    df_dim["CD_GRU_PRO"] = df_dim["CD_GRU_PRO"].fillna(0)
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["DS_GRU_PRO"] = df_dim["DS_GRU_PRO"].fillna("0")
+    df_dim["TP_GRU_PRO"] = df_dim["TP_GRU_PRO"].fillna("0")
+    df_dim["TP_CUSTO"] = df_dim["TP_CUSTO"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1186,15 +1187,15 @@ def df_produto():
 
     print(df_dim)
 
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
-    df_dim['DS_PRODUTO'] = df_dim['DS_PRODUTO'].fillna('0')
-    df_dim['CD_PRODUTO'] = df_dim['CD_PRODUTO'].fillna(0)
-    df_dim['VL_FATOR_PRO_FAT'] = df_dim['VL_FATOR_PRO_FAT'].fillna(0)
-    df_dim['SN_OPME'] = df_dim['SN_OPME'].fillna('0')
-    df_dim['CD_ESPECIE'] = df_dim['CD_ESPECIE'].fillna(0)
-    df_dim['VL_CUSTO_MEDIO'] = df_dim['VL_CUSTO_MEDIO'].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["DS_PRODUTO"] = df_dim["DS_PRODUTO"].fillna("0")
+    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+    df_dim["VL_FATOR_PRO_FAT"] = df_dim["VL_FATOR_PRO_FAT"].fillna(0)
+    df_dim["SN_OPME"] = df_dim["SN_OPME"].fillna("0")
+    df_dim["CD_ESPECIE"] = df_dim["CD_ESPECIE"].fillna(0)
+    df_dim["VL_CUSTO_MEDIO"] = df_dim["VL_CUSTO_MEDIO"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1224,12 +1225,12 @@ def df_pro_fat():
 
     print(df_dim)
 
-    df_dim['CD_GRU_PRO'] = df_dim['CD_GRU_PRO'].fillna(0)
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
-    df_dim['CD_POR_ANE'] = df_dim['CD_POR_ANE'].fillna(0)
-    df_dim['DS_PRO_FAT'] = df_dim['DS_PRO_FAT'].fillna('0')
+    df_dim["CD_GRU_PRO"] = df_dim["CD_GRU_PRO"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_POR_ANE"] = df_dim["CD_POR_ANE"].fillna(0)
+    df_dim["DS_PRO_FAT"] = df_dim["DS_PRO_FAT"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1259,11 +1260,11 @@ def df_tuss():
 
     print(df_dim)
 
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
-    df_dim['CD_TUSS'] = df_dim['CD_TUSS'].fillna('0')
-    df_dim['DS_TUSS'] = df_dim['DS_TUSS'].fillna('0')
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_TUSS"] = df_dim["CD_TUSS"].fillna("0")
+    df_dim["DS_TUSS"] = df_dim["DS_TUSS"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1293,15 +1294,15 @@ def df_uni_pro():
 
     print(df_dim)
 
-    df_dim['CD_UNIDADE'] = df_dim['CD_UNIDADE'].fillna('0')
-    df_dim['DS_UNIDADE'] = df_dim['DS_UNIDADE'].fillna('0')
-    df_dim['VL_FATOR'] = df_dim['VL_FATOR'].fillna(0)
-    df_dim['TP_RELATORIOS'] = df_dim['TP_RELATORIOS'].fillna('0')
-    df_dim['CD_UNI_PRO'] = df_dim['CD_UNI_PRO'].fillna(0)
-    df_dim['CD_PRODUTO'] = df_dim['CD_PRODUTO'].fillna(0)
-    df_dim['SN_ATIVO'] = df_dim['VL_FATOR'].fillna('0')
+    df_dim["CD_UNIDADE"] = df_dim["CD_UNIDADE"].fillna("0")
+    df_dim["DS_UNIDADE"] = df_dim["DS_UNIDADE"].fillna("0")
+    df_dim["VL_FATOR"] = df_dim["VL_FATOR"].fillna(0)
+    df_dim["TP_RELATORIOS"] = df_dim["TP_RELATORIOS"].fillna("0")
+    df_dim["CD_UNI_PRO"] = df_dim["CD_UNI_PRO"].fillna(0)
+    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+    df_dim["SN_ATIVO"] = df_dim["VL_FATOR"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1331,11 +1332,11 @@ def df_reg_amb():
 
     print(df_dim)
 
-    df_dim['CD_REG_AMB'] = df_dim['CD_REG_AMB'].fillna(0)
-    df_dim['CD_REMESSA'] = df_dim['CD_REMESSA'].fillna(0)
-    df_dim['VL_TOTAL_CONTA'] = df_dim['VL_TOTAL_CONTA'].fillna(0)
+    df_dim["CD_REG_AMB"] = df_dim["CD_REG_AMB"].fillna(0)
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1365,31 +1366,31 @@ def df_itreg_amb():
 
     print(df_dim)
 
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
-    df_dim['CD_REG_AMB'] = df_dim['CD_REG_AMB'].fillna(0)
-    df_dim['CD_GRU_FAT'] = df_dim['CD_GRU_FAT'].fillna(0)
-    df_dim['CD_LANCAMENTO'] = df_dim['CD_LANCAMENTO'].fillna(0)
-    df_dim['QT_LANCAMENTO'] = df_dim['QT_LANCAMENTO'].fillna(0)
-    df_dim['VL_UNITARIO'] = df_dim['VL_UNITARIO'].fillna(0)
-    df_dim['VL_NOTA'] = df_dim['VL_NOTA'].fillna(0)
-    df_dim['CD_SETOR'] = df_dim['CD_SETOR'].fillna(0)
-    df_dim['CD_SETOR_PRODUZIU'] = df_dim['CD_SETOR_PRODUZIU'].fillna(0)
-    df_dim['TP_PAGAMENTO'] = df_dim['TP_PAGAMENTO'].fillna('0')
-    df_dim['SN_PERTENCE_PACOTE'] = df_dim['SN_PERTENCE_PACOTE'].fillna('0')
-    df_dim['VL_TOTAL_CONTA'] = df_dim['VL_TOTAL_CONTA'].fillna(0)
-    df_dim['SN_FECHADA'] = df_dim['SN_FECHADA'].fillna(0)
-    df_dim['DT_FECHAMENTO'] = df_dim['DT_FECHAMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['CD_ITMVTO'] = df_dim['CD_ITMVTO'].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_REG_AMB"] = df_dim["CD_REG_AMB"].fillna(0)
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
+    df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_SETOR_PRODUZIU"] = df_dim["CD_SETOR_PRODUZIU"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
+    df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna(0)
+    df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITREG_AMB (CD_ATENDIMENTO, CD_PRO_FAT, CD_REG_AMB, CD_GRU_FAT, CD_LANCAMENTO, QT_LANCAMENTO, VL_UNITARIO, VL_NOTA, CD_SETOR, CD_SETOR_PRODUZIU, TP_PAGAMENTO, SN_PERTENCE_PACOTE, VL_TOTAL_CONTA, SN_FECHADA, DT_FECHAMENTO, CD_ITMVTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, 'DD.MM.YYYY HH24:MI:SS'), :16)"
+    sql="INSERT INTO MV_RHP.ITREG_AMB (CD_ATENDIMENTO, CD_PRO_FAT, CD_REG_AMB, CD_GRU_FAT, CD_LANCAMENTO, QT_LANCAMENTO, VL_UNITARIO, VL_NOTA, CD_SETOR, CD_SETOR_PRODUZIU, TP_PAGAMENTO, SN_PERTENCE_PACOTE, VL_TOTAL_CONTA, SN_FECHADA, DT_FECHAMENTO, CD_ITMVTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, "DD.MM.YYYY HH24:MI:SS"), :16)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1412,23 +1413,23 @@ def df_reg_fat():
 
     print(df_dim)
 
-    df_dim['CD_REG_FAT'] = df_dim['CD_REG_FAT'].fillna(0)
-    df_dim['SN_FECHADO'] = df_dim['SN_FECHADO'].fillna('0')
-    df_dim['DT_INICIO'] = df_dim['DT_INICIO'].fillna('01.01.1899 00:00:00')
-    df_dim['DT_FINAL'] = df_dim['DT_FINAL'].fillna('01.01.1899 00:00:00')
-    df_dim['DT_FECHAMENTO'] = df_dim['DT_FECHAMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['CD_REMESSA'] = df_dim['CD_REMESSA'].fillna(0)
-    df_dim['VL_TOTAL_CONTA'] = df_dim['VL_TOTAL_CONTA'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
+    df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
+    df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
+    df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7, :8)"
+    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, TO_DATE(:3, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:4, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:5, "DD.MM.YYYY HH24:MI:SS"), :6, :7, :8)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1451,30 +1452,30 @@ def df_itreg_fat():
 
     print(df_dim)
 
-    df_dim['CD_REG_FAT'] = df_dim['CD_REG_FAT'].fillna(0)
-    df_dim['CD_LANCAMENTO'] = df_dim['CD_LANCAMENTO'].fillna(0)
-    df_dim['DT_LANCAMENTO'] = df_dim['DT_LANCAMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['QT_LANCAMENTO'] = df_dim['QT_LANCAMENTO'].fillna(0)
-    df_dim['TP_PAGAMENTO'] = df_dim['TP_PAGAMENTO'].fillna(0)
-    df_dim['VL_UNITARIO'] = df_dim['VL_UNITARIO'].fillna(0)
-    df_dim['VL_NOTA'] = df_dim['VL_NOTA'].fillna(0)
-    df_dim['CD_CONTA_PAI'] = df_dim['CD_CONTA_PAI'].fillna(0)
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
-    df_dim['CD_GRU_FAT'] = df_dim['CD_GRU_FAT'].fillna(0)
-    df_dim['VL_TOTAL_CONTA'] = df_dim['VL_TOTAL_CONTA'].fillna(0)
-    df_dim['SN_PERTENCE_PACOTE'] = df_dim['SN_PERTENCE_PACOTE'].fillna('0')
-    df_dim['CD_SETOR'] = df_dim['CD_SETOR'].fillna(0)
-    df_dim['CD_SETOR_PRODUZIU'] = df_dim['CD_SETOR_PRODUZIU'].fillna(0)
-    df_dim['CD_ITMVTO'] = df_dim['CD_ITMVTO'].fillna(0)
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
+    df_dim["DT_LANCAMENTO"] = df_dim["DT_LANCAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna(0)
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
+    df_dim["CD_CONTA_PAI"] = df_dim["CD_CONTA_PAI"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_SETOR_PRODUZIU"] = df_dim["CD_SETOR_PRODUZIU"].fillna(0)
+    df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITREG_FAT (CD_REG_FAT, CD_LANCAMENTO, DT_LANCAMENTO, QT_LANCAMENTO, TP_PAGAMENTO, VL_UNITARIO, VL_NOTA, CD_CONTA_PAI, CD_PRO_FAT, CD_PRO_FAT, CD_GRU_FAT, VL_TOTAL_CONTA, SN_PERTENCE_PACOTE, CD_SETOR, CD_SETOR_PRODUZIU, CD_ITMVTO) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15)"
+    sql="INSERT INTO MV_RHP.ITREG_FAT (CD_REG_FAT, CD_LANCAMENTO, DT_LANCAMENTO, QT_LANCAMENTO, TP_PAGAMENTO, VL_UNITARIO, VL_NOTA, CD_CONTA_PAI, CD_PRO_FAT, CD_PRO_FAT, CD_GRU_FAT, VL_TOTAL_CONTA, SN_PERTENCE_PACOTE, CD_SETOR, CD_SETOR_PRODUZIU, CD_ITMVTO) VALUES (:1, :2, TO_DATE(:3, "DD.MM.YYYY HH24:MI:SS"), :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1497,17 +1498,17 @@ def df_custo_final():
 
     print(df_dim)
 
-    df_dim['VL_CUSTO_CENCIR'] = df_dim['VL_CUSTO_CENCIR'].fillna(0)
-    df_dim['DT_COMPETENCIA'] = df_dim['DT_COMPETENCIA'].fillna('01.01.1899 00:00:00')
+    df_dim["VL_CUSTO_CENCIR"] = df_dim["VL_CUSTO_CENCIR"].fillna(0)
+    df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1530,21 +1531,21 @@ def df_mvto_estoque():
 
     print(df_dim)
 
-    df_dim['CD_MVTO_ESTOQUE'] = df_dim['CD_MVTO_ESTOQUE'].fillna(0)
-    df_dim['CD_SETOR'] = df_dim['CD_SETOR'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_MOT_DEV'] = df_dim['CD_MOT_DEV'].fillna(0)
-    df_dim['CD_MULTI_EMPRES'] = df_dim['CD_MULTI_EMPRES'].fillna(0)
-    df_dim['DT_MVTO_ESTOQUE'] = df_dim['DT_MVTO_ESTOQUE'].fillna('01.01.1899 00:00:00')
+    df_dim["CD_MVTO_ESTOQUE"] = df_dim["CD_MVTO_ESTOQUE"].fillna(0)
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
+    df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
+    df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, TO_DATE(:6, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, TO_DATE(:6, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1567,13 +1568,13 @@ def df_itmvto_estoque():
 
     print(df_dim)
 
-    df_dim['CD_ITMVTO_ESTOQUE'] = df_dim['CD_ITMVTO_ESTOQUE'].fillna(0)
-    df_dim['QT_MOVIMENTACAO'] = df_dim['QT_MOVIMENTACAO'].fillna(0)
-    df_dim['CD_MVTO_ESTOQUE'] = df_dim['CD_MVTO_ESTOQUE'].fillna(0)
-    df_dim['CD_PRODUTO'] = df_dim['CD_PRODUTO'].fillna(0)
-    df_dim['CD_UNI_PRO'] = df_dim['CD_UNI_PRO'].fillna(0)
+    df_dim["CD_ITMVTO_ESTOQUE"] = df_dim["CD_ITMVTO_ESTOQUE"].fillna(0)
+    df_dim["QT_MOVIMENTACAO"] = df_dim["QT_MOVIMENTACAO"].fillna(0)
+    df_dim["CD_MVTO_ESTOQUE"] = df_dim["CD_MVTO_ESTOQUE"].fillna(0)
+    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+    df_dim["CD_UNI_PRO"] = df_dim["CD_UNI_PRO"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1603,11 +1604,11 @@ def df_quantidade_diarias():
 
     print(df_dim)
 
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['VL_DIARIA'] = df_dim['VL_DIARIA'].fillna(0)
-    df_dim['QTD_DIARIAS'] = df_dim['QTD_DIARIAS'].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["VL_DIARIA"] = df_dim["VL_DIARIA"].fillna(0)
+    df_dim["QTD_DIARIAS"] = df_dim["QTD_DIARIAS"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1637,19 +1638,19 @@ def df_remessa_fatura():
 
     print(df_dim)
 
-    df_dim['CD_REMESSA'] = df_dim['CD_REMESSA'].fillna(0)
-    df_dim['DT_ABERTURA'] = df_dim['DT_ABERTURA'].fillna('01.01.1899 00:00:00')
-    df_dim['DT_FECHAMENTO'] = df_dim['DT_FECHAMENTO'].fillna('01.01.1899 00:00:00')
-    df_dim['DT_ENTREGA_DA_FATURA'] = df_dim['DT_ENTREGA_DA_FATURA'].fillna('01.01.1899 00:00:00')
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    df_dim["DT_ABERTURA"] = df_dim["DT_ABERTURA"].fillna("01.01.1899 00:00:00")
+    df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["DT_ENTREGA_DA_FATURA"] = df_dim["DT_ENTREGA_DA_FATURA"].fillna("01.01.1899 00:00:00")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, TO_DATE(:2, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:3, "DD.MM.YYYY HH24:MI:SS"), TO_DATE(:4, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1672,17 +1673,17 @@ def df_repasse():
 
     print(df_dim)
 
-    df_dim['CD_REPASSE'] = df_dim['CD_REPASSE'].fillna(0)
-    df_dim['DT_COMPETENCIA'] = df_dim['DT_COMPETENCIA'].fillna('01.01.1899 00:00:00')
+    df_dim["CD_REPASSE"] = df_dim["CD_REPASSE"].fillna(0)
+    df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1705,11 +1706,11 @@ def df_it_repasse():
 
     print(df_dim)
 
-    df_dim['CD_REG_FAT'] = df_dim['CD_REG_FAT'].fillna(0)
-    df_dim['CD_LANCAMENTO_FAT'] = df_dim['CD_LANCAMENTO_FAT'].fillna(0)
-    df_dim['CD_REPASSE'] = df_dim['CD_REPASSE'].fillna(0)
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO_FAT"] = df_dim["CD_LANCAMENTO_FAT"].fillna(0)
+    df_dim["CD_REPASSE"] = df_dim["CD_REPASSE"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1739,20 +1740,20 @@ def df_itent_pro():
 
     print(df_dim)
 
-    df_dim['VL_TOTAL'] = df_dim['VL_TOTAL'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
-    df_dim['CD_PRODUTO'] = df_dim['CD_PRODUTO'].fillna(0)
-    df_dim['VL_UNITARIO'] = df_dim['VL_UNITARIO'].fillna(0)
-    df_dim['DT_GRAVACAO'] = df_dim['DT_GRAVACAO'].fillna('01.01.1899 00:00:00')
+    df_dim["VL_TOTAL"] = df_dim["VL_TOTAL"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["DT_GRAVACAO"] = df_dim["DT_GRAVACAO"].fillna("01.01.1899 00:00:00")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, "DD.MM.YYYY HH24:MI:SS"))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1775,15 +1776,15 @@ def df_glosas():
 
     print(df_dim)
 
-    df_dim['CD_GLOSAS'] = df_dim['CD_GLOSAS'].fillna(0)
-    df_dim['CD_REG_FAT'] = df_dim['CD_REG_FAT'].fillna(0)
-    df_dim['CD_REG_AMB'] = df_dim['CD_REG_AMB'].fillna(0)
-    df_dim['CD_MOTIVO_GLOSA'] = df_dim['CD_MOTIVO_GLOSA'].fillna(0)
-    df_dim['VL_GLOSA'] = df_dim['VL_GLOSA'].fillna(0)
-    df_dim['CD_LANCAMENTO_FAT'] = df_dim['CD_LANCAMENTO_FAT'].fillna(0)
-    df_dim['CD_LANCAMENTO_AMB'] = df_dim['CD_LANCAMENTO_AMB'].fillna(0)
+    df_dim["CD_GLOSAS"] = df_dim["CD_GLOSAS"].fillna(0)
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["CD_REG_AMB"] = df_dim["CD_REG_AMB"].fillna(0)
+    df_dim["CD_MOTIVO_GLOSA"] = df_dim["CD_MOTIVO_GLOSA"].fillna(0)
+    df_dim["VL_GLOSA"] = df_dim["VL_GLOSA"].fillna(0)
+    df_dim["CD_LANCAMENTO_FAT"] = df_dim["CD_LANCAMENTO_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO_AMB"] = df_dim["CD_LANCAMENTO_AMB"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1813,19 +1814,19 @@ def df_custo_medio_mensal():
 
     print(df_dim)
 
-    df_dim['VL_CUSTO_MEDIO'] = df_dim['VL_CUSTO_MEDIO'].fillna(0)
-    df_dim['DH_CUSTO_MEDIO'] = df_dim['DH_CUSTO_MEDIO'].fillna('01.01.1899 00:00:00')
-    df_dim['CD_PRODUTO'] = df_dim['CD_PRODUTO'].fillna(0)
-    df_dim['CD_MULTI_EMPRESA'] = df_dim['CD_MULTI_EMPRESA'].fillna(0)
+    df_dim["VL_CUSTO_MEDIO"] = df_dim["VL_CUSTO_MEDIO"].fillna(0)
+    df_dim["DH_CUSTO_MEDIO"] = df_dim["DH_CUSTO_MEDIO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CUSTO_MEDIO_MENSAL (VL_CUSTO_MEDIO, DH_CUSTO_MEDIO, CD_PRODUTO, CD_MULTI_EMPRESA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'), :3, :4)"
+    sql="INSERT INTO MV_RHP.CUSTO_MEDIO_MENSAL (VL_CUSTO_MEDIO, DH_CUSTO_MEDIO, CD_PRODUTO, CD_MULTI_EMPRESA) VALUES (:1, TO_DATE(:2, "DD.MM.YYYY HH24:MI:SS"), :3, :4)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1848,15 +1849,15 @@ def df_fa_custo_atendimento():
 
     print(df_dim)
 
-    df_dim['VL_DIARIA'] = df_dim['VL_DIARIA'].fillna(0)
-    df_dim['VL_CUSTO_GASES'] = df_dim['VL_CUSTO_GASES'].fillna(0)
-    df_dim['VL_CUSTO_REPASSE'] = df_dim['VL_CUSTO_REPASSE'].fillna(0)
-    df_dim['VL_CUSTO_MEDICAMENTO'] = df_dim['VL_CUSTO_MEDICAMENTO'].fillna(0)
-    df_dim['VL_PROCEDIMENTO'] = df_dim['VL_PROCEDIMENTO'].fillna(0)
-    df_dim['VL_CUSTO_DIARIATAXA'] = df_dim['VL_CUSTO_DIARIATAXA'].fillna(0)
-    df_dim['CD_ATENDIMENTO'] = df_dim['CD_ATENDIMENTO'].fillna(0)
+    df_dim["VL_DIARIA"] = df_dim["VL_DIARIA"].fillna(0)
+    df_dim["VL_CUSTO_GASES"] = df_dim["VL_CUSTO_GASES"].fillna(0)
+    df_dim["VL_CUSTO_REPASSE"] = df_dim["VL_CUSTO_REPASSE"].fillna(0)
+    df_dim["VL_CUSTO_MEDICAMENTO"] = df_dim["VL_CUSTO_MEDICAMENTO"].fillna(0)
+    df_dim["VL_PROCEDIMENTO"] = df_dim["VL_PROCEDIMENTO"].fillna(0)
+    df_dim["VL_CUSTO_DIARIATAXA"] = df_dim["VL_CUSTO_DIARIATAXA"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1886,10 +1887,10 @@ def df_especie():
 
     print(df_dim)
 
-    df_dim['CD_ESPECIE'] = df_dim['CD_ESPECIE'].fillna(0)
-    df_dim['DS_ESPECIE'] = df_dim['DS_ESPECIE'].fillna('0')
+    df_dim["CD_ESPECIE"] = df_dim["CD_ESPECIE"].fillna(0)
+    df_dim["DS_ESPECIE"] = df_dim["DS_ESPECIE"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1919,11 +1920,11 @@ def df_exa_lab():
 
     print(df_dim)
 
-    df_dim['CD_PRO_FAT'] = df_dim['CD_PRO_FAT'].fillna('0')
-    df_dim['CD_EXA_LAB'] = df_dim['CD_EXA_LAB'].fillna(0)
-    df_dim['NM_EXA_LAB'] = df_dim['NM_EXA_LAB'].fillna('0')
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_EXA_LAB"] = df_dim["CD_EXA_LAB"].fillna(0)
+    df_dim["NM_EXA_LAB"] = df_dim["NM_EXA_LAB"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1953,11 +1954,11 @@ def df_exa_rx():
 
     print(df_dim)
 
-    df_dim['EXA_RX_CD_PRO_FAT'] = df_dim['EXA_RX_CD_PRO_FAT'].fillna('0')
-    df_dim['CD_EXA_RX'] = df_dim['CD_EXA_RX'].fillna(0)
-    df_dim['DS_EXA_RX'] = df_dim['DS_EXA_RX'].fillna('0')
+    df_dim["EXA_RX_CD_PRO_FAT"] = df_dim["EXA_RX_CD_PRO_FAT"].fillna("0")
+    df_dim["CD_EXA_RX"] = df_dim["CD_EXA_RX"].fillna(0)
+    df_dim["DS_EXA_RX"] = df_dim["DS_EXA_RX"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -1987,10 +1988,10 @@ def df_motivo_glosa():
 
     print(df_dim)
 
-    df_dim['DS_MOTIVO_GLOSA'] = df_dim['DS_MOTIVO_GLOSA'].fillna('0')
-    df_dim['CD_MOTIVO_GLOSA'] = df_dim['CD_MOTIVO_GLOSA'].fillna(0)
+    df_dim["DS_MOTIVO_GLOSA"] = df_dim["DS_MOTIVO_GLOSA"].fillna("0")
+    df_dim["CD_MOTIVO_GLOSA"] = df_dim["CD_MOTIVO_GLOSA"].fillna(0)
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -2020,10 +2021,10 @@ def df_mot_dev():
 
     print(df_dim)
 
-    df_dim['CD_MOT_DEV'] = df_dim['CD_MOT_DEV'].fillna(0)
-    df_dim['DS_MOT_DEV'] = df_dim['DS_MOT_DEV'].fillna('0')
+    df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
+    df_dim["DS_MOT_DEV"] = df_dim["DS_MOT_DEV"].fillna("0")
     
-    print('dados para incremento')
+    print("dados para incremento")
     print(df_dim.info())
 
     con = connect_rhp_hdata()
@@ -2063,20 +2064,20 @@ t2 = PythonOperator(
     python_callable=df_classificacao_risco,
     dag=dag)
 
-t3 = PythonOperator(
-    task_id="insert_classificacao_rhp",
-    python_callable=df_classificacao,
-    dag=dag)
+# t3 = PythonOperator(
+#     task_id="insert_classificacao_rhp",
+#     python_callable=df_classificacao,
+#     dag=dag)
 
 t4 = PythonOperator(
     task_id="insert_convenio_rhp",
     python_callable=df_convenio,
     dag=dag)
 
-t5 = PythonOperator(
-    task_id="insert_cor_referencia_rhp",
-    python_callable=df_cor_referencia,
-    dag=dag)
+# t5 = PythonOperator(
+#     task_id="insert_cor_referencia_rhp",
+#     python_callable=df_cor_referencia,
+#     dag=dag)
 
 t6 = PythonOperator(
     task_id="insert_diagnostico_atendime_rhp",
@@ -2093,30 +2094,30 @@ t8 = PythonOperator(
     python_callable=df_esp_med,
     dag=dag)
 
-t9 = PythonOperator(
-    task_id="insert_especialidad_rhp",
-    python_callable=df_especialidad,
-    dag=dag)
+# t9 = PythonOperator(
+#     task_id="insert_especialidad_rhp",
+#     python_callable=df_especialidad,
+#     dag=dag)
 
-t10 = PythonOperator(
-    task_id="insert_gru_cid_rhp",
-    python_callable=df_gru_cid,
-    dag=dag)
+# t10 = PythonOperator(
+#     task_id="insert_gru_cid_rhp",
+#     python_callable=df_gru_cid,
+#     dag=dag)
 
 t11 = PythonOperator(
     task_id="insert_mot_alt_rhp",
     python_callable=df_mot_alt,
     dag=dag)
 
-t12 = PythonOperator(
-    task_id="insert_multi_empresa_rhp",
-    python_callable=df_multi_empresa,
-    dag=dag)
+# t12 = PythonOperator(
+#     task_id="insert_multi_empresa_rhp",
+#     python_callable=df_multi_empresa,
+#     dag=dag)
 
-t13 = PythonOperator(
-    task_id="insert_ori_ate_rhp",
-    python_callable=df_ori_ate,
-    dag=dag)
+# t13 = PythonOperator(
+#     task_id="insert_ori_ate_rhp",
+#     python_callable=df_ori_ate,
+#     dag=dag)
 
 t14 = PythonOperator(
     task_id="insert_paciente_rhp",
@@ -2133,35 +2134,35 @@ t16 = PythonOperator(
     python_callable=df_registro_alta,
     dag=dag)
 
-t17 = PythonOperator(
-    task_id="insert_setor_rhp",
-    python_callable=df_setor,
-    dag=dag)
+# t17 = PythonOperator(
+#     task_id="insert_setor_rhp",
+#     python_callable=df_setor,
+#     dag=dag)
 
 t18 = PythonOperator(
     task_id="insert_sgru_cid_rhp",
     python_callable=df_sgru_cid,
     dag=dag)
 
-t19 = PythonOperator(
-    task_id="insert_sintoma_avaliacao_rhp",
-    python_callable=df_sintoma_avaliacao,
-    dag=dag)
+# t19 = PythonOperator(
+#     task_id="insert_sintoma_avaliacao_rhp",
+#     python_callable=df_sintoma_avaliacao,
+#     dag=dag)
 
 t20 = PythonOperator(
     task_id="insert_tempo_processo_rhp",
     python_callable=df_tempo_processo,
     dag=dag)
 
-t21 = PythonOperator(
-    task_id="insert_tip_mar_rhp",
-    python_callable=df_tip_mar,
-    dag=dag)
+# t21 = PythonOperator(
+#     task_id="insert_tip_mar_rhp",
+#     python_callable=df_tip_mar,
+#     dag=dag)
 
-t22 = PythonOperator(
-    task_id="insert_tip_res_rhp",
-    python_callable=df_tip_res,
-    dag=dag)
+# t22 = PythonOperator(
+#     task_id="insert_tip_res_rhp",
+#     python_callable=df_tip_res,
+#     dag=dag)
 
 t23 = PythonOperator(
     task_id="insert_triagem_atendimento_rhp",
@@ -2338,4 +2339,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24) >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
+t1 >> t2 >> t4 >> t6 >> t7 >> t8 >> t11 >> t14 >> t15 >> t16 >> t18 >> t20 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
