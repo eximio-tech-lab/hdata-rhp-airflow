@@ -47,8 +47,11 @@ def df_atendime():
     # df_diff = df_diff.drop(columns=['_merge'])
     # df_diff = df_diff.reset_index(drop=True)
 
-    df_dim = df_dim.fillna(0)
-    
+    df_dim['CD_ATENDIMENTO_PAI'] = df_dim['CD_ATENDIMENTO_PAI'].fillna(0)
+    df_dim['CD_TIP_MAR'] = df_dim['CD_TIP_MAR'].fillna(0)
+    df_dim['CD_SINTOMA_AVALIACAO'] = df_dim['CD_SINTOMA_AVALIACAO'].fillna(0)
+    df_dim['CD_MOT_ALT'] = df_dim['CD_MOT_ALT'].fillna(0)
+
     print('dados para incremento')
     print(df_dim.info())
 
