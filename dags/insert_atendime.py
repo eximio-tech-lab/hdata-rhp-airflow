@@ -37,25 +37,25 @@ def df_atendime():
 
     print(df_dim)
 
-    df_dim_dw = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    # df_dim_dw = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
-    print(df_dim_dw)
+    # print(df_dim_dw)
 
     # connect_rhp_hdata.close()
     # # Seleciona a diferença entre os dois dataframes
-    df_diff = df_dim.merge(df_dim_dw, how='left', on=['CD_ATENDIMENTO']).loc[lambda x: x['_merge'] != 'both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+    # df_diff = df_dim.merge(df_dim_dw, how='left', on=['CD_ATENDIMENTO'])
+    # df_diff = df_diff.drop(columns=['_merge'])
+    # df_diff = df_diff.reset_index(drop=True)
 
     print('dados para incremento')
-    print(df_diff.info())
+    print(df_dim.info())
 
     con = connect_rhp_hdata()
 
     cursor = engine.cursor()
 
     sql='INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21, :22, :23, :24, :25, :26, :27, :28, :29, :30, :31, :32, :33, :34, :35, :36, :37, :38, :39, :40, :41)'
-    df_list = df_diff.values.tolist()
+    df_list = df_dim.values.tolist()
     n = 0
     
     for i in dataset.iterrows():
