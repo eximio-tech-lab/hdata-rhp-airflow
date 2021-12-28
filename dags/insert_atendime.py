@@ -303,7 +303,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, "DD.MM.YYYY HH24:MI:SS))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
 
     df_list = df_dim.values.tolist()
     n = 0
