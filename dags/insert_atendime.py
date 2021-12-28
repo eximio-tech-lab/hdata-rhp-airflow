@@ -47,11 +47,6 @@ def df_atendime():
     # df_diff = df_diff.drop(columns=['_merge'])
     # df_diff = df_diff.reset_index(drop=True)
 
-    df_dim['CD_ATENDIMENTO_PAI'] = df_dim['CD_ATENDIMENTO_PAI'].fillna(0)
-    df_dim['CD_TIP_MAR'] = df_dim['CD_TIP_MAR'].fillna(0)
-    df_dim['CD_SINTOMA_AVALIACAO'] = df_dim['CD_SINTOMA_AVALIACAO'].fillna(0)
-    df_dim['CD_MOT_ALT'] = df_dim['CD_MOT_ALT'].fillna(0)
-
     print('dados para incremento')
     print(df_dim.info())
 
@@ -59,7 +54,11 @@ def df_atendime():
 
     cursor = con.cursor()
 
-    sql='INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21, :22, :23, :24, :25, :26, :27, :28, :29, :30, :31, :32, :33, :34, :35, :36, :37, :38, :39, :40, :41)'
+    sql='''
+    INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) 
+    VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:16, 'DD.MM.YYYY HH24:MI:SS'), :17, :18, :19, :20, :21);
+    '''
+    
     df_list = df_dim.values.tolist()
     n = 0
     
