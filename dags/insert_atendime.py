@@ -43,20 +43,28 @@ def df_atendime():
 
     # connect_rhp_hdata.close()
     # # Seleciona a diferença entre os dois dataframes
-    df_diff = df_dim.merge(df_dim_dw, how='left', on=['CD_ATENDIMENTO'])
+    df_diff = df_dim.merge(df_dim_dw, how='left', on=['CD_ATENDIMENTO']).loc[lambda x: x['_merge'] != 'both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
 
     print('dados para incremento')
     print(df_diff.info())
 
-    engine = connect_rhp_hdata()
+    con = connect_rhp_hdata()
 
     cursor = engine.cursor()
 
-    rows = [tuple(x) for x in df_diff.values]
+    sql='INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21, :22, :23, :24, :25, :26, :27, :28, :29, :30, :31, :32, :33, :34, :35, :36, :37, :38, :39, :40, :41)'
+    df_list = df_diff.values.tolist()
+    n = 0
+    
+    for i in dataset.iterrows():
+        cursor.execute(sql, df_list[n])
+        n += 1
 
-    cursor.execute("INSERT INTO MV_RHP.ATAENDIME VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21, :22, :23, :24, :25, :26, :27, :28, :29, :30, :31, :32, :33, :34, :35, :36, :37, :38, :39, :40, :41)", rows)
-
-    # df_diff.to_sql('MV_RHP.ATENDIME', con=engine_rhp(), if_exists='append', index=False, method='multi', chunksize=10000)
+    con.commit()
+    cursor.close
+    con.close
 
 def df_cid():
     print("Entrou no df_cid")
