@@ -47,7 +47,7 @@ def df_atendime():
     # df_diff = df_diff.drop(columns=['_merge'])
     # df_diff = df_diff.reset_index(drop=True)
 
-    df_dim = df_dim.fillna('NULL')
+    df_dim = df_dim.fillna(0)
 
     print(df_dim)
 
