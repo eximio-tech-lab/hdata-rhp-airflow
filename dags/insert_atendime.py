@@ -799,7 +799,7 @@ def df_pagu_objeto():
 def df_registro_alta():
     print("Entrou no df_registro_alta")
 
-    df_dim = pd.read_sql(query_registro_alta, connect_rhp())
+    df_dim = pd.read_sql(query_registro_alta.format(data_ini="2021-01-01 00:00:00", data_fim="2021-12-31 23:59:59"), connect_rhp())
 
     print(df_dim)
 
@@ -814,7 +814,7 @@ def df_registro_alta():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(:1, 'YYYY-MM-DD HH24:MI:SS'), :2)"
+    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(TO_CHAR(:1), 'DD.MM.YYYY HH24:MI:SS'), :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -951,7 +951,7 @@ def df_tempo_processo():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (TO_DATE(:1, 'DD.MM.YYYY HH24:MI:SS'), :2, :3)"
+    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (TO_DATE(TO_CHAR(:1), 'DD.MM.YYYY HH24:MI:SS'), :2, :3)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2261,10 +2261,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
@@ -2311,10 +2311,10 @@ t7 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-# t16 = PythonOperator(
-#     task_id="insert_registro_alta_rhp",
-#     python_callable=df_registro_alta,
-#     dag=dag)
+t16 = PythonOperator(
+    task_id="insert_registro_alta_rhp",
+    python_callable=df_registro_alta,
+    dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
