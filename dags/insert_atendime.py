@@ -2404,10 +2404,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="insert_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="insert_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
@@ -2444,10 +2444,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_ori_ate,
 #     dag=dag)
 
-t14 = PythonOperator(
-    task_id="insert_paciente_rhp",
-    python_callable=df_paciente,
-    dag=dag)
+# t14 = PythonOperator(
+#     task_id="insert_paciente_rhp",
+#     python_callable=df_paciente,
+#     dag=dag)
 
 # t15 = PythonOperator(
 #     task_id="insert_pagu_objeto_rhp",
@@ -2663,5 +2663,3 @@ t14 = PythonOperator(
 #     task_id="insert_mot_dev_rhp",
 #     python_callable=df_mot_dev,
 #     dag=dag)
-
-t14
