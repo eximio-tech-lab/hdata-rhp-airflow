@@ -2521,4 +2521,4 @@ t23 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t2 >> t23 >> t7
+t2 >> t23
