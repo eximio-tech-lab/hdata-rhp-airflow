@@ -117,7 +117,7 @@ def df_cid():
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
 
-    df_dim = pd.read_sql(query_classificacao_risco, connect_rhp())
+    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
