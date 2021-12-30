@@ -2235,10 +2235,10 @@ def df_mot_dev():
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
-# t0 = PythonOperator(
-#     task_id="insert_atendime_rhp",
-#     python_callable=df_atendime,
-#     dag=dag)
+t0 = PythonOperator(
+    task_id="insert_atendime_rhp",
+    python_callable=df_atendime,
+    dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="insert_cid_rhp",
@@ -2270,10 +2270,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
