@@ -579,6 +579,11 @@ def df_paciente():
         df_list[n][2] = str(df_list[n][2])
         df_list[n][3] = str(df_list[n][3])
         df_list[n][4] = str(df_list[n][4])
+        print(df_list[n][0])
+        print(df_list[n][1])
+        print(df_list[n][2])
+        print(df_list[n][3])
+        print(df_list[n][4])
         cursor.execute(sql, df_list[n])
         n += 1
 
