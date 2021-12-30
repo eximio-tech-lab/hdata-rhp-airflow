@@ -279,7 +279,147 @@ def df_diagnostico_atendime():
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
 
-    df_dim = pd.read_sql(query_documento_clinico, connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-10-01 00:00:00', data_fim='2021-12-31 00:00:00'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-07-01 00:00:00', data_fim='2021-09-30 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-05-01 00:00:00', data_fim='2021-06-30 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-03-01 00:00:00', data_fim='2021-04-30 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-01-01 00:00:00', data_fim='2021-02-28 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -539,7 +679,6 @@ def df_prestador():
     
     cols = []
     for i in df_dim.iterrows():
-    
         cols.append(df_list[n])
         n += 1
 
@@ -2157,10 +2296,10 @@ t7 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
@@ -2346,5 +2485,3 @@ t20 = PythonOperator(
 #     task_id="insert_mot_dev_rhp",
 #     python_callable=df_mot_dev,
 #     dag=dag)
-
-t20 >> t7
