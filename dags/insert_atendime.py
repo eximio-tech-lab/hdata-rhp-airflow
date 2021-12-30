@@ -574,6 +574,11 @@ def df_paciente():
     for i in df_dim.iterrows():
         print(n)
         print(df_list[n])
+        df_list[n][0] = int(df_list[n][0])
+        df_list[n][1] = str(df_list[n][1])
+        df_list[n][2] = str(df_list[n][2])
+        df_list[n][3] = str(df_list[n][3])
+        df_list[n][4] = str(df_list[n][4])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -2108,10 +2113,10 @@ t8 = PythonOperator(
 #     python_callable=df_ori_ate,
 #     dag=dag)
 
-t14 = PythonOperator(
-    task_id="insert_paciente_rhp",
-    python_callable=df_paciente,
-    dag=dag)
+# t14 = PythonOperator(
+#     task_id="insert_paciente_rhp",
+#     python_callable=df_paciente,
+#     dag=dag)
 
 t15 = PythonOperator(
     task_id="insert_pagu_objeto_rhp",
@@ -2330,4 +2335,4 @@ t23 = PythonOperator(
 
 # t6 >> t7 >> t8 >> t11 >> t14 >> t15 >> t16 >> t18 >> t20 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
 
-t14 >> t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
+t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
