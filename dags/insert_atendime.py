@@ -2261,10 +2261,10 @@ t2 = PythonOperator(
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
