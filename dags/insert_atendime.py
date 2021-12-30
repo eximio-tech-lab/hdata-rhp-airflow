@@ -941,8 +941,8 @@ def df_tempo_processo():
     print(df_dim)
 
     # df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
-    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    # df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+    # df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
     print("dados para incremento")
     print(df_dim.info())
@@ -951,7 +951,7 @@ def df_tempo_processo():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (TO_DATE(TO_CHAR(:1), 'DD.MM.YYYY HH24:MI:SS'), :2, :3)"
+    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2311,10 +2311,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-t16 = PythonOperator(
-    task_id="insert_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="insert_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
@@ -2331,10 +2331,10 @@ t16 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-# t20 = PythonOperator(
-#     task_id="insert_tempo_processo_rhp",
-#     python_callable=df_tempo_processo,
-#     dag=dag)
+t20 = PythonOperator(
+    task_id="insert_tempo_processo_rhp",
+    python_callable=df_tempo_processo,
+    dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
