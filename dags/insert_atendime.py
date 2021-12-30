@@ -669,7 +669,7 @@ def df_registro_alta():
     
     cols = []
     for i in df_dim.iterrows():
-        print(df_list[n])
+        # print(df_list[n])
         cols.append(df_list[n])
         n += 1
 
