@@ -35,10 +35,10 @@ def df_atendime():
 
     print(df_dim)
 
-    df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
-    df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
-    df_dim["HR_ALTA"] = df_dim["HR_ALTA"].fillna("01.01.1899 00:00:00")
-    df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["HR_ALTA"] = df_dim["HR_ALTA"].fillna("01.01.1899 00:00:00")
+    # df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("01.01.1899 00:00:00")
     df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
     df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -66,7 +66,7 @@ def df_atendime():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:16, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:17, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:18, 'DD.MM.YYYY HH24:MI:SS'), :19, :20, :21)"
+    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -124,7 +124,7 @@ def df_classificacao_risco():
     df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
     df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
     df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
-    df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
     print("dados para incremento")
     print(df_dim.info())
@@ -133,7 +133,7 @@ def df_classificacao_risco():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, :4)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -296,7 +296,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'YYYY-MM-DD HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -331,7 +331,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'YYYY-MM-DD HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -366,7 +366,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'YYYY-MM-DD HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -401,7 +401,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'YYYY-MM-DD HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -436,7 +436,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'YYYY-MM-DD HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -471,7 +471,7 @@ def df_documento_clinico():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'YYYY-MM-DD HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -707,7 +707,7 @@ def df_prestador():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PRESTADOR (CD_PRESTADOR, NM_PRESTADOR, DT_NASCIMENTO, TP_PRESTADOR, CD_TIP_PRESTA) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), :4, :5)"
+    sql="INSERT INTO MV_RHP.PRESTADOR (CD_PRESTADOR, NM_PRESTADOR, DT_NASCIMENTO, TP_PRESTADOR, CD_TIP_PRESTA) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -745,7 +745,7 @@ def df_paciente():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'), :3, TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'), :5)"
+    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -1044,7 +1044,7 @@ def df_triagem_atendimento():
     df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
-    df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
     print(df_dim.info())
@@ -1053,7 +1053,7 @@ def df_triagem_atendimento():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2236,10 +2236,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_cid,
 #     dag=dag)
 
-# t2 = PythonOperator(
-#     task_id="insert_classificacao_risco_rhp",
-#     python_callable=df_classificacao_risco,
-#     dag=dag)
+t2 = PythonOperator(
+    task_id="insert_classificacao_risco_rhp",
+    python_callable=df_classificacao_risco,
+    dag=dag)
 
 # t3 = PythonOperator(
 #     task_id="insert_classificacao_rhp",
@@ -2261,10 +2261,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="insert_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="insert_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
@@ -2331,10 +2331,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
@@ -2346,10 +2346,10 @@ t20 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-# t23 = PythonOperator(
-#     task_id="insert_triagem_atendimento_rhp",
-#     python_callable=df_triagem_atendimento,
-#     dag=dag)
+t23 = PythonOperator(
+    task_id="insert_triagem_atendimento_rhp",
+    python_callable=df_triagem_atendimento,
+    dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -2520,3 +2520,5 @@ t20 = PythonOperator(
 #     task_id="insert_mot_dev_rhp",
 #     python_callable=df_mot_dev,
 #     dag=dag)
+
+t2 >> t23 >> t7
