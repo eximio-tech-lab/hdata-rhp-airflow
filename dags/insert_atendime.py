@@ -652,7 +652,7 @@ def df_registro_alta():
 
     print(df_dim)
 
-    df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("01.01.1899 00:00:00")
+    df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("1899-01-01 00:00:00")
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
     print("dados para incremento")
@@ -663,7 +663,7 @@ def df_registro_alta():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(:1, 'DD.MM.YYYY HH24:MI:SS'), :2)"
+    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(:1, 'YYYY-MM-DD HH24:MI:SS'), :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
