@@ -2234,10 +2234,10 @@ t20 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-t23 = PythonOperator(
-    task_id="insert_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t23 = PythonOperator(
+#     task_id="insert_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -2409,4 +2409,4 @@ t23 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t23 >> t16 >> t20 >> t7
+t11 >> t16 >> t20 >> t7
