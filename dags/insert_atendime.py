@@ -138,9 +138,12 @@ def df_classificacao_risco():
     df_list = df_dim.values.tolist()
     n = 0
     
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
