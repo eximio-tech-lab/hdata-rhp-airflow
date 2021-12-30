@@ -1176,7 +1176,7 @@ def df_tip_res():
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
 
-    df_dim = pd.read_sql(query_triagem_atendimento, connect_rhp())
+    df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
