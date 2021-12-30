@@ -554,7 +554,6 @@ def df_paciente():
     print(df_dim)
 
     df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
-    df_dim["CD_PACIENTE"] = int(df_dim["CD_PACIENTE"])
     df_dim["DT_NASCIMENTO"] = df_dim["DT_NASCIMENTO"].fillna("01.01.1899 00:00:00")
     df_dim["TP_SEXO"] = df_dim["TP_SEXO"].fillna("0")
     df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
