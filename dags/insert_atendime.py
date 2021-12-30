@@ -31,7 +31,7 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def df_atendime():
     print("Entrou no df_atendime")
 
-    df_dim = pd.read_sql(query_atendime, connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-12-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -71,9 +71,12 @@ def df_atendime():
     df_list = df_dim.values.tolist()
     n = 0
     
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -104,9 +107,12 @@ def df_cid():
     df_list = df_dim.values.tolist()
     n = 0
     
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
