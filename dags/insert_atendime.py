@@ -941,8 +941,8 @@ def df_tempo_processo():
     print(df_dim)
 
     # df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
-    # df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
-    # df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
     print("dados para incremento")
     print(df_dim.info())
