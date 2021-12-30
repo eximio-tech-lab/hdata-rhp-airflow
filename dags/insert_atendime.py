@@ -2152,10 +2152,10 @@ t23 = PythonOperator(
     python_callable=df_triagem_atendimento,
     dag=dag)
 
-t24 = PythonOperator(
-    task_id="insert_usuario_rhp",
-    python_callable=df_usuario,
-    dag=dag)
+# t24 = PythonOperator(
+#     task_id="insert_usuario_rhp",
+#     python_callable=df_usuario,
+#     dag=dag)
 
 # t25 = PythonOperator(
 #     task_id="insert_pre_med_rhp",
@@ -2324,4 +2324,4 @@ t24 = PythonOperator(
 
 # t6 >> t7 >> t8 >> t11 >> t14 >> t15 >> t16 >> t18 >> t20 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
 
-t24 >> t10 >> t14 >> t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
+t10 >> t14 >> t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
