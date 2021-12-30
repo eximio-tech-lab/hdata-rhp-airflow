@@ -2424,10 +2424,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_gru_cid,
 #     dag=dag)
 
-t10 = PythonOperator(
-    task_id="insert_prestador_rhp",
-    python_callable=df_prestador,
-    dag=dag)
+# t10 = PythonOperator(
+#     task_id="insert_prestador_rhp",
+#     python_callable=df_prestador,
+#     dag=dag)
 
 # t11 = PythonOperator(
 #     task_id="insert_mot_alt_rhp",
@@ -2664,4 +2664,4 @@ t14 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t10 >> t14
+t14
