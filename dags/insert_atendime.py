@@ -508,9 +508,9 @@ def df_ori_ate():
     print("Dados ORI_ATE inseridos")
 
 def df_prestador():
-    print("Entrou no df_paciente")
+    print("Entrou no df_prestador")
 
-    df_dim = pd.read_sql(query_paciente, connect_rhp())
+    df_dim = pd.read_sql(query_prestador, connect_rhp())
 
     print(df_dim)
 
