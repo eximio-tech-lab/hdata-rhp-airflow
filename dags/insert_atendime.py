@@ -535,7 +535,10 @@ def df_prestador():
     for i in df_dim.iterrows():
         print(df_list[n])
         cursor.execute(sql, df_list[n])
+        print(n)
         n += 1
+
+    print("acabou")
 
     con.commit()
     cursor.close
