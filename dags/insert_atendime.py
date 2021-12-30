@@ -72,6 +72,7 @@ def df_atendime():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -105,6 +106,7 @@ def df_cid():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -139,6 +141,7 @@ def df_classificacao_risco():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -171,6 +174,7 @@ def df_classificacao():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -203,6 +207,7 @@ def df_convenio():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -234,6 +239,7 @@ def df_cor_referencia():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -267,6 +273,7 @@ def df_diagnostico_atendime():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -302,6 +309,7 @@ def df_documento_clinico():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -335,6 +343,7 @@ def df_esp_med():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -367,6 +376,7 @@ def df_especialidad():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -399,6 +409,7 @@ def df_gru_cid():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -432,6 +443,7 @@ def df_mot_alt():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -464,6 +476,7 @@ def df_multi_empresa():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -498,6 +511,7 @@ def df_ori_ate():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -616,6 +630,7 @@ def df_pagu_objeto():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -648,6 +663,7 @@ def df_registro_alta():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -680,6 +696,7 @@ def df_setor():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -714,6 +731,7 @@ def df_sgru_cid():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -746,6 +764,7 @@ def df_sintoma_avaliacao():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -779,6 +798,7 @@ def df_tempo_processo():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -810,6 +830,7 @@ def df_tip_mar():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -843,6 +864,7 @@ def df_tip_res():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -878,6 +900,7 @@ def df_triagem_atendimento():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -910,6 +933,7 @@ def df_usuario():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -947,6 +971,7 @@ def df_pre_med():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -985,6 +1010,7 @@ def df_itpre_med():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1018,6 +1044,7 @@ def df_tip_presc():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1050,6 +1077,7 @@ def df_for_apl():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1082,6 +1110,7 @@ def df_tip_esq():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1114,6 +1143,7 @@ def df_tip_fre():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1154,6 +1184,7 @@ def df_gru_fat():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1189,6 +1220,7 @@ def df_gru_pro():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1226,6 +1258,7 @@ def df_produto():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1260,6 +1293,7 @@ def df_pro_fat():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1293,6 +1327,7 @@ def df_tuss():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1330,6 +1365,7 @@ def df_uni_pro():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1363,6 +1399,7 @@ def df_reg_amb():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1409,6 +1446,7 @@ def df_itreg_amb():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1447,6 +1485,7 @@ def df_reg_fat():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1492,6 +1531,7 @@ def df_itreg_fat():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1524,6 +1564,7 @@ def df_custo_final():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1560,6 +1601,7 @@ def df_mvto_estoque():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1595,6 +1637,7 @@ def df_itmvto_estoque():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1628,6 +1671,7 @@ def df_quantidade_diarias():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1662,6 +1706,7 @@ def df_remessa_fatura():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1694,6 +1739,7 @@ def df_repasse():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1727,6 +1773,7 @@ def df_it_repasse():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1762,6 +1809,7 @@ def df_itent_pro():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1799,6 +1847,7 @@ def df_glosas():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1833,6 +1882,7 @@ def df_custo_medio_mensal():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1870,6 +1920,7 @@ def df_fa_custo_atendimento():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1902,6 +1953,7 @@ def df_especie():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1935,6 +1987,7 @@ def df_exa_lab():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -1968,6 +2021,7 @@ def df_exa_rx():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -2000,6 +2054,7 @@ def df_motivo_glosa():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -2032,6 +2087,7 @@ def df_mot_dev():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
@@ -2118,10 +2174,10 @@ t8 = PythonOperator(
 #     python_callable=df_ori_ate,
 #     dag=dag)
 
-# t14 = PythonOperator(
-#     task_id="insert_paciente_rhp",
-#     python_callable=df_paciente,
-#     dag=dag)
+t14 = PythonOperator(
+    task_id="insert_paciente_rhp",
+    python_callable=df_paciente,
+    dag=dag)
 
 t15 = PythonOperator(
     task_id="insert_pagu_objeto_rhp",
@@ -2340,4 +2396,4 @@ t23 = PythonOperator(
 
 # t6 >> t7 >> t8 >> t11 >> t14 >> t15 >> t16 >> t18 >> t20 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
 
-t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
+t14 >> t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
