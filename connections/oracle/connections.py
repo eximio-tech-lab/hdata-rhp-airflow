@@ -15,8 +15,12 @@ def connect_rhp_hdata():
     dsn_tns = cx_Oracle.makedsn('orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com', 61521, service_name='orcl')
     return cx_Oracle.connect('MV_RHP', 'MVRHP', dsn_tns)
 
+def connect():
+    connect_rhp_hdata_2 = 'oracle+cx_oracle://' + 'MV_RHP' + ':' + 'MVRHP' + '@' + '/ORCL'
+    return connect_rhp_hdata_2
+
 def engine():
-    engine = create_engine(connect_rhp(), max_identifier_length=128)
+    engine = create_engine(connect(), max_identifier_length=128)
     return engine
 
 def engine_rhp():
@@ -26,5 +30,5 @@ def engine_rhp():
 Session = sessionmaker(bind=engine)
 session = Session()
 
-Session_engine = sessionmaker(bind=engine_rhp)
+Session_engine = sessionmaker(bind=engine)
 session_engine = Session_engine()

@@ -6,7 +6,7 @@ import numpy as np
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
-from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp
+from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
@@ -433,23 +433,27 @@ def df_mot_alt():
     print("dados para incremento")
     print(df_dim.info())
 
-    con = connect_rhp_hdata()
+    df_dim.to_sql('MOT_ALT', con=connect(), schema='MV_RHP', if_exists='append', index=False)
 
-    cursor = con.cursor()
+    # con = connect_rhp_hdata()
 
-    sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
+    # cursor = con.cursor()
 
-    df_list = df_dim.values.tolist()
-    n = 0
-    
-    for i in df_dim.iterrows():
-        print(df_list[n])
-        cursor.execute(sql, df_list[n])
-        n += 1
+    # sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
 
-    con.commit()
-    cursor.close
-    con.close
+    # df_list = df_dim.values.tolist()
+    # n = 0
+    # cols = []
+    # for i in df_dim.iterrows():
+    #     print(df_list[n])
+    #     cols.append(df_list[n])
+    #     n += 1
+
+    # cursor.executemany(sql, cols)
+
+    # con.commit()
+    # cursor.close
+    # con.close
 
     print("Dados MOT_ALT inseridos")
 
@@ -729,11 +733,14 @@ def df_sgru_cid():
 
     df_list = df_dim.values.tolist()
     n = 0
+    cols = []
     
     for i in df_dim.iterrows():
         print(df_list[n])
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2099,10 +2106,10 @@ def df_mot_dev():
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
-t0 = PythonOperator(
-    task_id="insert_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="insert_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="insert_cid_rhp",
@@ -2134,15 +2141,15 @@ t0 = PythonOperator(
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
-t8 = PythonOperator(
-    task_id="insert_esp_med_rhp",
-    python_callable=df_esp_med,
-    dag=dag)
+# t8 = PythonOperator(
+#     task_id="insert_esp_med_rhp",
+#     python_callable=df_esp_med,
+#     dag=dag)
 
 # t9 = PythonOperator(
 #     task_id="insert_especialidad_rhp",
@@ -2159,10 +2166,10 @@ t8 = PythonOperator(
 #     python_callable=df_prestador,
 #     dag=dag)
 
-# t11 = PythonOperator(
-#     task_id="insert_mot_alt_rhp",
-#     python_callable=df_mot_alt,
-#     dag=dag)
+t11 = PythonOperator(
+    task_id="insert_mot_alt_rhp",
+    python_callable=df_mot_alt,
+    dag=dag)
 
 # t12 = PythonOperator(
 #     task_id="insert_multi_empresa_rhp",
@@ -2174,40 +2181,40 @@ t8 = PythonOperator(
 #     python_callable=df_ori_ate,
 #     dag=dag)
 
-t14 = PythonOperator(
-    task_id="insert_paciente_rhp",
-    python_callable=df_paciente,
-    dag=dag)
+# t14 = PythonOperator(
+#     task_id="insert_paciente_rhp",
+#     python_callable=df_paciente,
+#     dag=dag)
 
-t15 = PythonOperator(
-    task_id="insert_pagu_objeto_rhp",
-    python_callable=df_pagu_objeto,
-    dag=dag)
+# t15 = PythonOperator(
+#     task_id="insert_pagu_objeto_rhp",
+#     python_callable=df_pagu_objeto,
+#     dag=dag)
 
-t16 = PythonOperator(
-    task_id="insert_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="insert_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
 #     python_callable=df_setor,
 #     dag=dag)
 
-# t18 = PythonOperator(
-#     task_id="insert_sgru_cid_rhp",
-#     python_callable=df_sgru_cid,
-#     dag=dag)
+t18 = PythonOperator(
+    task_id="insert_sgru_cid_rhp",
+    python_callable=df_sgru_cid,
+    dag=dag)
 
 # t19 = PythonOperator(
 #     task_id="insert_sintoma_avaliacao_rhp",
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
@@ -2219,10 +2226,10 @@ t20 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-t23 = PythonOperator(
-    task_id="insert_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t23 = PythonOperator(
+#     task_id="insert_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -2396,4 +2403,4 @@ t23 = PythonOperator(
 
 # t6 >> t7 >> t8 >> t11 >> t14 >> t15 >> t16 >> t18 >> t20 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
 
-t14 >> t8 >> t15 >> t23 >> t20 >> t16 >> t7 >> t0
+t18 >> t11
