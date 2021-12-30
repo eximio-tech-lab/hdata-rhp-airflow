@@ -433,27 +433,25 @@ def df_mot_alt():
     print("dados para incremento")
     print(df_dim.info())
 
-    df_dim.to_sql('MOT_ALT', con=connect(), schema='MV_RHP', if_exists='append', index=False)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        print(df_list[n])
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_dim.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_dim.iterrows():
-    #     print(df_list[n])
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados MOT_ALT inseridos")
 
@@ -717,10 +715,9 @@ def df_sgru_cid():
 
     print(df_dim)
 
-    df_dim["CD_SGRU_CID"] = df_dim["CD_SGRU_CID"].fillna(0)
+    df_dim["CD_SGRU_CID"] = df_dim["CD_SGRU_CID"].fillna("0")
     df_dim["CD_GRU_CID"] = df_dim["CD_GRU_CID"].fillna(0)
     df_dim["DS_SGRU_CID"] = df_dim["DS_SGRU_CID"].fillna("0")
-    df_dim["DS_SGRU_CID"] = df_dim["DS_SGRU_CID"].replace('"', "'")
 
     print("dados para incremento")
     print(df_dim.info())
@@ -2201,10 +2198,10 @@ t11 = PythonOperator(
 #     python_callable=df_setor,
 #     dag=dag)
 
-t18 = PythonOperator(
-    task_id="insert_sgru_cid_rhp",
-    python_callable=df_sgru_cid,
-    dag=dag)
+# t18 = PythonOperator(
+#     task_id="insert_sgru_cid_rhp",
+#     python_callable=df_sgru_cid,
+#     dag=dag)
 
 # t19 = PythonOperator(
 #     task_id="insert_sintoma_avaliacao_rhp",
