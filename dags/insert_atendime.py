@@ -814,7 +814,7 @@ def df_registro_alta():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (TO_DATE(TO_CHAR(:1), 'DD.MM.YYYY HH24:MI:SS'), :2)"
+    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
