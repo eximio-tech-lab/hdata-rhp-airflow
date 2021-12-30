@@ -31,7 +31,7 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def df_atendime():
     print("Entrou no df_atendime")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-11-01 00:00:00', data_fim='2021-11-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-12-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -84,7 +84,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-10-01 00:00:00', data_fim='2021-10-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-11-01 00:00:00', data_fim='2020-11-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -137,7 +137,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-09-01 00:00:00', data_fim='2021-09-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-10-01 00:00:00', data_fim='2020-10-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -190,7 +190,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-08-01 00:00:00', data_fim='2021-08-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-09-01 00:00:00', data_fim='2020-09-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -243,7 +243,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-07-01 00:00:00', data_fim='2021-07-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-08-01 00:00:00', data_fim='2020-08-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -296,7 +296,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-06-01 00:00:00', data_fim='2021-06-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-07-01 00:00:00', data_fim='2020-07-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -349,7 +349,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-05-01 00:00:00', data_fim='2021-05-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-06-01 00:00:00', data_fim='2020-06-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -402,7 +402,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-04-01 00:00:00', data_fim='2021-04-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-05-01 00:00:00', data_fim='2020-05-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -455,7 +455,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-03-01 00:00:00', data_fim='2021-03-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-04-01 00:00:00', data_fim='2020-04-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -508,7 +508,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-02-01 00:00:00', data_fim='2021-02-28 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-03-01 00:00:00', data_fim='2020-03-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -561,7 +561,60 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-01-01 00:00:00', data_fim='2021-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-02-01 00:00:00', data_fim='2020-02-28 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    # df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["HR_ALTA"] = df_dim["HR_ALTA"].fillna("01.01.1899 00:00:00")
+    # df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
+    df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
+    df_dim["CD_MOT_ALT"] = df_dim["CD_MOT_ALT"].fillna(0)
+    df_dim["CD_TIP_RES"] = df_dim["CD_TIP_RES"].fillna(0)
+    df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
+    df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
+    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+    df_dim["CD_ATENDIMENTO_PAI"] = df_dim["CD_ATENDIMENTO_PAI"].fillna(0)
+    df_dim["CD_LEITO"] = df_dim["CD_LEITO"].fillna(0)
+    df_dim["CD_ORI_ATE"] = df_dim["CD_ORI_ATE"].fillna(0)
+    df_dim["CD_SERVICO"] = df_dim["CD_SERVICO"].fillna(0)
+    df_dim["TP_ATENDIMENTO"] = df_dim["TP_ATENDIMENTO"].fillna("0")
+    df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
+
+    print(df_dim)
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados ATENDIME inseridos")
+
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2020-01-01 00:00:00', data_fim='2020-01-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -653,7 +706,7 @@ def df_cid():
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
 
-    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -818,7 +871,7 @@ def df_diagnostico_atendime():
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-06-01 00:00:00', data_fim='2021-06-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-12-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -853,7 +906,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-05-01 00:00:00', data_fim='2021-05-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-11-01 00:00:00', data_fim='2020-11-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -888,7 +941,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-04-01 00:00:00', data_fim='2021-04-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-10-01 00:00:00', data_fim='2020-10-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -923,7 +976,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-03-01 00:00:00', data_fim='2021-03-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-09-01 00:00:00', data_fim='2020-09-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -958,7 +1011,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-02-01 00:00:00', data_fim='2021-02-28 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-08-01 00:00:00', data_fim='2020-08-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -993,7 +1046,217 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-01-01 00:00:00', data_fim='2021-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-07-01 00:00:00', data_fim='2020-07-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-06-01 00:00:00', data_fim='2020-06-30 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-05-01 00:00:00', data_fim='2020-05-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-04-01 00:00:00', data_fim='2020-04-30 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-03-01 00:00:00', data_fim='2020-03-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-02-01 00:00:00', data_fim='2020-02-28 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2020-01-01 00:00:00', data_fim='2020-01-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -1338,7 +1601,7 @@ def df_pagu_objeto():
 def df_registro_alta():
     print("Entrou no df_registro_alta")
 
-    df_dim = pd.read_sql(query_registro_alta.format(data_ini="2021-01-01 00:00:00", data_fim="2021-12-31 23:59:59"), connect_rhp())
+    df_dim = pd.read_sql(query_registro_alta.format(data_ini="2020-01-01 00:00:00", data_fim="2020-12-31 23:59:59"), connect_rhp())
 
     print(df_dim)
 
@@ -1475,7 +1738,7 @@ def df_sintoma_avaliacao():
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
 
-    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2021-07-01 00:00:00", data_fim="2021-12-31 23:59:59"), connect_rhp())
+    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2020-07-01 00:00:00", data_fim="2020-12-31 23:59:59"), connect_rhp())
 
     print(df_dim)
 
@@ -1575,7 +1838,7 @@ def df_tip_res():
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
 
-    df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -2775,10 +3038,10 @@ t0 = PythonOperator(
 #     python_callable=df_cid,
 #     dag=dag)
 
-# t2 = PythonOperator(
-#     task_id="insert_classificacao_risco_rhp",
-#     python_callable=df_classificacao_risco,
-#     dag=dag)
+t2 = PythonOperator(
+    task_id="insert_classificacao_risco_rhp",
+    python_callable=df_classificacao_risco,
+    dag=dag)
 
 # t3 = PythonOperator(
 #     task_id="insert_classificacao_rhp",
@@ -2800,10 +3063,10 @@ t0 = PythonOperator(
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="insert_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="insert_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
@@ -2850,10 +3113,10 @@ t0 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-# t16 = PythonOperator(
-#     task_id="insert_registro_alta_rhp",
-#     python_callable=df_registro_alta,
-#     dag=dag)
+t16 = PythonOperator(
+    task_id="insert_registro_alta_rhp",
+    python_callable=df_registro_alta,
+    dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
@@ -2870,10 +3133,10 @@ t0 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-# t20 = PythonOperator(
-#     task_id="insert_tempo_processo_rhp",
-#     python_callable=df_tempo_processo,
-#     dag=dag)
+t20 = PythonOperator(
+    task_id="insert_tempo_processo_rhp",
+    python_callable=df_tempo_processo,
+    dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
@@ -2885,10 +3148,10 @@ t0 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-# t23 = PythonOperator(
-#     task_id="insert_triagem_atendimento_rhp",
-#     python_callable=df_triagem_atendimento,
-#     dag=dag)
+t23 = PythonOperator(
+    task_id="insert_triagem_atendimento_rhp",
+    python_callable=df_triagem_atendimento,
+    dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -3059,3 +3322,5 @@ t0 = PythonOperator(
 #     task_id="insert_mot_dev_rhp",
 #     python_callable=df_mot_dev,
 #     dag=dag)
+
+t2 >> t16 >> t20 >> t23 >> t7 >> t0
