@@ -2379,10 +2379,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_cid,
 #     dag=dag)
 
-t2 = PythonOperator(
-    task_id="insert_classificacao_risco_rhp",
-    python_callable=df_classificacao_risco,
-    dag=dag)
+# t2 = PythonOperator(
+#     task_id="insert_classificacao_risco_rhp",
+#     python_callable=df_classificacao_risco,
+#     dag=dag)
 
 # t3 = PythonOperator(
 #     task_id="insert_classificacao_rhp",
@@ -2424,10 +2424,10 @@ t2 = PythonOperator(
 #     python_callable=df_gru_cid,
 #     dag=dag)
 
-# t10 = PythonOperator(
-#     task_id="insert_prestador_rhp",
-#     python_callable=df_prestador,
-#     dag=dag)
+t10 = PythonOperator(
+    task_id="insert_prestador_rhp",
+    python_callable=df_prestador,
+    dag=dag)
 
 # t11 = PythonOperator(
 #     task_id="insert_mot_alt_rhp",
@@ -2444,10 +2444,10 @@ t2 = PythonOperator(
 #     python_callable=df_ori_ate,
 #     dag=dag)
 
-# t14 = PythonOperator(
-#     task_id="insert_paciente_rhp",
-#     python_callable=df_paciente,
-#     dag=dag)
+t14 = PythonOperator(
+    task_id="insert_paciente_rhp",
+    python_callable=df_paciente,
+    dag=dag)
 
 # t15 = PythonOperator(
 #     task_id="insert_pagu_objeto_rhp",
@@ -2489,10 +2489,10 @@ t2 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-t23 = PythonOperator(
-    task_id="insert_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t23 = PythonOperator(
+#     task_id="insert_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -2664,4 +2664,4 @@ t23 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t2 >> t23
+t10 >> t14
