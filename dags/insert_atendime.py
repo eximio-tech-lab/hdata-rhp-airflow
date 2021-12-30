@@ -1601,7 +1601,7 @@ def df_pagu_objeto():
 def df_registro_alta():
     print("Entrou no df_registro_alta")
 
-    df_dim = pd.read_sql(query_registro_alta.format(data_ini="2020-01-01 00:00:00", data_fim="2020-12-31 23:59:59"), connect_rhp())
+    df_dim = pd.read_sql(query_registro_alta, connect_rhp())
 
     print(df_dim)
 
