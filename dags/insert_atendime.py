@@ -294,7 +294,7 @@ def df_documento_clinico():
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
-    df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
     print("dados para incremento")
     print(df_dim.info())
@@ -792,7 +792,7 @@ def df_tempo_processo():
 
     print(df_dim)
 
-    df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
     df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
@@ -2200,10 +2200,10 @@ t7 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-t16 = PythonOperator(
-    task_id="insert_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="insert_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
@@ -2410,4 +2410,4 @@ t20 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t16 >> t20 >> t7
+t20 >> t7
