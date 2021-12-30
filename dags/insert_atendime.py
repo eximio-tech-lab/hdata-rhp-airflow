@@ -554,6 +554,7 @@ def df_paciente():
     print(df_dim)
 
     df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
+    df_dim["CD_PACIENTE"] = int(df_dim["CD_PACIENTE"])
     df_dim["DT_NASCIMENTO"] = df_dim["DT_NASCIMENTO"].fillna("01.01.1899 00:00:00")
     df_dim["TP_SEXO"] = df_dim["TP_SEXO"].fillna("0")
     df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
@@ -572,6 +573,8 @@ def df_paciente():
     n = 0
     
     for i in df_dim.iterrows():
+        print(n)
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
