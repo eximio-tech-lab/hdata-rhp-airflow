@@ -308,10 +308,13 @@ def df_documento_clinico():
     df_list = df_dim.values.tolist()
     n = 0
     
+    cols = []
     for i in df_dim.iterrows():
         print(df_list[n])
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -664,10 +667,13 @@ def df_registro_alta():
     df_list = df_dim.values.tolist()
     n = 0
     
+    cols = []
     for i in df_dim.iterrows():
         print(df_list[n])
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -801,10 +807,13 @@ def df_tempo_processo():
     df_list = df_dim.values.tolist()
     n = 0
     
+    cols = []
     for i in df_dim.iterrows():
         print(df_list[n])
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -902,11 +911,13 @@ def df_triagem_atendimento():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
         print(df_list[n])
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2138,10 +2149,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="insert_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="insert_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
@@ -2188,10 +2199,10 @@ t11 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-# t16 = PythonOperator(
-#     task_id="insert_registro_alta_rhp",
-#     python_callable=df_registro_alta,
-#     dag=dag)
+t16 = PythonOperator(
+    task_id="insert_registro_alta_rhp",
+    python_callable=df_registro_alta,
+    dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
@@ -2208,10 +2219,10 @@ t11 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-# t20 = PythonOperator(
-#     task_id="insert_tempo_processo_rhp",
-#     python_callable=df_tempo_processo,
-#     dag=dag)
+t20 = PythonOperator(
+    task_id="insert_tempo_processo_rhp",
+    python_callable=df_tempo_processo,
+    dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
@@ -2223,10 +2234,10 @@ t11 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-# t23 = PythonOperator(
-#     task_id="insert_triagem_atendimento_rhp",
-#     python_callable=df_triagem_atendimento,
-#     dag=dag)
+t23 = PythonOperator(
+    task_id="insert_triagem_atendimento_rhp",
+    python_callable=df_triagem_atendimento,
+    dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -2398,6 +2409,4 @@ t11 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-# t6 >> t7 >> t8 >> t11 >> t14 >> t15 >> t16 >> t18 >> t20 >> t23 >> t24 >> t25 >> t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t33 >> t34 >> t35 >> t36 >> t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t55 >> t56 >> t57 >> t0
-
-t11
+t23 >> t16 >> t20 >> t7
