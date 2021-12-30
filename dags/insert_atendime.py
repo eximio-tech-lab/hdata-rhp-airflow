@@ -657,6 +657,7 @@ def df_registro_alta():
 
     print("dados para incremento")
     print(df_dim.info())
+    print(df_dim)
 
     con = connect_rhp_hdata()
 
@@ -2174,10 +2175,10 @@ t7 = PythonOperator(
 #     python_callable=df_prestador,
 #     dag=dag)
 
-t11 = PythonOperator(
-    task_id="insert_mot_alt_rhp",
-    python_callable=df_mot_alt,
-    dag=dag)
+# t11 = PythonOperator(
+#     task_id="insert_mot_alt_rhp",
+#     python_callable=df_mot_alt,
+#     dag=dag)
 
 # t12 = PythonOperator(
 #     task_id="insert_multi_empresa_rhp",
@@ -2409,4 +2410,4 @@ t20 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t11 >> t16 >> t20 >> t7
+t16 >> t20 >> t7
