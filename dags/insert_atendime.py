@@ -527,7 +527,7 @@ def df_prestador():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PRESTADOR (CD_PRESTADOR, NM_PRESTADOR, DT_NASCIMENTO, TP_PRESTADOR, CD_TIP_PRESTA) VALUES (:1, :2, TO_DATE(:3, 'DD\.MM\.YYYY HH24:MI:SS'), :4, :5)"
+    sql="INSERT INTO MV_RHP.PRESTADOR (CD_PRESTADOR, NM_PRESTADOR, DT_NASCIMENTO, TP_PRESTADOR, CD_TIP_PRESTA) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
