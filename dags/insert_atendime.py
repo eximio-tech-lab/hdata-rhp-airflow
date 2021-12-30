@@ -533,6 +533,7 @@ def df_prestador():
     n = 0
     
     for i in df_dim.iterrows():
+        print(df_list[n])
         cursor.execute(sql, df_list[n])
         n += 1
 
