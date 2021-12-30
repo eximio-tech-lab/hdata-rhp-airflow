@@ -279,7 +279,7 @@ def df_diagnostico_atendime():
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-10-01 00:00:00', data_fim='2021-12-31 00:00:00'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-08-01 00:00:00', data_fim='2021-09-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -314,7 +314,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-07-01 00:00:00', data_fim='2021-09-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-06-01 00:00:00', data_fim='2021-07-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -349,7 +349,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-05-01 00:00:00', data_fim='2021-06-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-04-01 00:00:00', data_fim='2021-05-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -384,7 +384,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-03-01 00:00:00', data_fim='2021-04-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-02-01 00:00:00', data_fim='2021-03-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -419,7 +419,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-01-01 00:00:00', data_fim='2021-02-28 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-01-01 00:00:00', data_fim='2021-01-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
