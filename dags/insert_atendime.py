@@ -1738,7 +1738,7 @@ def df_sintoma_avaliacao():
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
 
-    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2019-07-01 00:00:00", data_fim="2019-12-31 23:59:59"), connect_rhp())
+    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2021-01-01 00:00:00", data_fim="2021-06-30 23:59:59"), connect_rhp())
 
     print(df_dim)
 
@@ -3028,20 +3028,20 @@ def df_mot_dev():
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
-t0 = PythonOperator(
-    task_id="insert_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="insert_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="insert_cid_rhp",
 #     python_callable=df_cid,
 #     dag=dag)
 
-t2 = PythonOperator(
-    task_id="insert_classificacao_risco_rhp",
-    python_callable=df_classificacao_risco,
-    dag=dag)
+# t2 = PythonOperator(
+#     task_id="insert_classificacao_risco_rhp",
+#     python_callable=df_classificacao_risco,
+#     dag=dag)
 
 # t3 = PythonOperator(
 #     task_id="insert_classificacao_rhp",
@@ -3063,10 +3063,10 @@ t2 = PythonOperator(
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="insert_esp_med_rhp",
@@ -3113,10 +3113,10 @@ t7 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-t16 = PythonOperator(
-    task_id="insert_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="insert_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="insert_setor_rhp",
@@ -3148,10 +3148,10 @@ t20 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-t23 = PythonOperator(
-    task_id="insert_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t23 = PythonOperator(
+#     task_id="insert_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="insert_usuario_rhp",
@@ -3323,4 +3323,4 @@ t23 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t2 >> t16 >> t20 >> t23 >> t7 >> t0
+# t2 >> t16 >> t20 >> t23 >> t7 >> t0
