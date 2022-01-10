@@ -31,7 +31,7 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def df_atendime():
     print("Entrou no df_atendime")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-12-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-12-01 00:00:00', data_fim='2018-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -84,7 +84,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-11-01 00:00:00', data_fim='2019-11-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-11-01 00:00:00', data_fim='2018-11-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -137,7 +137,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-10-01 00:00:00', data_fim='2019-10-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-10-01 00:00:00', data_fim='2018-10-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -190,7 +190,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-09-01 00:00:00', data_fim='2019-09-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-09-01 00:00:00', data_fim='2018-09-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -243,7 +243,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-08-01 00:00:00', data_fim='2019-08-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-08-01 00:00:00', data_fim='2018-08-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -296,7 +296,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-07-01 00:00:00', data_fim='2019-07-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-07-01 00:00:00', data_fim='2018-07-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -349,7 +349,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-06-01 00:00:00', data_fim='2019-06-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-06-01 00:00:00', data_fim='2018-06-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -402,7 +402,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-05-01 00:00:00', data_fim='2019-05-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-05-01 00:00:00', data_fim='2018-05-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -455,7 +455,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-04-01 00:00:00', data_fim='2019-04-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-04-01 00:00:00', data_fim='2018-04-30 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -508,7 +508,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-03-01 00:00:00', data_fim='2019-03-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-03-01 00:00:00', data_fim='2018-03-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -561,7 +561,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-02-01 00:00:00', data_fim='2019-02-28 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-02-01 00:00:00', data_fim='2018-02-28 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -614,7 +614,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2019-01-01 00:00:00', data_fim='2019-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='2018-01-01 00:00:00', data_fim='2018-01-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -3028,10 +3028,10 @@ def df_mot_dev():
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
-# t0 = PythonOperator(
-#     task_id="insert_atendime_rhp",
-#     python_callable=df_atendime,
-#     dag=dag)
+t0 = PythonOperator(
+    task_id="insert_atendime_rhp",
+    python_callable=df_atendime,
+    dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="insert_cid_rhp",
@@ -3133,10 +3133,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
