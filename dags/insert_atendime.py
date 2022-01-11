@@ -764,10 +764,12 @@ def df_classificacao():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -796,10 +798,12 @@ def df_convenio():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -827,10 +831,12 @@ def df_cor_referencia():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -860,10 +866,12 @@ def df_diagnostico_atendime():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1316,10 +1324,12 @@ def df_esp_med():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1348,10 +1358,12 @@ def df_especialidad():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1380,10 +1392,12 @@ def df_gru_cid():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1447,10 +1461,12 @@ def df_multi_empresa():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1481,10 +1497,12 @@ def df_ori_ate():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1590,10 +1608,12 @@ def df_pagu_objeto():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1659,10 +1679,12 @@ def df_setor():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1727,10 +1749,12 @@ def df_sintoma_avaliacao():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1794,10 +1818,12 @@ def df_tip_mar():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1827,10 +1853,12 @@ def df_tip_res():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -1896,43 +1924,6 @@ def df_usuario():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
-    for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
-        n += 1
-
-    con.commit()
-    cursor.close
-    con.close
-
-    print("Dados USUARIOS inseridos")
-
-def df_pre_med():
-    print("Entrou no df_pre_med")
-
-    df_dim = pd.read_sql(query_pre_med.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
-
-    print(df_dim)
-
-    df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
-    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna("0")
-    df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
-    df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
-    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
-    
-    print("dados para incremento")
-    print(df_dim.info())
-
-    con = connect_rhp_hdata()
-
-    cursor = con.cursor()
-
-    sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7)"
-
-    df_list = df_dim.values.tolist()
-    n = 0
     cols = []
     for i in df_dim.iterrows():
         cols.append(df_list[n])
@@ -1944,7 +1935,10 @@ def df_pre_med():
     cursor.close
     con.close
 
-    print("Dados PRE_MED inseridos")
+    print("Dados USUARIOS inseridos")
+
+def df_pre_med():
+    print("Entrou no df_pre_med")
 
     df_dim = pd.read_sql(query_pre_med.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
 
@@ -1953,7 +1947,7 @@ def df_pre_med():
     df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
-    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna("0")
+    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(0)
     df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
@@ -1989,7 +1983,7 @@ def df_pre_med():
     df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
-    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna("0")
+    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(0)
     df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
@@ -2045,11 +2039,12 @@ def df_itpre_med():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        print(n)
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2079,10 +2074,12 @@ def df_tip_presc():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2111,10 +2108,12 @@ def df_for_apl():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2143,10 +2142,12 @@ def df_tip_esq():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2175,10 +2176,12 @@ def df_tip_fre():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2215,10 +2218,12 @@ def df_gru_fat():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2250,10 +2255,12 @@ def df_gru_pro():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2287,10 +2294,12 @@ def df_produto():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2321,10 +2330,12 @@ def df_pro_fat():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2354,10 +2365,12 @@ def df_tuss():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2391,10 +2404,12 @@ def df_uni_pro():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2424,10 +2439,12 @@ def df_reg_amb():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2470,10 +2487,12 @@ def df_itreg_amb():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2508,10 +2527,12 @@ def df_reg_fat():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2553,10 +2574,12 @@ def df_itreg_fat():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2585,10 +2608,12 @@ def df_custo_final():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2621,10 +2646,12 @@ def df_mvto_estoque():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2656,10 +2683,12 @@ def df_itmvto_estoque():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2689,10 +2718,12 @@ def df_quantidade_diarias():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2723,10 +2754,12 @@ def df_remessa_fatura():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2755,10 +2788,12 @@ def df_repasse():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2788,10 +2823,12 @@ def df_it_repasse():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2823,10 +2860,12 @@ def df_itent_pro():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2860,10 +2899,12 @@ def df_glosas():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2894,10 +2935,12 @@ def df_custo_medio_mensal():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2931,10 +2974,12 @@ def df_fa_custo_atendimento():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2963,10 +3008,12 @@ def df_especie():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -2996,10 +3043,12 @@ def df_exa_lab():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -3029,10 +3078,12 @@ def df_exa_rx():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -3061,10 +3112,12 @@ def df_motivo_glosa():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
@@ -3093,10 +3146,12 @@ def df_mot_dev():
 
     df_list = df_dim.values.tolist()
     n = 0
-    
+    cols = []
     for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
+        cols.append(df_list[n])
         n += 1
+
+    cursor.executemany(sql, cols)
 
     con.commit()
     cursor.close
