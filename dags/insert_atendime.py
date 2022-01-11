@@ -1906,38 +1906,48 @@ def df_usuario():
 
 def df_pre_med():
     print("Entrou no df_pre_med")
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
-    df_dim = pd.read_sql(query_pre_med, connect_rhp())
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
 
-    print(df_dim)
+        print(dt.year, dt.month, dt.day, '/', data_fim.year, data_fim.month, data_fim.day)
 
-    df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
-    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna("0")
-    df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
-    df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
-    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
-    
-    print("dados para incremento")
-    print(df_dim.info())
+        print(dt.strftime('%Y-%m-%d' + ' 00:00:00'))
 
-    con = connect_rhp_hdata()
+        df_dim = pd.read_sql(query_pre_med.format(data_ini=dt.strftime('%Y-%m-%d' + ' 00:00:00'), data_fim=data_fim.strftime('%Y-%m-%d' + ' 23:59:59'), connect_rhp())
 
-    cursor = con.cursor()
+        print(df_dim)
 
-    sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7)"
+        df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+        df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna("0")
+        df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
+        df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
+        df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+        
+        print("dados para incremento")
+        print(df_dim.info())
 
-    df_list = df_dim.values.tolist()
-    n = 0
-    
-    for i in df_dim.iterrows():
-        cursor.execute(sql, df_list[n])
-        n += 1
+        con = connect_rhp_hdata()
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7)"
+
+        df_list = df_dim.values.tolist()
+        n = 0
+        
+        for i in df_dim.iterrows():
+            cursor.execute(sql, df_list[n])
+            n += 1
+
+        con.commit()
+        cursor.close
+        con.close
 
     print("Dados PRE_MED inseridos")
 
