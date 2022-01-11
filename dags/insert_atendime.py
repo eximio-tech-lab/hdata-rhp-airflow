@@ -2391,7 +2391,7 @@ def df_uni_pro():
     df_dim["TP_RELATORIOS"] = df_dim["TP_RELATORIOS"].fillna("0")
     df_dim["CD_UNI_PRO"] = df_dim["CD_UNI_PRO"].fillna(0)
     df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
-    df_dim["SN_ATIVO"] = df_dim["VL_FATOR"].fillna("0")
+    df_dim["SN_ATIVO"] = df_dim["SN_ATIVO"].fillna("0")
     
     print("dados para incremento")
     print(df_dim.info())
