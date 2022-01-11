@@ -2455,7 +2455,8 @@ def df_reg_amb():
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
 
-    df_dim = pd.read_sql(query_itreg_amb, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_itreg_amb.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -2472,8 +2473,100 @@ def df_itreg_amb():
     df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
     df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
     df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
-    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna(0)
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
     df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.ITREG_AMB (CD_ATENDIMENTO, CD_PRO_FAT, CD_REG_AMB, CD_GRU_FAT, CD_LANCAMENTO, QT_LANCAMENTO, VL_UNITARIO, VL_NOTA, CD_SETOR, CD_SETOR_PRODUZIU, TP_PAGAMENTO, SN_PERTENCE_PACOTE, VL_TOTAL_CONTA, SN_FECHADA, DT_FECHAMENTO, CD_ITMVTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, 'DD.MM.YYYY HH24:MI:SS'), :16)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados ITREG_AMB inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_itreg_amb.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_REG_AMB"] = df_dim["CD_REG_AMB"].fillna(0)
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
+    df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_SETOR_PRODUZIU"] = df_dim["CD_SETOR_PRODUZIU"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
+    df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
+    df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.ITREG_AMB (CD_ATENDIMENTO, CD_PRO_FAT, CD_REG_AMB, CD_GRU_FAT, CD_LANCAMENTO, QT_LANCAMENTO, VL_UNITARIO, VL_NOTA, CD_SETOR, CD_SETOR_PRODUZIU, TP_PAGAMENTO, SN_PERTENCE_PACOTE, VL_TOTAL_CONTA, SN_FECHADA, DT_FECHAMENTO, CD_ITMVTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, TO_DATE(:15, 'DD.MM.YYYY HH24:MI:SS'), :16)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados ITREG_AMB inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_itreg_amb.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_REG_AMB"] = df_dim["CD_REG_AMB"].fillna(0)
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
+    df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_SETOR_PRODUZIU"] = df_dim["CD_SETOR_PRODUZIU"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
+    df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
     df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
     
     print("dados para incremento")
@@ -2503,15 +2596,92 @@ def df_itreg_amb():
 def df_reg_fat():
     print("Entrou no df_reg_fat")
 
-    df_dim = pd.read_sql(query_reg_fat, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_reg_fat.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
     df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
     df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
-    df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
-    df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
-    df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7, :8)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados REG_FAT inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_reg_fat.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
+    # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:5, 'DD.MM.YYYY HH24:MI:SS'), :6, :7, :8)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados REG_FAT inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_reg_fat.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
+    # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
     df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
     df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -2543,15 +2713,106 @@ def df_reg_fat():
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
 
-    df_dim = pd.read_sql(query_itreg_fat, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_itreg_fat.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
     df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
     df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
-    df_dim["DT_LANCAMENTO"] = df_dim["DT_LANCAMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_LANCAMENTO"] = df_dim["DT_LANCAMENTO"].fillna("01.01.1899 00:00:00")
     df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
-    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
+    df_dim["CD_CONTA_PAI"] = df_dim["CD_CONTA_PAI"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_SETOR_PRODUZIU"] = df_dim["CD_SETOR_PRODUZIU"].fillna(0)
+    df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.ITREG_FAT (CD_REG_FAT, CD_LANCAMENTO, DT_LANCAMENTO, QT_LANCAMENTO, TP_PAGAMENTO, VL_UNITARIO, VL_NOTA, CD_CONTA_PAI, CD_PRO_FAT, CD_PRO_FAT, CD_GRU_FAT, VL_TOTAL_CONTA, SN_PERTENCE_PACOTE, CD_SETOR, CD_SETOR_PRODUZIU, CD_ITMVTO) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados ITREG_FAT inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_itreg_fat.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
+    # df_dim["DT_LANCAMENTO"] = df_dim["DT_LANCAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
+    df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
+    df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
+    df_dim["CD_CONTA_PAI"] = df_dim["CD_CONTA_PAI"].fillna(0)
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_GRU_FAT"] = df_dim["CD_GRU_FAT"].fillna(0)
+    df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
+    df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_SETOR_PRODUZIU"] = df_dim["CD_SETOR_PRODUZIU"].fillna(0)
+    df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.ITREG_FAT (CD_REG_FAT, CD_LANCAMENTO, DT_LANCAMENTO, QT_LANCAMENTO, TP_PAGAMENTO, VL_UNITARIO, VL_NOTA, CD_CONTA_PAI, CD_PRO_FAT, CD_PRO_FAT, CD_GRU_FAT, VL_TOTAL_CONTA, SN_PERTENCE_PACOTE, CD_SETOR, CD_SETOR_PRODUZIU, CD_ITMVTO) VALUES (:1, :2, TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15)"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados ITREG_FAT inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_itreg_fat.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
+    df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
+    # df_dim["DT_LANCAMENTO"] = df_dim["DT_LANCAMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
+    df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
     df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
     df_dim["VL_NOTA"] = df_dim["VL_NOTA"].fillna(0)
     df_dim["CD_CONTA_PAI"] = df_dim["CD_CONTA_PAI"].fillna(0)
@@ -2590,12 +2851,77 @@ def df_itreg_fat():
 def df_custo_final():
     print("Entrou no df_custo_final")
 
-    df_dim = pd.read_sql(query_custo_final, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_custo_final.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
     df_dim["VL_CUSTO_CENCIR"] = df_dim["VL_CUSTO_CENCIR"].fillna(0)
-    df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados CUSTO_FINAL inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_custo_final.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["VL_CUSTO_CENCIR"] = df_dim["VL_CUSTO_CENCIR"].fillna(0)
+    # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados CUSTO_FINAL inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_custo_final.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["VL_CUSTO_CENCIR"] = df_dim["VL_CUSTO_CENCIR"].fillna(0)
+    # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
     print(df_dim.info())
@@ -2624,7 +2950,8 @@ def df_custo_final():
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
 
-    df_dim = pd.read_sql(query_mvto_estoque, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_mvto_estoque.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -2633,7 +2960,79 @@ def df_mvto_estoque():
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
     df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
-    df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, TO_DATE(:6, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados MVTO_ESTOQUE inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_mvto_estoque.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_MVTO_ESTOQUE"] = df_dim["CD_MVTO_ESTOQUE"].fillna(0)
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
+    df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
+    # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, TO_DATE(:6, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados MVTO_ESTOQUE inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_mvto_estoque.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_MVTO_ESTOQUE"] = df_dim["CD_MVTO_ESTOQUE"].fillna(0)
+    df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
+    df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
+    # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
     print(df_dim.info())
@@ -2734,14 +3133,83 @@ def df_quantidade_diarias():
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
 
-    df_dim = pd.read_sql(query_remessa_fatura, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_remessa_fatura.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
     df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
-    df_dim["DT_ABERTURA"] = df_dim["DT_ABERTURA"].fillna("01.01.1899 00:00:00")
-    df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
-    df_dim["DT_ENTREGA_DA_FATURA"] = df_dim["DT_ENTREGA_DA_FATURA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_ABERTURA"] = df_dim["DT_ABERTURA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_ENTREGA_DA_FATURA"] = df_dim["DT_ENTREGA_DA_FATURA"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados REMESSA_FATURA inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_remessa_fatura.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    # df_dim["DT_ABERTURA"] = df_dim["DT_ABERTURA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_ENTREGA_DA_FATURA"] = df_dim["DT_ENTREGA_DA_FATURA"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:3, 'DD.MM.YYYY HH24:MI:SS'), TO_DATE(:4, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados REMESSA_FATURA inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_remessa_fatura.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
+    # df_dim["DT_ABERTURA"] = df_dim["DT_ABERTURA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_ENTREGA_DA_FATURA"] = df_dim["DT_ENTREGA_DA_FATURA"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
     print(df_dim.info())
@@ -2770,12 +3238,77 @@ def df_remessa_fatura():
 def df_repasse():
     print("Entrou no df_repasse")
 
-    df_dim = pd.read_sql(query_repasse, connect_rhp())
+    print("2021")
+    df_dim = pd.read_sql(query_repasse.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
     df_dim["CD_REPASSE"] = df_dim["CD_REPASSE"].fillna(0)
-    df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
+    # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados REPASSE inseridos")
+
+    print("2020")
+    df_dim = pd.read_sql(query_repasse.format(data_ini='2020-01-01 00:00:00', data_fim='2020-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REPASSE"] = df_dim["CD_REPASSE"].fillna(0)
+    # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
+    
+    print("dados para incremento")
+    print(df_dim.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, TO_DATE(:2, 'DD.MM.YYYY HH24:MI:SS'))"
+
+    df_list = df_dim.values.tolist()
+    n = 0
+    cols = []
+    for i in df_dim.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados REPASSE inseridos")
+
+    print("2019")
+    df_dim = pd.read_sql(query_repasse.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_REPASSE"] = df_dim["CD_REPASSE"].fillna(0)
+    # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
     print(df_dim.info())
@@ -3341,65 +3874,65 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_tuss,
 #     dag=dag)
 
-t36 = PythonOperator(
-    task_id="insert_uni_pro_rhp",
-    python_callable=df_uni_pro,
+# t36 = PythonOperator(
+#     task_id="insert_uni_pro_rhp",
+#     python_callable=df_uni_pro,
+#     dag=dag)
+
+t37 = PythonOperator(
+    task_id="insert_reg_amb_rhp",
+    python_callable=df_reg_amb,
     dag=dag)
 
-# t37 = PythonOperator(
-#     task_id="insert_reg_amb_rhp",
-#     python_callable=df_reg_amb,
-#     dag=dag)
+t38 = PythonOperator(
+    task_id="insert_itreg_amb_rhp",
+    python_callable=df_itreg_amb,
+    dag=dag)
 
-# t38 = PythonOperator(
-#     task_id="insert_itreg_amb_rhp",
-#     python_callable=df_itreg_amb,
-#     dag=dag)
+t39 = PythonOperator(
+    task_id="insert_reg_fat_rhp",
+    python_callable=df_reg_fat,
+    dag=dag)
 
-# t39 = PythonOperator(
-#     task_id="insert_reg_fat_rhp",
-#     python_callable=df_reg_fat,
-#     dag=dag)
+t40 = PythonOperator(
+    task_id="insert_itreg_fat_rhp",
+    python_callable=df_itreg_fat,
+    dag=dag)
 
-# t40 = PythonOperator(
-#     task_id="insert_itreg_fat_rhp",
-#     python_callable=df_itreg_fat,
-#     dag=dag)
+t41 = PythonOperator(
+    task_id="insert_custo_final_rhp",
+    python_callable=df_custo_final,
+    dag=dag)
 
-# t41 = PythonOperator(
-#     task_id="insert_custo_final_rhp",
-#     python_callable=df_custo_final,
-#     dag=dag)
+t42 = PythonOperator(
+    task_id="insert_mvto_estoque_rhp",
+    python_callable=df_mvto_estoque,
+    dag=dag)
 
-# t42 = PythonOperator(
-#     task_id="insert_mvto_estoque_rhp",
-#     python_callable=df_mvto_estoque,
-#     dag=dag)
+t43 = PythonOperator(
+    task_id="insert_itmvto_estoque_rhp",
+    python_callable=df_itmvto_estoque,
+    dag=dag)
 
-# t43 = PythonOperator(
-#     task_id="insert_itmvto_estoque_rhp",
-#     python_callable=df_itmvto_estoque,
-#     dag=dag)
+t44 = PythonOperator(
+    task_id="insert_quantidade_diarias_rhp",
+    python_callable=df_quantidade_diarias,
+    dag=dag)
 
-# t44 = PythonOperator(
-#     task_id="insert_quantidade_diarias_rhp",
-#     python_callable=df_quantidade_diarias,
-#     dag=dag)
+t45 = PythonOperator(
+    task_id="insert_remessa_fatura_rhp",
+    python_callable=df_remessa_fatura,
+    dag=dag)
 
-# t45 = PythonOperator(
-#     task_id="insert_remessa_fatura_rhp",
-#     python_callable=df_remessa_fatura,
-#     dag=dag)
+t46 = PythonOperator(
+    task_id="insert_repasse_rhp",
+    python_callable=df_repasse,
+    dag=dag)
 
-# t46 = PythonOperator(
-#     task_id="insert_repasse_rhp",
-#     python_callable=df_repasse,
-#     dag=dag)
-
-# t47 = PythonOperator(
-#     task_id="insert_it_repasse_rhp",
-#     python_callable=df_it_repasse,
-#     dag=dag)
+t47 = PythonOperator(
+    task_id="insert_it_repasse_rhp",
+    python_callable=df_it_repasse,
+    dag=dag)
 
 # t48 = PythonOperator(
 #     task_id="insert_itent_pro_rhp",
@@ -3451,4 +3984,4 @@ t36 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t36
+t37 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47
