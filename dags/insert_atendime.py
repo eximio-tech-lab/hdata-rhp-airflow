@@ -2020,7 +2020,7 @@ def df_itpre_med():
     print(df_dim)
 
     df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
-    df_dim["CD_IT_PRE_MED"] = df_dim["CD_IT_PRE_MED"].fillna(0)
+    df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
     df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
     df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
     df_dim["CD_TIP_ESQ"] = df_dim["CD_TIP_ESQ"].fillna("0")
@@ -2035,7 +2035,7 @@ def df_itpre_med():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITPRE_MED (CD_PRE_MED, CD_IT_PRE_MED, CD_PRODUTO, CD_TIP_PRESC, CD_TIP_ESQ, CD_FOR_APL, CD_TIP_FRE, TP_JUSTIFICATIVA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+    sql="INSERT INTO MV_RHP.ITPRE_MED (CD_PRE_MED, CD_ITPRE_MED, CD_PRODUTO, CD_TIP_PRESC, CD_TIP_ESQ, CD_FOR_APL, CD_TIP_FRE, TP_JUSTIFICATIVA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
     df_list = df_dim.values.tolist()
     n = 0
