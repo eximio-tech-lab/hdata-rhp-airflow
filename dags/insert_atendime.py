@@ -3336,10 +3336,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_pro_fat,
 #     dag=dag)
 
-t35 = PythonOperator(
-    task_id="insert_tuss_rhp",
-    python_callable=df_tuss,
-    dag=dag)
+# t35 = PythonOperator(
+#     task_id="insert_tuss_rhp",
+#     python_callable=df_tuss,
+#     dag=dag)
 
 t36 = PythonOperator(
     task_id="insert_uni_pro_rhp",
@@ -3451,4 +3451,4 @@ t36 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t35 >> t36
+t36
