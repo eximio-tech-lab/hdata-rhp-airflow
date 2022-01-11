@@ -4065,10 +4065,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_itreg_amb,
 #     dag=dag)
 
-t39 = PythonOperator(
-    task_id="insert_reg_fat_rhp",
-    python_callable=df_reg_fat,
-    dag=dag)
+# t39 = PythonOperator(
+#     task_id="insert_reg_fat_rhp",
+#     python_callable=df_reg_fat,
+#     dag=dag)
 
 t40 = PythonOperator(
     task_id="insert_itreg_fat_rhp",
@@ -4160,4 +4160,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t56 >> t57
+t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t56 >> t57
