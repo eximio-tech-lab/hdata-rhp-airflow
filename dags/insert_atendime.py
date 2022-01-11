@@ -2995,7 +2995,7 @@ def df_mvto_estoque():
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
-    df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
     # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
@@ -3005,7 +3005,7 @@ def df_mvto_estoque():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRESA, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3031,7 +3031,7 @@ def df_mvto_estoque():
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
-    df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
     # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
@@ -3041,7 +3041,7 @@ def df_mvto_estoque():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRESA, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3067,7 +3067,7 @@ def df_mvto_estoque():
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
     df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
-    df_dim["CD_MULTI_EMPRES"] = df_dim["CD_MULTI_EMPRES"].fillna(0)
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
     # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
     
     print("dados para incremento")
@@ -3077,7 +3077,7 @@ def df_mvto_estoque():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRESA, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -4075,10 +4075,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_itreg_fat,
 #     dag=dag)
 
-t41 = PythonOperator(
-    task_id="insert_custo_final_rhp",
-    python_callable=df_custo_final,
-    dag=dag)
+# t41 = PythonOperator(
+#     task_id="insert_custo_final_rhp",
+#     python_callable=df_custo_final,
+#     dag=dag)
 
 t42 = PythonOperator(
     task_id="insert_mvto_estoque_rhp",
@@ -4160,4 +4160,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t56 >> t57
+t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t56 >> t57
