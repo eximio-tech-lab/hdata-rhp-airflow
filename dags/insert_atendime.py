@@ -3143,10 +3143,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
@@ -3168,10 +3168,10 @@ t20 = PythonOperator(
 #     python_callable=df_usuario,
 #     dag=dag)
 
-# t25 = PythonOperator(
-#     task_id="insert_pre_med_rhp",
-#     python_callable=df_pre_med,
-#     dag=dag)
+t25 = PythonOperator(
+    task_id="insert_pre_med_rhp",
+    python_callable=df_pre_med,
+    dag=dag)
 
 # t26 = PythonOperator(
 #     task_id="insert_itpre_med_rhp",
