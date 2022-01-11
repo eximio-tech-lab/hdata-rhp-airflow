@@ -4000,10 +4000,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_usuario,
 #     dag=dag)
 
-t25 = PythonOperator(
-    task_id="insert_pre_med_rhp",
-    python_callable=df_pre_med,
-    dag=dag)
+# t25 = PythonOperator(
+#     task_id="insert_pre_med_rhp",
+#     python_callable=df_pre_med,
+#     dag=dag)
 
 # t26 = PythonOperator(
 #     task_id="insert_itpre_med_rhp",
@@ -4060,10 +4060,10 @@ t25 = PythonOperator(
 #     python_callable=df_reg_amb,
 #     dag=dag)
 
-t38 = PythonOperator(
-    task_id="insert_itreg_amb_rhp",
-    python_callable=df_itreg_amb,
-    dag=dag)
+# t38 = PythonOperator(
+#     task_id="insert_itreg_amb_rhp",
+#     python_callable=df_itreg_amb,
+#     dag=dag)
 
 t39 = PythonOperator(
     task_id="insert_reg_fat_rhp",
@@ -4130,34 +4130,34 @@ t51 = PythonOperator(
     python_callable=df_fa_custo_atendimento,
     dag=dag)
 
-# t52 = PythonOperator(
-#     task_id="insert_especie_rhp",
-#     python_callable=df_especie,
-#     dag=dag)
+t52 = PythonOperator(
+    task_id="insert_especie_rhp",
+    python_callable=df_especie,
+    dag=dag)
 
-# t53 = PythonOperator(
-#     task_id="insert_exa_lab_rhp",
-#     python_callable=df_exa_lab,
-#     dag=dag)
+t53 = PythonOperator(
+    task_id="insert_exa_lab_rhp",
+    python_callable=df_exa_lab,
+    dag=dag)
 
-# t54 = PythonOperator(
-#     task_id="insert_exa_rx_rhp",
-#     python_callable=df_exa_rx,
-#     dag=dag)
+t54 = PythonOperator(
+    task_id="insert_exa_rx_rhp",
+    python_callable=df_exa_rx,
+    dag=dag)
 
 # t55 = PythonOperator(
 #     task_id="insert_gru_fat_rhp",
 #     python_callable=df_gru_fat,
 #     dag=dag)
 
-# t56 = PythonOperator(
-#     task_id="insert_motivo_glosa_rhp",
-#     python_callable=df_motivo_glosa,
-#     dag=dag)
+t56 = PythonOperator(
+    task_id="insert_motivo_glosa_rhp",
+    python_callable=df_motivo_glosa,
+    dag=dag)
 
-# t57 = PythonOperator(
-#     task_id="insert_mot_dev_rhp",
-#     python_callable=df_mot_dev,
-#     dag=dag)
+t57 = PythonOperator(
+    task_id="insert_mot_dev_rhp",
+    python_callable=df_mot_dev,
+    dag=dag)
 
-t25 >> t38 >> t39 >> t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51
+t40 >> t41 >> t42 >> t43 >> t44 >> t45 >> t46 >> t47 >> t48 >> t49 >> t50 >> t51 >> t52 >> t53 >> t54 >> t56 >> t57
