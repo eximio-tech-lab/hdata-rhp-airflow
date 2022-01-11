@@ -2902,7 +2902,7 @@ def df_custo_final():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2))"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2934,7 +2934,7 @@ def df_custo_final():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2966,7 +2966,7 @@ def df_custo_final():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3005,7 +3005,7 @@ def df_mvto_estoque():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3041,7 +3041,7 @@ def df_mvto_estoque():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3077,7 +3077,7 @@ def df_mvto_estoque():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.MVTO_ESTOQUE (CD_MVTO_ESTOQUE, CD_SETOR, CD_ATENDIMENTO, CD_MOT_DEV, CD_MULTI_EMPRES, DT_MVTO_ESTOQUE) VALUES (:1, :2, :3, :4, :5, :6)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3186,7 +3186,7 @@ def df_remessa_fatura():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, :2, :3, :4, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, :2, :3, :4)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3220,7 +3220,7 @@ def df_remessa_fatura():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, :2, :3, :4, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, :2, :3, :4)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3254,7 +3254,7 @@ def df_remessa_fatura():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, :2, :3, :4, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REMESSA_FATURA (CD_REMESSA, DT_ABERTURA, DT_FECHAMENTO, DT_ENTREGA_DA_FATURA) VALUES (:1, :2, :3, :4)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3289,7 +3289,7 @@ def df_repasse():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, :2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3321,7 +3321,7 @@ def df_repasse():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, :2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3353,7 +3353,7 @@ def df_repasse():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, :2, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.REPASSE (CD_REPASSE, DT_COMPETENCIA) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3426,7 +3426,7 @@ def df_itent_pro():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, :5, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3461,7 +3461,7 @@ def df_itent_pro():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, :5, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -3496,7 +3496,7 @@ def df_itent_pro():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, :5, 'DD.MM.YYYY HH24:MI:SS'))"
+    sql="INSERT INTO MV_RHP.ITENT_PRO (VL_TOTAL, CD_ATENDIMENTO, CD_PRODUTO, VL_UNITARIO, DT_GRAVACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_dim.values.tolist()
     n = 0
