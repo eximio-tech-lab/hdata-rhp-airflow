@@ -2,7 +2,9 @@ import airflow
 import unidecode
 import pandas as pd
 import numpy as np
+import datetime
 
+from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
