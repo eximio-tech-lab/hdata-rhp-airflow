@@ -2902,7 +2902,7 @@ def df_custo_final():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2))"
+    sql="INSERT INTO MV_RHP.CUSTO_FINAL (VL_CUSTO_CENCIR, DT_COMPETENCIA) VALUES (:1, :2)"
 
     df_list = df_dim.values.tolist()
     n = 0
