@@ -3296,45 +3296,45 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 #     python_callable=df_pre_med,
 #     dag=dag)
 
-t26 = PythonOperator(
-    task_id="insert_itpre_med_rhp",
-    python_callable=df_itpre_med,
-    dag=dag)
+# t26 = PythonOperator(
+#     task_id="insert_itpre_med_rhp",
+#     python_callable=df_itpre_med,
+#     dag=dag)
 
-t27 = PythonOperator(
-    task_id="insert_tip_presc_rhp",
-    python_callable=df_tip_presc,
-    dag=dag)
+# t27 = PythonOperator(
+#     task_id="insert_tip_presc_rhp",
+#     python_callable=df_tip_presc,
+#     dag=dag)
 
-t28 = PythonOperator(
-    task_id="insert_for_apl_rhp",
-    python_callable=df_for_apl,
-    dag=dag)
+# t28 = PythonOperator(
+#     task_id="insert_for_apl_rhp",
+#     python_callable=df_for_apl,
+#     dag=dag)
 
-t29 = PythonOperator(
-    task_id="insert_tip_esq_rhp",
-    python_callable=df_tip_esq,
-    dag=dag)
+# t29 = PythonOperator(
+#     task_id="insert_tip_esq_rhp",
+#     python_callable=df_tip_esq,
+#     dag=dag)
 
-t30 = PythonOperator(
-    task_id="insert_tip_fre_rhp",
-    python_callable=df_tip_fre,
-    dag=dag)
+# t30 = PythonOperator(
+#     task_id="insert_tip_fre_rhp",
+#     python_callable=df_tip_fre,
+#     dag=dag)
 
-t32 = PythonOperator(
-    task_id="insert_gru_pro_rhp",
-    python_callable=df_gru_pro,
-    dag=dag)
+# t32 = PythonOperator(
+#     task_id="insert_gru_pro_rhp",
+#     python_callable=df_gru_pro,
+#     dag=dag)
 
-t33 = PythonOperator(
-    task_id="insert_produto_rhp",
-    python_callable=df_produto,
-    dag=dag)
+# t33 = PythonOperator(
+#     task_id="insert_produto_rhp",
+#     python_callable=df_produto,
+#     dag=dag)
 
-t34 = PythonOperator(
-    task_id="insert_pro_fat_rhp",
-    python_callable=df_pro_fat,
-    dag=dag)
+# t34 = PythonOperator(
+#     task_id="insert_pro_fat_rhp",
+#     python_callable=df_pro_fat,
+#     dag=dag)
 
 t35 = PythonOperator(
     task_id="insert_tuss_rhp",
@@ -3436,10 +3436,10 @@ t36 = PythonOperator(
 #     python_callable=df_exa_rx,
 #     dag=dag)
 
-t55 = PythonOperator(
-    task_id="insert_gru_fat_rhp",
-    python_callable=df_gru_fat,
-    dag=dag)
+# t55 = PythonOperator(
+#     task_id="insert_gru_fat_rhp",
+#     python_callable=df_gru_fat,
+#     dag=dag)
 
 # t56 = PythonOperator(
 #     task_id="insert_motivo_glosa_rhp",
@@ -3451,4 +3451,4 @@ t55 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-t26 >> t27 >> t28 >> t29 >> t30 >> t32 >> t55 >> t33 >> t34 >> t35 >> t36
+t35 >> t36
