@@ -3028,10 +3028,10 @@ def df_mot_dev():
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
-t0 = PythonOperator(
-    task_id="insert_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="insert_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="insert_cid_rhp",
@@ -3133,10 +3133,10 @@ t0 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-# t20 = PythonOperator(
-#     task_id="insert_tempo_processo_rhp",
-#     python_callable=df_tempo_processo,
-#     dag=dag)
+t20 = PythonOperator(
+    task_id="insert_tempo_processo_rhp",
+    python_callable=df_tempo_processo,
+    dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="insert_tip_mar_rhp",
