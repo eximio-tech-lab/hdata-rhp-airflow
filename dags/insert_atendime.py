@@ -2638,7 +2638,7 @@ def df_reg_fat():
     print(df_dim)
 
     df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
-    df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
     # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
     # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
     # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
@@ -2653,7 +2653,7 @@ def df_reg_fat():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADA, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2676,7 +2676,7 @@ def df_reg_fat():
     print(df_dim)
 
     df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
-    df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
     # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
     # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
     # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
@@ -2691,7 +2691,7 @@ def df_reg_fat():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADA, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
     df_list = df_dim.values.tolist()
     n = 0
@@ -2714,7 +2714,7 @@ def df_reg_fat():
     print(df_dim)
 
     df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
-    df_dim["SN_FECHADO"] = df_dim["SN_FECHADO"].fillna("0")
+    df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
     # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
     # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
     # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
@@ -2729,7 +2729,7 @@ def df_reg_fat():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADO, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+    sql="INSERT INTO MV_RHP.REG_FAT (CD_REG_FAT, SN_FECHADA, DT_INICIO, DT_FINAL, DT_FECHAMENTO, CD_REMESSA, VL_TOTAL_CONTA, CD_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
     df_list = df_dim.values.tolist()
     n = 0
