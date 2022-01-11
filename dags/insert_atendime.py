@@ -1738,7 +1738,7 @@ def df_sintoma_avaliacao():
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
 
-    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2020-01-01 00:00:00", data_fim="2020-06-30 23:59:59"), connect_rhp())
+    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2019-01-01 00:00:00", data_fim="2019-06-30 23:59:59"), connect_rhp())
 
     print(df_dim)
 
