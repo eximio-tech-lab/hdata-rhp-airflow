@@ -1917,7 +1917,7 @@ def df_pre_med():
 
         print(dt.strftime('%Y-%m-%d' + ' 00:00:00'))
 
-        df_dim = pd.read_sql(query_pre_med.format(data_ini=dt.strftime('%Y-%m-%d' + ' 00:00:00'), data_fim=data_fim.strftime('%Y-%m-%d' + ' 23:59:59'), connect_rhp())
+        df_dim = pd.read_sql(query_pre_med.format(data_ini=dt.strftime('%Y-%m-%d' + ' 00:00:00'), data_fim=data_fim.strftime('%Y-%m-%d' + ' 23:59:59')), connect_rhp())
 
         print(df_dim)
 
