@@ -36,8 +36,6 @@ def df_atendime():
 
     df_dim = pd.read_sql(query_atendime.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp())
 
-    print(df_dim)
-
     # df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     # df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     # df_dim["HR_ALTA"] = df_dim["HR_ALTA"].fillna("01.01.1899 00:00:00")
@@ -75,6 +73,8 @@ def df_atendime():
 
     print("dados para incremento")
     print(df_diff.info())
+
+    print(df_diff['HR_ALTA'])
 
     con = connect_rhp_hdata()
 
