@@ -75,8 +75,8 @@ def df_atendime():
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
-    df_diff['HR_ALTA'] = datetime.strptime(df_diff['HR_ALTA'], '%Y-%m-%d %H:%M:%S')
-    df_diff['HR_ALTA_MEDICA'] = datetime.strptime(df_diff['HR_ALTA_MEDICA'], '%Y-%m-%d %H:%M:%S')
+    df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
+    df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
     print("dados para incremento")
     print(df_diff.info())
@@ -135,8 +135,8 @@ def df_atendime():
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
-    df_diff['HR_ALTA'] = datetime.strptime(df_diff['HR_ALTA'], '%Y-%m-%d %H:%M:%S')
-    df_diff['HR_ALTA_MEDICA'] = datetime.strptime(df_diff['HR_ALTA_MEDICA'], '%Y-%m-%d %H:%M:%S')
+    df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
+    df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
     print("dados para incremento")
     print(df_diff.info())
@@ -199,8 +199,8 @@ def df_atendime():
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
-    df_diff['HR_ALTA'] = datetime.strptime(df_diff['HR_ALTA'], '%Y-%m-%d %H:%M:%S')
-    df_diff['HR_ALTA_MEDICA'] = datetime.strptime(df_diff['HR_ALTA_MEDICA'], '%Y-%m-%d %H:%M:%S')
+    df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
+    df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
     print("dados para incremento")
     print(df_diff.info())
