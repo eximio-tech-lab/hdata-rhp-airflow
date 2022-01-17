@@ -58,18 +58,11 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
-    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
-
     print(df_dim.info())
-    print(df_dim['HR_ALTA'])
-    print(df_dim['HR_ALTA_MEDICA'])
 
     df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
     print(df_stage.info())
-    print(df_stage['HR_ALTA'])
-    print(df_stage['HR_ALTA_MEDICA'])
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -124,9 +117,6 @@ def df_atendime():
     df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
-
-    df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
-    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
 
     df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='01/11/2021', data_fim='30/11/2021'), connect_rhp_hdata())
 
@@ -185,9 +175,6 @@ def df_atendime():
     df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
-
-    df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
-    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
 
     print(df_dim.info())
 
