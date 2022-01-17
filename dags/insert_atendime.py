@@ -34,7 +34,7 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def df_atendime():
     print("Entrou no df_atendime")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-12-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp())
 
     print(df_dim)
 
@@ -60,7 +60,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2021-12-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -92,7 +92,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-11-01 00:00:00', data_fim='2021-11-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='01/11/2021', data_fim='30/11/2021'), connect_rhp())
 
     print(df_dim)
 
@@ -118,7 +118,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2021-11-01 00:00:00', data_fim='2021-11-30 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='01/11/2021', data_fim='30/11/2021'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -150,7 +150,7 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini='2021-10-01 00:00:00', data_fim='2021-10-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_atendime.format(data_ini='01/10/2021', data_fim='31/10/2021'), connect_rhp())
 
     print(df_dim)
 
@@ -176,7 +176,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2021-10-01 00:00:00', data_fim='2021-10-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='01/10/2021', data_fim='31/10/2021'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -252,7 +252,7 @@ def df_cid():
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
 
-    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini='01/01/2021', data_fim='31/01/2022'), connect_rhp())
 
     print(df_dim)
 
@@ -261,7 +261,7 @@ def df_classificacao_risco():
     df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
     # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini='01/01/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -454,7 +454,7 @@ def df_diagnostico_atendime():
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-12-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp())
 
     print(df_dim)
 
@@ -464,7 +464,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2021-12-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -494,7 +494,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-11-01 00:00:00', data_fim='2021-11-30 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='01/11/2021', data_fim='30/11/2021'), connect_rhp())
 
     print(df_dim)
 
@@ -504,7 +504,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2021-11-01 00:00:00', data_fim='2021-11-30 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='01/11/2021', data_fim='30/11/2021'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -534,7 +534,7 @@ def df_documento_clinico():
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='2021-10-01 00:00:00', data_fim='2021-10-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_documento_clinico.format(data_ini='01/10/2021', data_fim='31/10/2021'), connect_rhp())
 
     print(df_dim)
 
@@ -544,7 +544,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2021-10-01 00:00:00', data_fim='2021-10-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='01/10/2021', data_fim='31/10/2021'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -947,14 +947,14 @@ def df_pagu_objeto():
 def df_registro_alta():
     print("Entrou no df_registro_alta")
 
-    df_dim = pd.read_sql(query_registro_alta, connect_rhp())
+    df_dim = pd.read_sql(query_registro_alta.format(data_ini='01/10/2021', data_fim='31/01/2022'), connect_rhp())
 
     print(df_dim)
 
     # df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("1899-01-01 00:00:00")
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_registro_alta_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini='01/10/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1109,7 +1109,7 @@ def df_sintoma_avaliacao():
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
 
-    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="2021-06-01 00:00:00", data_fim="2022-01-31 23:59:59"), connect_rhp())
+    df_dim = pd.read_sql(query_tempo_processo.format(data_ini="01/06/2021", data_fim="31/01/2022"), connect_rhp())
 
     print(df_dim)
 
@@ -1117,7 +1117,7 @@ def df_tempo_processo():
     df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini="2021-06-01 00:00:00", data_fim="2022-01-31 23:59:59"), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini="01/06/2021", data_fim="31/01/2022"), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1230,7 +1230,7 @@ def df_tip_res():
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
 
-    df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini='2021-01-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini='01/01/2021', data_fim='31/01/2022'), connect_rhp())
 
     print(df_dim)
 
@@ -1240,7 +1240,7 @@ def df_triagem_atendimento():
     df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
     # df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini='2021-01-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini='01/01/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1313,7 +1313,7 @@ def df_usuario():
 def df_pre_med():
     print("Entrou no df_pre_med")
 
-    df_dim = pd.read_sql(query_pre_med.format(data_ini='2021-01-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp())
+    df_dim = pd.read_sql(query_pre_med.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp())
 
     print(df_dim)
 
@@ -1325,7 +1325,7 @@ def df_pre_med():
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-    df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini='2021-01-01 00:00:00', data_fim='2022-01-31 23:59:59'), connect_rhp_hdata())
+    df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini='2021-01-01 00:00:00', data_fim='2021-12-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
