@@ -60,7 +60,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-12-01 00:00:00', data_fim='2018-12-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -118,7 +118,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-11-01 00:00:00', data_fim='2018-11-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -176,7 +176,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-10-01 00:00:00', data_fim='2018-10-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -234,7 +234,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-09-01 00:00:00', data_fim='2018-09-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -292,7 +292,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-08-01 00:00:00', data_fim='2018-08-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -350,7 +350,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-07-01 00:00:00', data_fim='2018-07-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -408,7 +408,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-06-01 00:00:00', data_fim='2018-06-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -466,7 +466,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-05-01 00:00:00', data_fim='2018-05-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -524,7 +524,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-04-01 00:00:00', data_fim='2018-04-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -582,7 +582,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-03-01 00:00:00', data_fim='2018-03-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -640,7 +640,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-02-01 00:00:00', data_fim='2018-02-28 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -698,7 +698,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='2018-01-01 00:00:00', data_fim='2018-01-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -781,7 +781,7 @@ def df_classificacao_risco():
     df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
     # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -941,7 +941,7 @@ def df_diagnostico_atendime():
     df_dim["CD_DIAGNOSTICO_ATENDIME"] = df_dim["CD_DIAGNOSTICO_ATENDIME"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_diagnostico_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -984,7 +984,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-12-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1024,7 +1024,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-11-01 00:00:00', data_fim='2019-11-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1064,7 +1064,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-10-01 00:00:00', data_fim='2019-10-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1104,7 +1104,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-09-01 00:00:00', data_fim='2019-09-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1144,7 +1144,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-08-01 00:00:00', data_fim='2019-08-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1184,7 +1184,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-07-01 00:00:00', data_fim='2019-07-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1224,7 +1224,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-06-01 00:00:00', data_fim='2019-06-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1264,7 +1264,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-05-01 00:00:00', data_fim='2019-05-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1304,7 +1304,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-04-01 00:00:00', data_fim='2019-04-30 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1344,7 +1344,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-03-01 00:00:00', data_fim='2019-03-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1384,7 +1384,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-02-01 00:00:00', data_fim='2019-02-28 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1424,7 +1424,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='2019-01-01 00:00:00', data_fim='2019-01-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1711,7 +1711,7 @@ def df_prestador():
     df_dim["TP_PRESTADOR"] = df_dim["TP_PRESTADOR"].fillna("0")
     df_dim["CD_TIP_PRESTA"] = df_dim["CD_TIP_PRESTA"].fillna(0)
 
-    df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_prestador_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1997,7 +1997,7 @@ def df_tempo_processo():
     df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini="2019-01-01 00:00:00", data_fim="2019-06-30 23:59:59"), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2120,7 +2120,7 @@ def df_triagem_atendimento():
     df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
     # df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini='2019-01-01 00:00:00', data_fim='2019-12-31 23:59:59'), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
