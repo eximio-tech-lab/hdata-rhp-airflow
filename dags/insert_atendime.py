@@ -180,6 +180,8 @@ def df_atendime():
 
     df_stage = pd.read_sql(query_atendime_hdata.format(data_ini='01/10/2021', data_fim='31/10/2021'), connect_rhp_hdata())
 
+    print(df_stage.info())
+
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
