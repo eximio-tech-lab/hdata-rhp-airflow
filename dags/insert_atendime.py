@@ -60,7 +60,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -79,7 +79,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -119,7 +118,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -138,7 +137,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -178,7 +176,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -197,7 +195,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -237,7 +234,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -256,7 +253,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -296,7 +292,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -315,7 +311,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -355,7 +350,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -374,7 +369,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -414,7 +408,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -433,7 +427,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -473,7 +466,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -492,7 +485,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -532,7 +524,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -551,7 +543,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -591,7 +582,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -610,7 +601,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -650,7 +640,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -669,7 +659,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -709,7 +698,7 @@ def df_atendime():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    df_stage = pd.read_sql(query_atendime, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_atendime_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -726,7 +715,6 @@ def df_atendime():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -751,7 +739,7 @@ def df_cid():
     df_dim["DS_CID"] = df_dim["DS_CID"].fillna("0")
     df_dim["CD_SGRU_CID"] = df_dim["CD_SGRU_CID"].fillna("0")
 
-    df_stage = pd.read_sql(query_cid, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_cid_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -768,7 +756,6 @@ def df_cid():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -794,7 +781,7 @@ def df_classificacao_risco():
     df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
     # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -811,7 +798,6 @@ def df_classificacao_risco():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -835,7 +821,7 @@ def df_classificacao():
     df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
     df_dim["DS_TIPO_RISCO"] = df_dim["DS_TIPO_RISCO"].fillna("0")
 
-    df_stage = pd.read_sql(query_classificacao, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_classificacao_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -875,7 +861,7 @@ def df_convenio():
     df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
     df_dim["NM_CONVENIO"] = df_dim["NM_CONVENIO"].fillna("0")
 
-    df_stage = pd.read_sql(query_convenio, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_convenio_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -914,7 +900,7 @@ def df_cor_referencia():
 
     df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
 
-    df_stage = pd.read_sql(query_cor_referencia, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_cor_referencia_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -955,8 +941,14 @@ def df_diagnostico_atendime():
     df_dim["CD_DIAGNOSTICO_ATENDIME"] = df_dim["CD_DIAGNOSTICO_ATENDIME"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -964,16 +956,16 @@ def df_diagnostico_atendime():
 
     sql="INSERT INTO MV_RHP.DIAGNOSTICO_ATENDIME (CD_CID, CD_DIAGNOSTICO_ATENDIME, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
-    df_list = df_dim.values.tolist()
-    n = 0
-    cols = []
-    for i in df_dim.iterrows():
-        cols.append(df_list[n])
-        n += 1
+    # df_list = df_diff.values.tolist()
+    # n = 0
+    # cols = []
+    # for i in df_diff.iterrows():
+    #     cols.append(df_list[n])
+    #     n += 1
 
-    cursor.executemany(sql, cols)
+    # cursor.executemany(sql, cols)
 
-    con.commit()
+    # con.commit()
     cursor.close
     con.close
 
@@ -992,7 +984,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1009,7 +1001,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1033,7 +1024,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1050,7 +1041,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1074,7 +1064,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1091,7 +1081,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1115,7 +1104,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1132,7 +1121,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1156,7 +1144,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1173,7 +1161,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1197,7 +1184,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1214,7 +1201,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1238,7 +1224,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1255,7 +1241,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1279,7 +1264,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1296,7 +1281,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1320,7 +1304,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1337,7 +1321,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1361,7 +1344,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1378,7 +1361,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1402,7 +1384,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1419,7 +1401,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1443,7 +1424,7 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1460,7 +1441,6 @@ def df_documento_clinico():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1485,7 +1465,7 @@ def df_esp_med():
     df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
     df_dim["SN_ESPECIAL_PRINCIPAL"] = df_dim["SN_ESPECIAL_PRINCIPAL"].fillna("N")
 
-    df_stage = pd.read_sql(query_esp_med, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_esp_med_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1525,7 +1505,7 @@ def df_especialidad():
     df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
     df_dim["DS_ESPECIALID"] = df_dim["DS_ESPECIALID"].fillna("0")
 
-    df_stage = pd.read_sql(query_especialidad, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_especialidad_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1565,7 +1545,7 @@ def df_gru_cid():
     df_dim["CD_GRU_CID"] = df_dim["CD_GRU_CID"].fillna(0)
     df_dim["DS_GRU_CID"] = df_dim["DS_GRU_CID"].fillna("0")
 
-    df_stage = pd.read_sql(query_gru_cid, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_gru_cid_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1606,7 +1586,7 @@ def df_mot_alt():
     df_dim["DS_MOT_ALT"] = df_dim["DS_MOT_ALT"].fillna("0")
     df_dim["TP_MOT_ALTA"] = df_dim["TP_MOT_ALTA"].fillna("0")
 
-    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1646,7 +1626,7 @@ def df_multi_empresa():
     df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
     df_dim["DS_MULTI_EMPRESA"] = df_dim["DS_MULTI_EMPRESA"].fillna("0")
 
-    df_stage = pd.read_sql(query_multi_empresa, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_multi_empresa_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1688,7 +1668,7 @@ def df_ori_ate():
     df_dim["TP_ORIGEM"] = df_dim["TP_ORIGEM"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-    df_stage = pd.read_sql(query_ori_ate, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_ori_ate_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1731,7 +1711,7 @@ def df_prestador():
     df_dim["TP_PRESTADOR"] = df_dim["TP_PRESTADOR"].fillna("0")
     df_dim["CD_TIP_PRESTA"] = df_dim["CD_TIP_PRESTA"].fillna(0)
 
-    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1748,7 +1728,6 @@ def df_prestador():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -1775,7 +1754,7 @@ def df_paciente():
     # df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
     df_dim["NM_BAIRRO"] = df_dim["NM_BAIRRO"].fillna("0")
 
-    df_stage = pd.read_sql(query_paciente, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_paciente_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1790,18 +1769,16 @@ def df_paciente():
 
     sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    
-    cols = []
-    for i in df_diff.iterrows():
-    
-        cols.append(df_list[n])
-        n += 1
+    # df_list = df_diff.values.tolist()
+    # n = 0
+    # cols = []
+    # for i in df_diff.iterrows():
+    #     cols.append(df_list[n])
+    #     n += 1
 
-    cursor.executemany(sql, cols)
+    # cursor.executemany(sql, cols)
 
-    con.commit()
+    # con.commit()
     cursor.close
     con.close
 
@@ -1817,7 +1794,7 @@ def df_pagu_objeto():
     df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
     df_dim["TP_OBJETO"] = df_dim["TP_OBJETO"].fillna("0")
 
-    df_stage = pd.read_sql(query_pagu_objeto, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_pagu_objeto_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1857,7 +1834,7 @@ def df_registro_alta():
     # df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("1899-01-01 00:00:00")
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_registro_alta, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_registro_alta_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1872,18 +1849,16 @@ def df_registro_alta():
 
     sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    
-    cols = []
-    for i in df_diff.iterrows():
-    
-        cols.append(df_list[n])
-        n += 1
+    # df_list = df_diff.values.tolist()
+    # n = 0
+    # cols = []
+    # for i in df_diff.iterrows():
+    #     cols.append(df_list[n])
+    #     n += 1
 
-    cursor.executemany(sql, cols)
+    # cursor.executemany(sql, cols)
 
-    con.commit()
+    # con.commit()
     cursor.close
     con.close
 
@@ -1899,7 +1874,7 @@ def df_setor():
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
     df_dim["NM_SETOR"] = df_dim["NM_SETOR"].fillna("0")
 
-    df_stage = pd.read_sql(query_setor, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_setor_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1940,7 +1915,7 @@ def df_sgru_cid():
     df_dim["CD_GRU_CID"] = df_dim["CD_GRU_CID"].fillna(0)
     df_dim["DS_SGRU_CID"] = df_dim["DS_SGRU_CID"].fillna("0")
 
-    df_stage = pd.read_sql(query_sgru_cid, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_sgru_cid_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -1955,17 +1930,17 @@ def df_sgru_cid():
 
     sql="INSERT INTO MV_RHP.SGRU_CID (CD_SGRU_CID, CD_GRU_CID, DS_SGRU_CID) VALUES (:1, :2, :3)"
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
+    # df_list = df_diff.values.tolist()
+    # n = 0
+    # cols = []
     
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+    # for i in df_diff.iterrows():
+    #     cols.append(df_list[n])
+    #     n += 1
 
-    cursor.executemany(sql, cols)
+    # cursor.executemany(sql, cols)
 
-    con.commit()
+    # con.commit()
     cursor.close
     con.close
 
@@ -1981,7 +1956,7 @@ def df_sintoma_avaliacao():
     df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
     df_dim["DS_SINTOMA"] = df_dim["DS_SINTOMA"].fillna("0")
 
-    df_stage = pd.read_sql(query_sintoma_avaliacao, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_sintoma_avaliacao_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2022,7 +1997,7 @@ def df_tempo_processo():
     df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2039,7 +2014,6 @@ def df_tempo_processo():
 
     # df_list = df_diff.values.tolist()
     # n = 0
-    
     # cols = []
     # for i in df_diff.iterrows():
     #     cols.append(df_list[n])
@@ -2062,7 +2036,7 @@ def df_tip_mar():
 
     df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
 
-    df_stage = pd.read_sql(query_tip_mar, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_tip_mar_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2103,7 +2077,7 @@ def df_tip_res():
     df_dim["DS_TIP_RES"] = df_dim["DS_TIP_RES"].fillna("0")
     df_dim["SN_OBITO"] = df_dim["SN_OBITO"].fillna("0")
 
-    df_stage = pd.read_sql(query_tip_res, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_tip_res_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2146,7 +2120,7 @@ def df_triagem_atendimento():
     df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
     # df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2186,7 +2160,7 @@ def df_usuario():
     df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna("0")
     df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
 
-    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2231,7 +2205,7 @@ def df_pre_med():
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2273,7 +2247,7 @@ def df_pre_med():
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -2315,7 +2289,7 @@ def df_pre_med():
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
