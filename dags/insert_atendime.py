@@ -104,8 +104,6 @@ def df_atendime():
 
     df_dim = pd.read_sql(query_atendime.format(data_ini='01/11/2021', data_fim='30/11/2021'), connect_rhp())
 
-    print(df_dim)
-
     # df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     # df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     # df_dim["HR_ALTA"] = df_dim["HR_ALTA"].fillna("01.01.1899 00:00:00")
@@ -137,7 +135,8 @@ def df_atendime():
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
-    print(df_dim)
+    df_diff['HR_ALTA'] = datetime.strptime(df_diff['HR_ALTA'], '%Y-%m-%d %H:%M:%S')
+    df_diff['HR_ALTA_MEDICA'] = datetime.strptime(df_diff['HR_ALTA_MEDICA'], '%Y-%m-%d %H:%M:%S')
 
     print("dados para incremento")
     print(df_diff.info())
@@ -164,8 +163,6 @@ def df_atendime():
     print("Dados ATENDIME inseridos")
 
     df_dim = pd.read_sql(query_atendime.format(data_ini='01/10/2021', data_fim='31/10/2021'), connect_rhp())
-
-    print(df_dim)
 
     # df_dim["DT_ATENDIMENTO"] = df_dim["DT_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
     # df_dim["HR_ATENDIMENTO"] = df_dim["HR_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
@@ -201,6 +198,9 @@ def df_atendime():
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
+
+    df_diff['HR_ALTA'] = datetime.strptime(df_diff['HR_ALTA'], '%Y-%m-%d %H:%M:%S')
+    df_diff['HR_ALTA_MEDICA'] = datetime.strptime(df_diff['HR_ALTA_MEDICA'], '%Y-%m-%d %H:%M:%S')
 
     print("dados para incremento")
     print(df_diff.info())
