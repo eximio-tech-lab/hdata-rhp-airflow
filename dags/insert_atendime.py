@@ -926,8 +926,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -935,11 +941,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -961,8 +967,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -970,11 +982,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -996,8 +1008,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1005,11 +1023,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1031,8 +1049,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1040,11 +1064,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1066,8 +1090,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1075,11 +1105,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1101,8 +1131,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1110,11 +1146,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1136,8 +1172,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1145,11 +1187,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1171,8 +1213,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1180,11 +1228,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1206,8 +1254,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1215,11 +1269,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1241,8 +1295,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1250,11 +1310,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1276,8 +1336,14 @@ def df_documento_clinico():
     df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
     # df_dim["DH_CRIACAO"] = df_dim["DH_CRIACAO"].fillna("01.01.1899 00:00:00")
 
+    df_stage = pd.read_sql(query_usuario, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1285,11 +1351,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1318,7 +1384,7 @@ def df_documento_clinico():
     df_diff = df_diff.reset_index(drop=True)
 
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -1326,11 +1392,11 @@ def df_documento_clinico():
 
     sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -1599,9 +1665,11 @@ def df_prestador():
     df_dim["TP_PRESTADOR"] = df_dim["TP_PRESTADOR"].fillna("0")
     df_dim["CD_TIP_PRESTA"] = df_dim["CD_TIP_PRESTA"].fillna(0)
 
-    df_stage = pd.read_sql(query_prestador, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage, indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
 
     print("dados para incremento")
     print(df_diff.info())
@@ -2096,9 +2164,15 @@ def df_pre_med():
     # df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+
+    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
     
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -2106,10 +2180,10 @@ def df_pre_med():
 
     sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -2132,9 +2206,15 @@ def df_pre_med():
     # df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+
+    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
     
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -2142,10 +2222,10 @@ def df_pre_med():
 
     sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
@@ -2168,9 +2248,15 @@ def df_pre_med():
     # df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
     df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
     df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+
+    df_stage = pd.read_sql(query_mot_alt, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
     
     print("dados para incremento")
-    print(df_dim.info())
+    print(df_diff.info())
 
     con = connect_rhp_hdata()
 
@@ -2178,10 +2264,10 @@ def df_pre_med():
 
     sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
-    df_list = df_dim.values.tolist()
+    df_list = df_diff.values.tolist()
     n = 0
     cols = []
-    for i in df_dim.iterrows():
+    for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
 
