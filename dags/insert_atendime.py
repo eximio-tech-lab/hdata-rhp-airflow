@@ -64,6 +64,10 @@ def df_atendime():
     df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
     df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
 
+    lista_cds_atendimentos = df_dim['CD_ATENDIMENTO'].to_list()
+    lista_cds_atendimentos = [str(cd) for cd in lista_cds_atendimentos]
+    atendimentos = ','.join(lista_cds_atendimentos)
+
     print(df_dim.info())
 
     df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
@@ -82,10 +86,6 @@ def df_atendime():
 
     print("dados para incremento")
     print(df_diff.info())
-
-    lista_cds_atendimentos = df_diff['CD_ATENDIMENTO'].to_list()
-    lista_cds_atendimentos = [str(cd) for cd in lista_cds_atendimentos]
-    atendimentos = ','.join(lista_cds_atendimentos)
 
     con = connect_rhp_hdata()
 
