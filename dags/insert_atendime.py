@@ -34,7 +34,7 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def df_atendime():
     print("Entrou no df_atendime")
 
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
+    dt = datetime.today() - timedelta(days=1)
 
     print(dt.strftime('%d/%m/%Y'))
 
@@ -151,7 +151,7 @@ def df_cid():
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
 
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
+    dt = datetime.today() - timedelta(days=1)
 
     print(dt.strftime('%d/%m/%Y'))
 
@@ -347,7 +347,7 @@ def df_diagnostico_atendime():
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
 
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
+    dt = datetime.today() - timedelta(days=1)
 
     print(dt.strftime('%d/%m/%Y'))
 
@@ -746,7 +746,7 @@ def df_pagu_objeto():
 def df_registro_alta():
     print("Entrou no df_registro_alta")
 
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
+    dt = datetime.today() - timedelta(days=1)
 
     print(dt.strftime('%d/%m/%Y'))
 
@@ -903,7 +903,7 @@ def df_sintoma_avaliacao():
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
 
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
+    dt = datetime.today() - timedelta(days=1)
 
     print(dt.strftime('%d/%m/%Y'))
 
@@ -1022,7 +1022,7 @@ def df_tip_res():
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
 
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
+    dt = datetime.today() - timedelta(days=1)
 
     print(dt.strftime('%d/%m/%Y'))
 
