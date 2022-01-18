@@ -2,13 +2,12 @@ import airflow
 import unidecode
 import pandas as pd
 import numpy as np
-# import datetime
+import datetime
 
-from datetime import timedelta, date, datetime
+from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from datetime import datetime, timedelta
 from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
