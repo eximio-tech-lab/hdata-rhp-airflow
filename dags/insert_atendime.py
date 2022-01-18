@@ -84,6 +84,10 @@ def df_atendime():
     print("dados para incremento")
     print(df_diff.info())
 
+    lista_cds_atendimentos = df_diff['CD_ATENDIMENTO'].to_list()
+    lista_cds_atendimentos = [str(cd) for cd in lista_cds_atendimentos]
+    atendimentos = ','.join(lista_cds_atendimentos)
+
     con = connect_rhp_hdata()
 
     cursor = con.cursor()
@@ -304,13 +308,13 @@ def df_cor_referencia():
 def df_diagnostico_atendime():
     print("Entrou no df_diagnostico_atendime")
 
-    df_dim = pd.read_sql(query_diagnostico_atendime, connect_rhp())
+    df_dim = pd.read_sql(query_diagnostico_atendime.format(atendimentos=atendimentos), connect_rhp())
 
     df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
     df_dim["CD_DIAGNOSTICO_ATENDIME"] = df_dim["CD_DIAGNOSTICO_ATENDIME"].fillna(0)
     df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_diagnostico_atendime_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_diagnostico_atendime_hdata.format(atendimentos=atendimentos), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
@@ -3044,6 +3048,8 @@ def df_mot_dev():
     con.close
 
     print("Dados MOT_DEV inseridos")
+
+atendimentos = []
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
