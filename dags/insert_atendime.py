@@ -660,7 +660,7 @@ def df_paciente():
     df_dim = pd.read_sql(query_paciente, connect_rhp())
 
     df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
-    df_dim["DT_NASCIMENTO"] = pd.to_datetime(df_dim["DT_NASCIMENTO"])
+    # df_dim["DT_NASCIMENTO"] = pd.to_datetime(df_dim["DT_NASCIMENTO"])
     df_dim["TP_SEXO"] = df_dim["TP_SEXO"].fillna("0")
     # df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
     df_dim["NM_BAIRRO"] = df_dim["NM_BAIRRO"].fillna("0")
@@ -668,6 +668,7 @@ def df_paciente():
     print(df_dim.info())
 
     df_stage = pd.read_sql(query_paciente_hdata, connect_rhp_hdata())
+    df_stage["DT_NASCIMENTO"] = df_stage["DT_NASCIMENTO"].astype(str)
     print(df_stage.info())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
@@ -681,7 +682,7 @@ def df_paciente():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, :2, :3, :4, :5)"
+    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, 'YYYY-MM-DD HH24:MI:SS), :3, :4, :5)"
 
     df_list = df_diff.values.tolist()
     n = 0
