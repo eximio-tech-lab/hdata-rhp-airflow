@@ -660,7 +660,7 @@ def df_paciente():
     df_dim = pd.read_sql(query_paciente, connect_rhp())
 
     df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
-    # df_dim["DT_NASCIMENTO"] = df_dim["DT_NASCIMENTO"].fillna("01.01.1899 00:00:00")
+    df_dim["DT_NASCIMENTO"] = pd.to_datetime(df_dim["DT_NASCIMENTO"])
     df_dim["TP_SEXO"] = df_dim["TP_SEXO"].fillna("0")
     # df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
     df_dim["NM_BAIRRO"] = df_dim["NM_BAIRRO"].fillna("0")
