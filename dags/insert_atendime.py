@@ -106,6 +106,8 @@ def df_atendime():
 
     print("Dados ATENDIME inseridos")
 
+    df_diagnostico_atendime(atendimentos)
+
 def df_cid():
     print("Entrou no df_cid")
 
@@ -299,7 +301,7 @@ def df_cor_referencia():
 
     print("Dados SACR_COR_REFERENCIA inseridos")
 
-def df_diagnostico_atendime():
+def df_diagnostico_atendime(atendimentos):
     print("Entrou no df_diagnostico_atendime")
 
     df_dim = pd.read_sql(query_diagnostico_atendime.format(atendimentos=atendimentos), connect_rhp())
@@ -691,7 +693,6 @@ def df_paciente():
     n = 0
     cols = []
     for i in df_diff.iterrows():
-        print(df_list[n])
         cols.append(df_list[n])
         n += 1
 
@@ -3039,7 +3040,7 @@ def df_mot_dev():
     print("Dados MOT_DEV inseridos")
 
 atendimentos = []
-dt = datetime.datetime.today() - datetime.timedelta(days=4)
+dt = datetime.datetime.today() - datetime.timedelta(days=2)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval="0 7 * * 1-5")
@@ -3074,10 +3075,10 @@ t5 = PythonOperator(
     python_callable=df_cor_referencia,
     dag=dag)
 
-t6 = PythonOperator(
-    task_id="insert_diagnostico_atendime_rhp",
-    python_callable=df_diagnostico_atendime,
-    dag=dag)
+# t6 = PythonOperator(
+#     task_id="insert_diagnostico_atendime_rhp",
+#     python_callable=df_diagnostico_atendime,
+#     dag=dag)
 
 t7 = PythonOperator(
     task_id="insert_documento_clinico_rhp",
@@ -3334,4 +3335,4 @@ t24 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t6
+(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
