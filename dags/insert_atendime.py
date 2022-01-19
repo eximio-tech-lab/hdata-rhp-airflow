@@ -83,27 +83,26 @@ def df_atendime():
 
     print("dados para incremento")
     print(df_diff.info())
+    
 
-    df_diff.to_sql('MV_RHP.ATENDIME', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
 
-    # sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados ATENDIME inseridos")
 
@@ -125,26 +124,24 @@ def df_cid():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.CID', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.CID (CD_CID, DS_CID, CD_SGRU_CID) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.CID (CD_CID, DS_CID, CD_SGRU_CID) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados CID inseridos")
 
@@ -168,26 +165,24 @@ def df_classificacao_risco():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SACR_CLASSIFICACAO_RISCO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, :4)"
 
-    # sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, :4)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SACR_CLASSIFICACAO_RISCO inseridos")
 
@@ -208,26 +203,24 @@ def df_classificacao():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SACR_CLASSIFICACAO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
-    
-    # con = connect_rhp_hdata()
+    con = connect_rhp_hdata()
 
-    # cursor = con.cursor()
+    cursor = con.cursor()
 
-    # sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO (CD_CLASSIFICACAO, DS_TIPO_RISCO) VALUES (:1, :2)"
+    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO (CD_CLASSIFICACAO, DS_TIPO_RISCO) VALUES (:1, :2)"
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # cursor.executemany(sql, cols)
+    cursor.executemany(sql, cols)
 
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SACR_CLASSIFICACAO inseridos")
 
@@ -248,26 +241,24 @@ def df_convenio():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.CONVENIO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.CONVENIO (CD_CONVENIO, NM_CONVENIO) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.CONVENIO (CD_CONVENIO, NM_CONVENIO) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados CONVENIO inseridos")
 
@@ -287,26 +278,24 @@ def df_cor_referencia():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SACR_COR_REFERENCIA', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SACR_COR_REFERENCIA (CD_COR_REFERENCIA) VALUES (:1)"
 
-    # sql="INSERT INTO MV_RHP.SACR_COR_REFERENCIA (CD_COR_REFERENCIA) VALUES (:1)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SACR_COR_REFERENCIA inseridos")
 
@@ -328,26 +317,24 @@ def df_diagnostico_atendime():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.DIAGNOSTICO_ATENDIME', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.DIAGNOSTICO_ATENDIME (CD_CID, CD_DIAGNOSTICO_ATENDIME, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.DIAGNOSTICO_ATENDIME (CD_CID, CD_DIAGNOSTICO_ATENDIME, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados DIAGNOSTICO_ATENDIME inseridos")
 
@@ -372,26 +359,24 @@ def df_documento_clinico():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.PW_DOCUMENTO_CLINICO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    # sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
@@ -415,26 +400,24 @@ def df_esp_med():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.ESP_MED', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.ESP_MED (CD_ESPECIALID, CD_PRESTADOR, SN_ESPECIAL_PRINCIPAL) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.ESP_MED (CD_ESPECIALID, CD_PRESTADOR, SN_ESPECIAL_PRINCIPAL) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados ESP_MED inseridos")
 
@@ -455,26 +438,24 @@ def df_especialidad():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.ESPECIALID', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.ESPECIALID (CD_ESPECIALID, DS_ESPECIALID) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.ESPECIALID (CD_ESPECIALID, DS_ESPECIALID) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados ESPECIALID inseridos")
 
@@ -495,26 +476,24 @@ def df_gru_cid():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.GRU_CID', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.GRU_CID (CD_GRU_CID, DS_GRU_CID) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.GRU_CID (CD_GRU_CID, DS_GRU_CID) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados GRU_CID inseridos")
 
@@ -536,26 +515,24 @@ def df_mot_alt():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.MOT_ALT', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.MOT_ALT (CD_MOT_ALT, DS_MOT_ALT, TP_MOT_ALTA) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados MOT_ALT inseridos")
 
@@ -576,26 +553,24 @@ def df_multi_empresa():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.MULTI_EMPRESAS', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.MULTI_EMPRESAS (CD_MULTI_EMPRESA, DS_MULTI_EMPRESA) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.MULTI_EMPRESAS (CD_MULTI_EMPRESA, DS_MULTI_EMPRESA) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados MULTI_EMPRESAS inseridos")
 
@@ -618,26 +593,24 @@ def df_ori_ate():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.ORI_ATE', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.ORI_ATE (CD_ORI_ATE, DS_ORI_ATE, TP_ORIGEM, CD_SETOR) VALUES (:1, :2, :3, :4)"
 
-    # sql="INSERT INTO MV_RHP.ORI_ATE (CD_ORI_ATE, DS_ORI_ATE, TP_ORIGEM, CD_SETOR) VALUES (:1, :2, :3, :4)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados ORI_ATE inseridos")
 
@@ -661,26 +634,24 @@ def df_prestador():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.PRESTADOR', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.PRESTADOR (CD_PRESTADOR, NM_PRESTADOR, DT_NASCIMENTO, TP_PRESTADOR, CD_TIP_PRESTA) VALUES (:1, :2, :3, :4, :5)"
 
-    # sql="INSERT INTO MV_RHP.PRESTADOR (CD_PRESTADOR, NM_PRESTADOR, DT_NASCIMENTO, TP_PRESTADOR, CD_TIP_PRESTA) VALUES (:1, :2, :3, :4, :5)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados PRESTADOR inseridos")
 
@@ -708,26 +679,24 @@ def df_paciente():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.PACIENTE', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, 'YYYY-MM-DD HH24:MI:SS), :3, :4, :5)"
 
-    # sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, 'YYYY-MM-DD HH24:MI:SS), :3, :4, :5)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados PACIENTE inseridos")
 
@@ -748,26 +717,24 @@ def df_pagu_objeto():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.PAGU_OBJETO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.PAGU_OBJETO (CD_OBJETO, TP_OBJETO) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.PAGU_OBJETO (CD_OBJETO, TP_OBJETO) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados PAGU_OBJETO inseridos")
 
@@ -789,26 +756,24 @@ def df_registro_alta():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.PW_REGISTRO_ALTA', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados PW_REGISTRO_ALTA inseridos")
 
@@ -829,26 +794,24 @@ def df_setor():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SETOR', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SETOR (CD_SETOR, NM_SETOR) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.SETOR (CD_SETOR, NM_SETOR) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SETOR inseridos")
 
@@ -870,26 +833,24 @@ def df_sgru_cid():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SGRU_CID', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SGRU_CID (CD_SGRU_CID, CD_GRU_CID, DS_SGRU_CID) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.SGRU_CID (CD_SGRU_CID, CD_GRU_CID, DS_SGRU_CID) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SGRU_CID inseridos")
 
@@ -910,26 +871,24 @@ def df_sintoma_avaliacao():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SACR_SINTOMA_AVALIACAO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SACR_SINTOMA_AVALIACAO (CD_SINTOMA_AVALIACAO, DS_SINTOMA) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.SACR_SINTOMA_AVALIACAO (CD_SINTOMA_AVALIACAO, DS_SINTOMA) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SACR_SINTOMA_AVALIACAO inseridos")
 
@@ -952,26 +911,24 @@ def df_tempo_processo():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.SACR_TEMPO_PROCESSO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados SACR_TEMPO_PROCESSO inseridos")
 
@@ -991,26 +948,24 @@ def df_tip_mar():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.TIP_MAR', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.TIP_MAR (CD_TIP_MAR) VALUES (:1)"
 
-    # sql="INSERT INTO MV_RHP.TIP_MAR (CD_TIP_MAR) VALUES (:1)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados TIP_MAR inseridos")
 
@@ -1032,26 +987,24 @@ def df_tip_res():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.TIP_RES', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.TIP_RES (CD_TIP_RES, DS_TIP_RES, SN_OBITO) VALUES (:1, :2, :3)"
 
-    # sql="INSERT INTO MV_RHP.TIP_RES (CD_TIP_RES, DS_TIP_RES, SN_OBITO) VALUES (:1, :2, :3)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados TIP_RES inseridos")
 
@@ -1076,26 +1029,24 @@ def df_triagem_atendimento():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.TRIAGEM_ATENDIMENTO', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
 
-    # sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados TRIAGEM_ATENDIMENTO inseridos")
 
@@ -1116,26 +1067,24 @@ def df_usuario():
     print("dados para incremento")
     print(df_diff.info())
 
-    df_diff.to_sql('MV_RHP.USUARIOS', con=connect_rhp_hdata(), if_exists='append', index=False, method='multi', chunksize=1000)
+    con = connect_rhp_hdata()
 
-    # con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-    # cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.USUARIOS (CD_USUARIO, NM_USUARIO) VALUES (:1, :2)"
 
-    # sql="INSERT INTO MV_RHP.USUARIOS (CD_USUARIO, NM_USUARIO) VALUES (:1, :2)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-    # df_list = df_diff.values.tolist()
-    # n = 0
-    # cols = []
-    # for i in df_diff.iterrows():
-    #     cols.append(df_list[n])
-    #     n += 1
+    cursor.executemany(sql, cols)
 
-    # cursor.executemany(sql, cols)
-
-    # con.commit()
-    # cursor.close
-    # con.close
+    con.commit()
+    cursor.close
+    con.close
 
     print("Dados USUARIOS inseridos")
 
