@@ -3050,7 +3050,8 @@ def df_mot_dev():
 
 atendimentos = []
 
-dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
+# dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
+dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval="0 7 * * 1-5")
 
 t0 = PythonOperator(
     task_id="insert_atendime_rhp",
