@@ -32,9 +32,6 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 
 def df_atendime():
     print("Entrou no df_atendime")
-
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
-
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_atendime.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
@@ -149,9 +146,6 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
-
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
@@ -345,9 +339,6 @@ def df_diagnostico_atendime():
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
-
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_documento_clinico.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
@@ -744,9 +735,6 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
-
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
@@ -901,9 +889,6 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
-
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_tempo_processo.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
@@ -1020,9 +1005,6 @@ def df_tip_res():
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
-
-    dt = datetime.datetime.today() - datetime.timedelta(days=1)
-
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
@@ -3049,6 +3031,7 @@ def df_mot_dev():
     print("Dados MOT_DEV inseridos")
 
 atendimentos = []
+dt = datetime.datetime.today() - datetime.timedelta(days=4)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval="0 7 * * 1-5")
