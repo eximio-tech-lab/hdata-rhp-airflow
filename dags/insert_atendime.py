@@ -676,6 +676,8 @@ def df_paciente():
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
+    print(df_diff['DT_NASCIMENTO'])
+
     print("dados para incremento")
     print(df_diff.info())
 
