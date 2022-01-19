@@ -3039,7 +3039,6 @@ def df_mot_dev():
 
     print("Dados MOT_DEV inseridos")
 
-atendimentos = []
 dt = datetime.datetime.today() - datetime.timedelta(days=2)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
