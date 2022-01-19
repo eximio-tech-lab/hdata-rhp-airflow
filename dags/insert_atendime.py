@@ -665,7 +665,10 @@ def df_paciente():
     # df_dim["DT_CADASTRO"] = df_dim["DT_CADASTRO"].fillna("01.01.1899 00:00:00")
     df_dim["NM_BAIRRO"] = df_dim["NM_BAIRRO"].fillna("0")
 
+    print(df_dim.info())
+
     df_stage = pd.read_sql(query_paciente_hdata, connect_rhp_hdata())
+    print(df_stage.info())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
