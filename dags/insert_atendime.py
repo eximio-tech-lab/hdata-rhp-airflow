@@ -74,7 +74,7 @@ def df_atendime():
 
     print(df_stage.info())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -116,7 +116,7 @@ def df_cid():
 
     df_stage = pd.read_sql(query_cid_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_CID"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -157,7 +157,7 @@ def df_classificacao_risco():
 
     df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -195,7 +195,7 @@ def df_classificacao():
 
     df_stage = pd.read_sql(query_classificacao_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -233,7 +233,7 @@ def df_convenio():
 
     df_stage = pd.read_sql(query_convenio_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_CONVENIO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -270,7 +270,7 @@ def df_cor_referencia():
 
     df_stage = pd.read_sql(query_cor_referencia_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_COR_REFERENCIA"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -309,7 +309,7 @@ def df_diagnostico_atendime():
 
     df_stage = pd.read_sql(query_diagnostico_atendime_hdata.format(atendimentos=atendimentos), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_CID"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -351,7 +351,7 @@ def df_documento_clinico():
 
     df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -392,7 +392,7 @@ def df_esp_med():
 
     df_stage = pd.read_sql(query_esp_med_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_ESPECIALID"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -430,7 +430,7 @@ def df_especialidad():
 
     df_stage = pd.read_sql(query_especialidad_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_ESPECIALID"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -468,7 +468,7 @@ def df_gru_cid():
 
     df_stage = pd.read_sql(query_gru_cid_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_GRU_CID"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -507,7 +507,7 @@ def df_mot_alt():
 
     df_stage = pd.read_sql(query_mot_alt_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_MOT_ALT"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -545,7 +545,7 @@ def df_multi_empresa():
 
     df_stage = pd.read_sql(query_multi_empresa_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_MULTI_EMPRESA"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -585,7 +585,7 @@ def df_ori_ate():
 
     df_stage = pd.read_sql(query_ori_ate_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_ORI_ATE"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -626,7 +626,7 @@ def df_prestador():
 
     df_stage = pd.read_sql(query_prestador_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_PRESTADOR"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -671,7 +671,7 @@ def df_paciente():
     df_stage["DT_NASCIMENTO"] = df_stage["DT_NASCIMENTO"].astype(str)
     print(df_stage.info())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_PACIENTE"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -709,7 +709,7 @@ def df_pagu_objeto():
 
     df_stage = pd.read_sql(query_pagu_objeto_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -748,7 +748,7 @@ def df_registro_alta():
 
     df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini='01/10/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -786,7 +786,7 @@ def df_setor():
 
     df_stage = pd.read_sql(query_setor_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_SETOR"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -825,7 +825,7 @@ def df_sgru_cid():
 
     df_stage = pd.read_sql(query_sgru_cid_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_SGRU_CID"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -863,7 +863,7 @@ def df_sintoma_avaliacao():
 
     df_stage = pd.read_sql(query_sintoma_avaliacao_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_SINTOMA_AVALIACAO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -940,7 +940,7 @@ def df_tip_mar():
 
     df_stage = pd.read_sql(query_tip_mar_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_TIP_MAR"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
 
@@ -979,7 +979,7 @@ def df_tip_res():
 
     df_stage = pd.read_sql(query_tip_res_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_TIP_RES"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
     
@@ -1021,7 +1021,7 @@ def df_triagem_atendimento():
 
     df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
     
@@ -1059,7 +1059,7 @@ def df_usuario():
 
     df_stage = pd.read_sql(query_usuario_hdata, connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_dim.merge(df_stage["CD_USUARIO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
     
