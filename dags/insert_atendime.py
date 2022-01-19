@@ -685,12 +685,13 @@ def df_paciente():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, TO_DATE(:2, 'YYYY-MM-DD HH24:MI:SS'), :3, :4, :5)"
+    sql="INSERT INTO MV_RHP.PACIENTE (CD_PACIENTE, DT_NASCIMENTO, TP_SEXO, DT_CADASTRO, NM_BAIRRO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_diff.values.tolist()
     n = 0
     cols = []
     for i in df_diff.iterrows():
+        print(df_list[n])
         cols.append(df_list[n])
         n += 1
 
