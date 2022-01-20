@@ -194,8 +194,8 @@ def df_classificacao_risco():
             query += 'END\n'
             query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
 
-            print(query)
-            # cursor.execute(query)
+            # print(query)
+            cursor.execute(query)
             conn.commit()
             conn.close()
 
@@ -259,8 +259,8 @@ def df_classificacao():
         query += 'END\n'
         query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_CLASSIFICACAO', todos_cds=todos_cds)
 
-        print(query)
-        # cursor.execute(query)
+        # print(query)
+        cursor.execute(query)
         conn.commit()
         conn.close()
 
@@ -363,8 +363,8 @@ def df_cor_referencia():
         query += 'END\n'
         query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_COR_REFERENCIA', todos_cds=todos_cds)
 
-        print(query)
-        # cursor.execute(query)
+        # print(query)
+        cursor.execute(query)
         conn.commit()
         conn.close()
 
