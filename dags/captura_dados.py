@@ -171,7 +171,7 @@ def df_classificacao_risco():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, :4)"
+    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO, CD_CLASSIFICACAO) VALUES (:1, :2, :3, :4, :5)"
 
     df_list = df_diff.values.tolist()
     n = 0
@@ -193,8 +193,8 @@ def df_classificacao():
 
     df_dim = pd.read_sql(query_classificacao, connect_rhp())
 
-    df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
-    df_dim["DS_TIPO_RISCO"] = df_dim["DS_TIPO_RISCO"].fillna("0")
+    # df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
+    # df_dim["DS_TIPO_RISCO"] = df_dim["DS_TIPO_RISCO"].fillna("0")
 
     df_stage = pd.read_sql(query_classificacao_hdata, connect_rhp_hdata())
 
@@ -209,7 +209,7 @@ def df_classificacao():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO (CD_CLASSIFICACAO, DS_TIPO_RISCO) VALUES (:1, :2)"
+    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO (CD_CLASSIFICACAO, DS_TIPO_RISCO, CD_COR_REFERENCIA) VALUES (:1, :2, :3)"
 
     df_list = df_diff.values.tolist()
     n = 0
@@ -269,7 +269,7 @@ def df_cor_referencia():
 
     df_dim = pd.read_sql(query_cor_referencia, connect_rhp())
 
-    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
+    # df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
 
     df_stage = pd.read_sql(query_cor_referencia_hdata, connect_rhp_hdata())
 
@@ -284,7 +284,7 @@ def df_cor_referencia():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_COR_REFERENCIA (CD_COR_REFERENCIA) VALUES (:1)"
+    sql="INSERT INTO MV_RHP.SACR_COR_REFERENCIA (CD_COR_REFERENCIA, NM_COR) VALUES (:1, :2)"
 
     df_list = df_diff.values.tolist()
     n = 0
@@ -3042,7 +3042,7 @@ def df_mot_dev():
 dt = datetime.datetime.today() - datetime.timedelta(days=1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,12,13,14,15,16 * * 1-5")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10 * * 1-5")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
@@ -3173,6 +3173,11 @@ t24 = PythonOperator(
     task_id="captura_usuario_rhp",
     python_callable=df_usuario,
     dag=dag)
+
+# t25 = PythonOperator(
+#     task_id="captura_cor_referencia_rhp",
+#     python_callable=df_cor_referencia,
+#     dag=dag)
 
 # t25 = PythonOperator(
 #     task_id="insert_pre_med_rhp",
@@ -3334,4 +3339,4 @@ t24 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
+(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24, t25) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0

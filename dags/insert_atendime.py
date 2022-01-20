@@ -149,82 +149,150 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    print(dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 1, 31)):
 
-    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
 
-    df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
-    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
-    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
-    # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
+        print(dt.year, dt.month, dt.day, '/', data_fim.year, data_fim.month, data_fim.day)
 
-    df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        print(df_dim.info())
 
-    print("dados para incremento")
-    print(df_diff.info())
+        # df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
+        # df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
+        # df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+        # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
-    con = connect_rhp_hdata()
+        # df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        # print(df_stage.info())
 
-    cursor = con.cursor()
+        d = df_dim[['CD_CLASSIFICACAO_RISCO', 'CD_CLASSIFICACAO']].to_dict(orient='split')
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO) VALUES (:1, :2, :3, :4)"
+        for i in range(len(d['columns']) - 1):
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+            conn = connect_rhp_hdata()
+            cursor = conn.cursor()
 
-    cursor.executemany(sql, cols)
+            query = ''
+            query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO
+            query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+            todos_cds = ''
+            for j in d['data']:
+                if j[i + 1] is None:
+                    query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+                elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                else:
+                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                todos_cds += "'" + str(j[0]) + "'" + ','
+            todos_cds = todos_cds[:-1]
+            query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
+            query += 'END\n'
+            query += 'WHERE {cd} IN({todos_cds});\n'.format(cd=CD, todos_cds=todos_cds)
 
-    con.commit()
-    cursor.close
-    con.close
+            print(query)
+            # cursor.execute(query)
+            conn.commit()
+            conn.close()
 
-    print("Dados SACR_CLASSIFICACAO_RISCO inseridos")
+        # df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        # df_diff = df_diff.drop(columns=['_merge'])
+        # df_diff = df_diff.reset_index(drop=True)
+
+        # print("dados para incremento")
+        # print(df_diff.info())
+
+        # con = connect_rhp_hdata()
+
+        # cursor = con.cursor()
+
+        # sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO, CD_CLASSIFICACAO) VALUES (:1, :2, :3, :4, :5)"
+
+        # df_list = df_diff.values.tolist()
+        # n = 0
+        # cols = []
+        # for i in df_diff.iterrows():
+        #     cols.append(df_list[n])
+        #     n += 1
+
+        # cursor.executemany(sql, cols)
+
+        # con.commit()
+        # cursor.close
+        # con.close
+
+            print("Dados SACR_CLASSIFICACAO_RISCO inseridos")
 
 def df_classificacao():
     print("Entrou no df_classificacao")
 
     df_dim = pd.read_sql(query_classificacao, connect_rhp())
 
-    df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
-    df_dim["DS_TIPO_RISCO"] = df_dim["DS_TIPO_RISCO"].fillna("0")
+    # df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
+    # df_dim["DS_TIPO_RISCO"] = df_dim["DS_TIPO_RISCO"].fillna("0")
 
-    df_stage = pd.read_sql(query_classificacao_hdata, connect_rhp_hdata())
+    d = df_dim[['CD_CLASSIFICACAO', 'CD_COR_REFERENCIA']].to_dict(orient='split')
 
-    df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+    for i in range(len(d['columns']) - 1):
 
-    print("dados para incremento")
-    print(df_diff.info())
+        conn = connect_rhp_hdata()
+        cursor = conn.cursor()
 
-    con = connect_rhp_hdata()
+        query = ''
+        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO
+        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+        todos_cds = ''
+        for j in d['data']:
+            if j[i + 1] is None:
+                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+            elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+            else:
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=j[i + 1])
+            todos_cds += "'" + str(j[0]) + "'" + ','
+        todos_cds = todos_cds[:-1]
+        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
+        query += 'END\n'
+        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd=CD, todos_cds=todos_cds)
 
-    cursor = con.cursor()
+        print(query)
+        # cursor.execute(query)
+        conn.commit()
+        conn.close()
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO (CD_CLASSIFICACAO, DS_TIPO_RISCO) VALUES (:1, :2)"
+    # df_stage = pd.read_sql(query_classificacao_hdata, connect_rhp_hdata())
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+    # df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    # df_diff = df_diff.drop(columns=['_merge'])
+    # df_diff = df_diff.reset_index(drop=True)
 
-    cursor.executemany(sql, cols)
+    # print("dados para incremento")
+    # print(df_diff.info())
 
-    con.commit()
-    cursor.close
-    con.close
+    # con = connect_rhp_hdata()
 
-    print("Dados SACR_CLASSIFICACAO inseridos")
+    # cursor = con.cursor()
+
+    # sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO (CD_CLASSIFICACAO, DS_TIPO_RISCO, CD_COR_REFERENCIA) VALUES (:1, :2, :3)"
+
+    # df_list = df_diff.values.tolist()
+    # n = 0
+    # cols = []
+    # for i in df_diff.iterrows():
+    #     cols.append(df_list[n])
+    #     n += 1
+
+    # cursor.executemany(sql, cols)
+
+    # con.commit()
+    # cursor.close
+    # con.close
+
+        print("Dados SACR_CLASSIFICACAO inseridos")
 
 def df_convenio():
     print("Entrou no df_convenio")
@@ -269,37 +337,66 @@ def df_cor_referencia():
 
     df_dim = pd.read_sql(query_cor_referencia, connect_rhp())
 
-    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
+    # df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
 
-    df_stage = pd.read_sql(query_cor_referencia_hdata, connect_rhp_hdata())
+    d = df_dim[['CD_COR_REFERENCIA', 'NM_COR']].to_dict(orient='split')
 
-    df_diff = df_dim.merge(df_stage["CD_COR_REFERENCIA"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+    for i in range(len(d['columns']) - 1):
 
-    print("dados para incremento")
-    print(df_diff.info())
+        conn = connect_rhp_hdata()
+        cursor = conn.cursor()
 
-    con = connect_rhp_hdata()
+        query = ''
+        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO
+        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+        todos_cds = ''
+        for j in d['data']:
+            if j[i + 1] is None:
+                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+            elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+            else:
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=j[i + 1])
+            todos_cds += "'" + str(j[0]) + "'" + ','
+        todos_cds = todos_cds[:-1]
+        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
+        query += 'END\n'
+        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd=CD, todos_cds=todos_cds)
 
-    cursor = con.cursor()
+        print(query)
+        # cursor.execute(query)
+        conn.commit()
+        conn.close()
 
-    sql="INSERT INTO MV_RHP.SACR_COR_REFERENCIA (CD_COR_REFERENCIA) VALUES (:1)"
+    # df_stage = pd.read_sql(query_cor_referencia_hdata, connect_rhp_hdata())
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+    # df_diff = df_dim.merge(df_stage["CD_COR_REFERENCIA"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    # df_diff = df_diff.drop(columns=['_merge'])
+    # df_diff = df_diff.reset_index(drop=True)
 
-    cursor.executemany(sql, cols)
+    # print("dados para incremento")
+    # print(df_diff.info())
 
-    con.commit()
-    cursor.close
-    con.close
+    # con = connect_rhp_hdata()
 
-    print("Dados SACR_COR_REFERENCIA inseridos")
+    # cursor = con.cursor()
+
+    # sql="INSERT INTO MV_RHP.SACR_COR_REFERENCIA (CD_COR_REFERENCIA, NM_COR) VALUES (:1, :2)"
+
+    # df_list = df_diff.values.tolist()
+    # n = 0
+    # cols = []
+    # for i in df_diff.iterrows():
+    #     cols.append(df_list[n])
+    #     n += 1
+
+    # cursor.executemany(sql, cols)
+
+    # con.commit()
+    # cursor.close
+    # con.close
+
+        print("Dados SACR_COR_REFERENCIA inseridos")
 
 def df_diagnostico_atendime(atendimentos):
     print("Entrou no df_diagnostico_atendime")
@@ -3044,15 +3141,15 @@ dt = datetime.datetime.today() - datetime.timedelta(days=1)
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval="0 7 * * 1-5")
 
-t0 = PythonOperator(
-    task_id="insert_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="insert_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
-t1 = PythonOperator(
-    task_id="insert_cid_rhp",
-    python_callable=df_cid,
-    dag=dag)
+# t1 = PythonOperator(
+#     task_id="insert_cid_rhp",
+#     python_callable=df_cid,
+#     dag=dag)
 
 t2 = PythonOperator(
     task_id="insert_classificacao_risco_rhp",
@@ -3064,10 +3161,10 @@ t3 = PythonOperator(
     python_callable=df_classificacao,
     dag=dag)
 
-t4 = PythonOperator(
-    task_id="insert_convenio_rhp",
-    python_callable=df_convenio,
-    dag=dag)
+# t4 = PythonOperator(
+#     task_id="insert_convenio_rhp",
+#     python_callable=df_convenio,
+#     dag=dag)
 
 t5 = PythonOperator(
     task_id="insert_cor_referencia_rhp",
@@ -3079,100 +3176,100 @@ t5 = PythonOperator(
 #     python_callable=df_diagnostico_atendime,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
-
-t8 = PythonOperator(
-    task_id="insert_esp_med_rhp",
-    python_callable=df_esp_med,
-    dag=dag)
-
-t9 = PythonOperator(
-    task_id="insert_especialidad_rhp",
-    python_callable=df_especialidad,
-    dag=dag)
-
-t10 = PythonOperator(
-    task_id="insert_gru_cid_rhp",
-    python_callable=df_gru_cid,
-    dag=dag)
-
-t10 = PythonOperator(
-    task_id="insert_prestador_rhp",
-    python_callable=df_prestador,
-    dag=dag)
-
-# t11 = PythonOperator(
-#     task_id="insert_mot_alt_rhp",
-#     python_callable=df_mot_alt,
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
 #     dag=dag)
 
-t12 = PythonOperator(
-    task_id="insert_multi_empresa_rhp",
-    python_callable=df_multi_empresa,
-    dag=dag)
+# t8 = PythonOperator(
+#     task_id="insert_esp_med_rhp",
+#     python_callable=df_esp_med,
+#     dag=dag)
 
-t13 = PythonOperator(
-    task_id="insert_ori_ate_rhp",
-    python_callable=df_ori_ate,
-    dag=dag)
+# t9 = PythonOperator(
+#     task_id="insert_especialidad_rhp",
+#     python_callable=df_especialidad,
+#     dag=dag)
 
-t14 = PythonOperator(
-    task_id="insert_paciente_rhp",
-    python_callable=df_paciente,
-    dag=dag)
+# t10 = PythonOperator(
+#     task_id="insert_gru_cid_rhp",
+#     python_callable=df_gru_cid,
+#     dag=dag)
 
-t15 = PythonOperator(
-    task_id="insert_pagu_objeto_rhp",
-    python_callable=df_pagu_objeto,
-    dag=dag)
+# t10 = PythonOperator(
+#     task_id="insert_prestador_rhp",
+#     python_callable=df_prestador,
+#     dag=dag)
 
-t16 = PythonOperator(
-    task_id="insert_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# # t11 = PythonOperator(
+# #     task_id="insert_mot_alt_rhp",
+# #     python_callable=df_mot_alt,
+# #     dag=dag)
 
-t17 = PythonOperator(
-    task_id="insert_setor_rhp",
-    python_callable=df_setor,
-    dag=dag)
+# t12 = PythonOperator(
+#     task_id="insert_multi_empresa_rhp",
+#     python_callable=df_multi_empresa,
+#     dag=dag)
 
-t18 = PythonOperator(
-    task_id="insert_sgru_cid_rhp",
-    python_callable=df_sgru_cid,
-    dag=dag)
+# t13 = PythonOperator(
+#     task_id="insert_ori_ate_rhp",
+#     python_callable=df_ori_ate,
+#     dag=dag)
 
-t19 = PythonOperator(
-    task_id="insert_sintoma_avaliacao_rhp",
-    python_callable=df_sintoma_avaliacao,
-    dag=dag)
+# t14 = PythonOperator(
+#     task_id="insert_paciente_rhp",
+#     python_callable=df_paciente,
+#     dag=dag)
 
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t15 = PythonOperator(
+#     task_id="insert_pagu_objeto_rhp",
+#     python_callable=df_pagu_objeto,
+#     dag=dag)
 
-t21 = PythonOperator(
-    task_id="insert_tip_mar_rhp",
-    python_callable=df_tip_mar,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="insert_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
-t22 = PythonOperator(
-    task_id="insert_tip_res_rhp",
-    python_callable=df_tip_res,
-    dag=dag)
+# t17 = PythonOperator(
+#     task_id="insert_setor_rhp",
+#     python_callable=df_setor,
+#     dag=dag)
 
-t23 = PythonOperator(
-    task_id="insert_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t18 = PythonOperator(
+#     task_id="insert_sgru_cid_rhp",
+#     python_callable=df_sgru_cid,
+#     dag=dag)
 
-t24 = PythonOperator(
-    task_id="insert_usuario_rhp",
-    python_callable=df_usuario,
-    dag=dag)
+# t19 = PythonOperator(
+#     task_id="insert_sintoma_avaliacao_rhp",
+#     python_callable=df_sintoma_avaliacao,
+#     dag=dag)
+
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
+
+# t21 = PythonOperator(
+#     task_id="insert_tip_mar_rhp",
+#     python_callable=df_tip_mar,
+#     dag=dag)
+
+# t22 = PythonOperator(
+#     task_id="insert_tip_res_rhp",
+#     python_callable=df_tip_res,
+#     dag=dag)
+
+# t23 = PythonOperator(
+#     task_id="insert_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
+
+# t24 = PythonOperator(
+#     task_id="insert_usuario_rhp",
+#     python_callable=df_usuario,
+#     dag=dag)
 
 # t25 = PythonOperator(
 #     task_id="insert_pre_med_rhp",
@@ -3334,4 +3431,5 @@ t24 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
+# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
+t5 >> t3 >> t2
