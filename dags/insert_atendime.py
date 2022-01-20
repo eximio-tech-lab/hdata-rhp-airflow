@@ -165,36 +165,34 @@ def df_classificacao_risco():
         # df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
         # print(df_stage.info())
 
-        if not pd.empty(df_dim):
+        d = df_dim[['CD_CLASSIFICACAO_RISCO', 'CD_CLASSIFICACAO']].to_dict(orient='split')
 
-            d = df_dim[['CD_CLASSIFICACAO_RISCO', 'CD_CLASSIFICACAO']].to_dict(orient='split')
+        for i in range(len(d['columns']) - 1):
 
-            for i in range(len(d['columns']) - 1):
+            conn = connect_rhp_hdata()
+            cursor = conn.cursor()
 
-                conn = connect_rhp_hdata()
-                cursor = conn.cursor()
+            query = ''
+            query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO '
+            query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+            todos_cds = ''
+            for j in d['data']:
+                if j[i + 1] is None:
+                    query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
+                elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                    query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                else:
+                    query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                todos_cds += "'" + str(j[0]) + "'" + ','
+            todos_cds = todos_cds[:-1]
+            query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
+            query += 'END '
+            query += 'WHERE {cd} IN({todos_cds}) '.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
 
-                query = ''
-                query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO '
-                query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
-                todos_cds = ''
-                for j in d['data']:
-                    if j[i + 1] is None:
-                        query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
-                    elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                        query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
-                    else:
-                        query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=j[i + 1])
-                    todos_cds += "'" + str(j[0]) + "'" + ','
-                todos_cds = todos_cds[:-1]
-                query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
-                query += 'END '
-                query += 'WHERE {cd} IN({todos_cds}) '.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
-
-                # print(query)
-                cursor.execute(query)
-                conn.commit()
-                conn.close()
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
         # df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         # df_diff = df_diff.drop(columns=['_merge'])
