@@ -178,21 +178,21 @@ def df_classificacao_risco():
             cursor = conn.cursor()
 
             query = ''
-            query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO\n'
-            query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+            query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO '
+            query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
             todos_cds = ''
             for j in d['data']:
                 if j[i + 1] is None:
-                    query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+                    query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
                 elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
                 else:
-                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=j[i + 1])
                 todos_cds += "'" + str(j[0]) + "'" + ','
             todos_cds = todos_cds[:-1]
-            query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
-            query += 'END\n'
-            query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
+            query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
+            query += 'END '
+            query += 'WHERE {cd} IN({todos_cds}); '.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
 
             # print(query)
             cursor.execute(query)
@@ -243,21 +243,21 @@ def df_classificacao():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO\n'
-        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO '
+        query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
             if j[i + 1] is None:
-                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+                query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
             else:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=j[i + 1])
             todos_cds += "'" + str(j[0]) + "'" + ','
         todos_cds = todos_cds[:-1]
-        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
-        query += 'END\n'
-        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_CLASSIFICACAO', todos_cds=todos_cds)
+        query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
+        query += 'END '
+        query += 'WHERE {cd} IN({todos_cds}); '.format(cd='CD_CLASSIFICACAO', todos_cds=todos_cds)
 
         # print(query)
         cursor.execute(query)
@@ -347,21 +347,21 @@ def df_cor_referencia():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE MV_RHP.SACR_COR_REFERENCIA\n'
-        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
+        query = 'UPDATE MV_RHP.SACR_COR_REFERENCIA '
+        query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
             if j[i + 1] is None:
-                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+                query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
             else:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\'\n'.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=j[i + 1])
             todos_cds += "'" + str(j[0]) + "'" + ','
         todos_cds = todos_cds[:-1]
-        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
-        query += 'END\n'
-        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_COR_REFERENCIA', todos_cds=todos_cds)
+        query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
+        query += 'END '
+        query += 'WHERE {cd} IN({todos_cds}); '.format(cd='CD_COR_REFERENCIA', todos_cds=todos_cds)
 
         # print(query)
         cursor.execute(query)
