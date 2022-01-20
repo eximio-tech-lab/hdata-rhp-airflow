@@ -185,9 +185,9 @@ def df_classificacao_risco():
                 if j[i + 1] is None:
                     query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
                 elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                    query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
                 else:
-                    query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                    query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=j[i + 1])
                 todos_cds += "'" + str(j[0]) + "'" + ','
             todos_cds = todos_cds[:-1]
             query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
@@ -250,9 +250,9 @@ def df_classificacao():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
             else:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=j[i + 1])
             todos_cds += "'" + str(j[0]) + "'" + ','
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
@@ -354,9 +354,9 @@ def df_cor_referencia():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
+                query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=int(j[i + 1]))
             else:
-                query += 'WHEN \'{cd_p_update}\' THEN \'{novo_valor}\' '.format(cd_p_update=j[0], novo_valor=j[i + 1])
+                query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0], novo_valor=j[i + 1])
             todos_cds += "'" + str(j[0]) + "'" + ','
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
