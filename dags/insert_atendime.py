@@ -178,7 +178,7 @@ def df_classificacao_risco():
             cursor = conn.cursor()
 
             query = ''
-            query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO
+            query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO\n'
             query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
             todos_cds = ''
             for j in d['data']:
@@ -243,7 +243,7 @@ def df_classificacao():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO
+        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO\n'
         query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
@@ -347,7 +347,7 @@ def df_cor_referencia():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO
+        query = 'UPDATE MV_RHP.SACR_COR_REFERENCIA\n'
         query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1], cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
