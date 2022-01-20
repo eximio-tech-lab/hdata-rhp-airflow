@@ -3074,10 +3074,10 @@ t5 = PythonOperator(
     python_callable=df_cor_referencia,
     dag=dag)
 
-t6 = PythonOperator(
-    task_id="captura_diagnostico_atendime_rhp",
-    python_callable=df_diagnostico_atendime,
-    dag=dag)
+# t6 = PythonOperator(
+#     task_id="captura_diagnostico_atendime_rhp",
+#     python_callable=df_diagnostico_atendime,
+#     dag=dag)
 
 t7 = PythonOperator(
     task_id="captura_documento_clinico_rhp",
@@ -3334,4 +3334,4 @@ t24 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t6
+(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
