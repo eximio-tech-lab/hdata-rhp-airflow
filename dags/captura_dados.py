@@ -14,7 +14,7 @@ from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
 
-START_DATE = airflow.utils.dates.days_ago(0)
+START_DATE = airflow.utils.dates.days_ago(2)
 
 default_args = {
     "owner": "raphael",
@@ -3042,7 +3042,7 @@ def df_mot_dev():
 dt = datetime.datetime.today() - datetime.timedelta(days=1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7 * * 1-5")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,12,13,14,15,16 * * 1-5")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
