@@ -149,16 +149,11 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 1, 31)):
 
-        if dt.month == 12:
-            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
-        else:
-            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+        print(dt)
 
-        print(dt.year, dt.month, dt.day, '/', data_fim.year, data_fim.month, data_fim.day)
-
-        df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim.info())
 
@@ -167,7 +162,7 @@ def df_classificacao_risco():
         # df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
         # df_dim["DH_CLASSIFICACAO_RISCO"] = df_dim["DH_CLASSIFICACAO_RISCO"].fillna("01.01.1899 00:00:00")
 
-        # df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        # df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
         # print(df_stage.info())
 
         d = df_dim[['CD_CLASSIFICACAO_RISCO', 'CD_CLASSIFICACAO']].to_dict(orient='split')
@@ -3156,20 +3151,20 @@ t2 = PythonOperator(
     python_callable=df_classificacao_risco,
     dag=dag)
 
-t3 = PythonOperator(
-    task_id="insert_classificacao_rhp",
-    python_callable=df_classificacao,
-    dag=dag)
+# t3 = PythonOperator(
+#     task_id="insert_classificacao_rhp",
+#     python_callable=df_classificacao,
+#     dag=dag)
 
 # t4 = PythonOperator(
 #     task_id="insert_convenio_rhp",
 #     python_callable=df_convenio,
 #     dag=dag)
 
-t5 = PythonOperator(
-    task_id="insert_cor_referencia_rhp",
-    python_callable=df_cor_referencia,
-    dag=dag)
+# t5 = PythonOperator(
+#     task_id="insert_cor_referencia_rhp",
+#     python_callable=df_cor_referencia,
+#     dag=dag)
 
 # t6 = PythonOperator(
 #     task_id="insert_diagnostico_atendime_rhp",
