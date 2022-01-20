@@ -192,7 +192,7 @@ def df_classificacao_risco():
             todos_cds = todos_cds[:-1]
             query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
             query += 'END\n'
-            query += 'WHERE {cd} IN({todos_cds});\n'.format(cd=CD, todos_cds=todos_cds)
+            query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
 
             print(query)
             # cursor.execute(query)
@@ -257,7 +257,7 @@ def df_classificacao():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
         query += 'END\n'
-        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_CLASSIFICACAO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -361,7 +361,7 @@ def df_cor_referencia():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
         query += 'END\n'
-        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds});\n'.format(cd='CD_COR_REFERENCIA', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
