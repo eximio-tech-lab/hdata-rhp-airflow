@@ -1614,10 +1614,10 @@ t49 = PythonOperator(
     python_callable=df_glosas,
     dag=dag)
 
-t50 = PythonOperator(
-    task_id="insert_custo_medio_mensal_rhp",
-    python_callable=df_custo_medio_mensal,
-    dag=dag)
+# t50 = PythonOperator(
+#     task_id="insert_custo_medio_mensal_rhp",
+#     python_callable=df_custo_medio_mensal,
+#     dag=dag)
 
 t51 = PythonOperator(
     task_id="insert_fa_custo_atendimento_rhp",
@@ -1654,4 +1654,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-(t26, t28, t30, t32, t33, t34, t35, t36, t37, t43, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t50 >> t25
+(t26, t28, t30, t32, t33, t34, t35, t36, t37, t43, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t25
