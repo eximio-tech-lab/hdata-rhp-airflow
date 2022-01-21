@@ -3042,7 +3042,8 @@ def df_mot_dev():
 
     print("Dados MOT_DEV inseridos")
 
-dt = datetime.datetime.today() - datetime.timedelta(days=1)
+# dt = datetime.datetime.today() - datetime.timedelta(days=1)
+dt = datetime.datetime(2022, 1, 16)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval="0 7 * * 1-5")
