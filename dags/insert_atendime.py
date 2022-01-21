@@ -1021,10 +1021,10 @@ def df_triagem_atendimento():
 
     df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
-    # df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-    # df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
-    # df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
-    # df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
     # df_dim["DH_PRE_ATENDIMENTO"] = df_dim["DH_PRE_ATENDIMENTO"].fillna("01.01.1899 00:00:00")
 
     df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
@@ -3076,11 +3076,6 @@ t4 = PythonOperator(
 t5 = PythonOperator(
     task_id="insert_cor_referencia_rhp",
     python_callable=df_cor_referencia,
-    dag=dag)
-
-t6 = PythonOperator(
-    task_id="insert_diagnostico_atendime_rhp",
-    python_callable=df_diagnostico_atendime,
     dag=dag)
 
 t7 = PythonOperator(
