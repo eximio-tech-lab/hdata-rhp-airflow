@@ -1504,10 +1504,10 @@ t26 = PythonOperator(
     python_callable=df_itpre_med,
     dag=dag)
 
-t27 = PythonOperator(
-    task_id="insert_tip_presc_rhp",
-    python_callable=df_tip_presc,
-    dag=dag)
+# t27 = PythonOperator(
+#     task_id="insert_tip_presc_rhp",
+#     python_callable=df_tip_presc,
+#     dag=dag)
 
 t28 = PythonOperator(
     task_id="insert_for_apl_rhp",
@@ -1654,4 +1654,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-(t26, t27, t28, t30, t32, t33, t34, t35, t36, t37, t43, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t50 >> t25
+(t26, t28, t30, t32, t33, t34, t35, t36, t37, t43, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t50 >> t25
