@@ -748,42 +748,43 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    print(dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 17), until=datetime.datetime(2022, 1, 19)):
+        print(dt.strftime('%d/%m/%Y'))
 
-    df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
-    # df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("1899-01-01 00:00:00")
-    # df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        # df_dim["HR_ALTA_MEDICA"] = df_dim["HR_ALTA_MEDICA"].fillna("1899-01-01 00:00:00")
+        # df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini='01/10/2021', data_fim='31/01/2022'), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini='01/10/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    print("dados para incremento")
-    print(df_diff.info())
+        print("dados para incremento")
+        print(df_diff.info())
 
-    con = connect_rhp_hdata()
+        con = connect_rhp_hdata()
 
-    cursor = con.cursor()
+        cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
+        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    cursor.executemany(sql, cols)
+        cursor.executemany(sql, cols)
 
-    con.commit()
-    cursor.close
-    con.close
+        con.commit()
+        cursor.close
+        con.close
 
-    print("Dados PW_REGISTRO_ALTA inseridos")
+        print("Dados PW_REGISTRO_ALTA inseridos")
 
 def df_setor():
     print("Entrou no df_setor")
@@ -902,43 +903,44 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-    print(dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 17), until=datetime.datetime(2022, 1, 19)):
+        print(dt.strftime('%d/%m/%Y'))
 
-    df_dim = pd.read_sql(query_tempo_processo.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_tempo_processo.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
-    # df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
-    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        # df_dim["DH_PROCESSO"] = df_dim["DH_PROCESSO"].fillna("01.01.1899 00:00:00")
+        df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini="01/06/2021", data_fim="31/01/2022"), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini="01/06/2021", data_fim="31/01/2022"), connect_rhp_hdata())
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    print("dados para incremento")
-    print(df_diff.info())
+        print("dados para incremento")
+        print(df_diff.info())
 
-    con = connect_rhp_hdata()
+        con = connect_rhp_hdata()
 
-    cursor = con.cursor()
+        cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
+        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    cursor.executemany(sql, cols)
+        cursor.executemany(sql, cols)
 
-    con.commit()
-    cursor.close
-    con.close
+        con.commit()
+        cursor.close
+        con.close
 
-    print("Dados SACR_TEMPO_PROCESSO inseridos")
+        print("Dados SACR_TEMPO_PROCESSO inseridos")
 
 def df_tip_mar():
     print("Entrou no df_tip_mar")
