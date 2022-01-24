@@ -30,22 +30,57 @@ default_args = {
 
 HOSPITAL = "REAL HOSPITAL PORTGUES"
 
+def update_cells(df_eq, table_name, CD):
+    d = df_eq.to_dict(orient='split')
+    print(d)
+    for i in range(len(d['columns']) - 1):
+
+        conn = connect_rhp_hdata()
+        cursor = conn.cursor()
+
+        query = ''
+        query = 'UPDATE {nome_tabela}\n'.format(nome_tabela=table_name)
+        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1],
+                                                          cd=d['columns'][0])
+        todos_cds = ''
+        for j in d['data']:
+            if j[i + 1] is None:
+                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+            elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
+                                                                             novo_valor=int(j[i + 1]))
+            else:
+                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
+                                                                             novo_valor=j[i + 1])
+            todos_cds += "'" + str(j[0]) + "'" + ','
+        todos_cds = todos_cds[:-1]
+        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
+        query += 'END\n'
+        query += 'WHERE {cd} IN({todos_cds}) and SK_REDE_HOSPITALAR IN (7, 8, 9);\n'.format(cd=CD, todos_cds=todos_cds)
+
+        print(query)
+        cursor.execute(query)
+        conn.commit()
+        conn.close()
+
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
-        print(dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        df_dim = pd.read_sql(query_pre_med.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_pre_med.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
         df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(0)
-        # df_dim["DT_PRE_MED"] = df_dim["DT_PRE_MED"].fillna("01.01.1899 00:00:00")
         df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
-        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -130,9 +165,9 @@ def df_tip_presc():
 
     print(df_dim)
 
-    # df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
-    # df_dim["DS_TIP_PRESC"] = df_dim["DS_TIP_PRESC"].fillna("0")
-    # df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
+    df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
+    df_dim["DS_TIP_PRESC"] = df_dim["DS_TIP_PRESC"].fillna("0")
+    df_dim["CD_PRO_FAT"] = df_dim["CD_PRO_FAT"].fillna("0")
 
     print(df_dim.info())
 
@@ -613,10 +648,13 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
-    
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_itreg_amb.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_itreg_amb.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -634,12 +672,11 @@ def df_itreg_amb():
         df_dim["SN_PERTENCE_PACOTE"] = df_dim["SN_PERTENCE_PACOTE"].fillna("0")
         df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
         df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
-        # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
         df_dim["CD_ITMVTO"] = df_dim["CD_ITMVTO"].fillna(0)
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_itreg_amb_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itreg_amb_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -671,25 +708,25 @@ def df_itreg_amb():
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_reg_fat.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_reg_fat.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
         df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
         df_dim["SN_FECHADA"] = df_dim["SN_FECHADA"].fillna("0")
-        # df_dim["DT_INICIO"] = df_dim["DT_INICIO"].fillna("01.01.1899 00:00:00")
-        # df_dim["DT_FINAL"] = df_dim["DT_FINAL"].fillna("01.01.1899 00:00:00")
-        # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
         df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
         df_dim["VL_TOTAL_CONTA"] = df_dim["VL_TOTAL_CONTA"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_reg_fat_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_reg_fat_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REG_FAT"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -721,16 +758,18 @@ def df_reg_fat():
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_itreg_fat.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_itreg_fat.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
         df_dim["CD_REG_FAT"] = df_dim["CD_REG_FAT"].fillna(0)
         df_dim["CD_LANCAMENTO"] = df_dim["CD_LANCAMENTO"].fillna(0)
-        # df_dim["DT_LANCAMENTO"] = df_dim["DT_LANCAMENTO"].fillna("01.01.1899 00:00:00")
         df_dim["QT_LANCAMENTO"] = df_dim["QT_LANCAMENTO"].fillna(0)
         df_dim["TP_PAGAMENTO"] = df_dim["TP_PAGAMENTO"].fillna("0")
         df_dim["VL_UNITARIO"] = df_dim["VL_UNITARIO"].fillna(0)
@@ -746,7 +785,7 @@ def df_itreg_fat():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_itreg_fat_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itreg_fat_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -778,19 +817,21 @@ def df_itreg_fat():
 
 def df_custo_final():
     print("Entrou no df_custo_final")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_custo_final.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_custo_final.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
         df_dim["VL_CUSTO_CENCIR"] = df_dim["VL_CUSTO_CENCIR"].fillna(0)
-        # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_custo_final_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_custo_final_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -822,10 +863,13 @@ def df_custo_final():
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_mvto_estoque.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_mvto_estoque.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -834,11 +878,10 @@ def df_mvto_estoque():
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
         df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
-        # df_dim["DT_MVTO_ESTOQUE"] = df_dim["DT_MVTO_ESTOQUE"].fillna("01.01.1899 00:00:00")
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_mvto_estoque_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_mvto_estoque_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_MVTO_ESTOQUE"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -958,21 +1001,21 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_remessa_fatura.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_remessa_fatura.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
         df_dim["CD_REMESSA"] = df_dim["CD_REMESSA"].fillna(0)
-        # df_dim["DT_ABERTURA"] = df_dim["DT_ABERTURA"].fillna("01.01.1899 00:00:00")
-        # df_dim["DT_FECHAMENTO"] = df_dim["DT_FECHAMENTO"].fillna("01.01.1899 00:00:00")
-        # df_dim["DT_ENTREGA_DA_FATURA"] = df_dim["DT_ENTREGA_DA_FATURA"].fillna("01.01.1899 00:00:00")
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_remessa_fatura_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_remessa_fatura_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REMESSA"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1004,19 +1047,21 @@ def df_remessa_fatura():
 
 def df_repasse():
     print("Entrou no df_repasse")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_repasse.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_repasse.format(data_ini=dat_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
         df_dim["CD_REPASSE"] = df_dim["CD_REPASSE"].fillna(0)
-        # df_dim["DT_COMPETENCIA"] = df_dim["DT_COMPETENCIA"].fillna("01.01.1899 00:00:00")
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_repasse_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_repasse_hdata.format(data_ini=dat_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REPASSE"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1091,10 +1136,13 @@ def df_it_repasse():
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_itent_pro.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_itent_pro.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -1106,7 +1154,7 @@ def df_itent_pro():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_itent_pro_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itent_pro_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1185,10 +1233,13 @@ def df_glosas():
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-        print(dt.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_custo_medio_mensal.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_custo_medio_mensal.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -1199,7 +1250,7 @@ def df_custo_medio_mensal():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_custo_medio_mensal_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_custo_medio_mensal_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1488,8 +1539,8 @@ def df_mot_dev():
 
     print("Dados MOT_DEV inseridos")
 
-dt = datetime.datetime.today() - datetime.timedelta(days=1)
-# dt = datetime.datetime(2022, 1, 16)
+dt_today = datetime.datetime.today()
+dt_ini = dt_today - datetime.timedelta(days=5)
 
 dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
 # dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval="0 7 * * 1-5")

@@ -30,87 +30,128 @@ default_args = {
 
 HOSPITAL = "REAL HOSPITAL PORTGUES"
 
+def update_cells(df_eq, table_name, CD):
+    d = df_eq.to_dict(orient='split')
+    print(d)
+    for i in range(len(d['columns']) - 1):
+
+        conn = connect_rhp_hdata()
+        cursor = conn.cursor()
+
+        query = ''
+        query = 'UPDATE {nome_tabela}\n'.format(nome_tabela=table_name)
+        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1],
+                                                          cd=d['columns'][0])
+        todos_cds = ''
+        for j in d['data']:
+            if j[i + 1] is None:
+                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
+            elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
+                                                                             novo_valor=int(j[i + 1]))
+            else:
+                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
+                                                                             novo_valor=j[i + 1])
+            todos_cds += "'" + str(j[0]) + "'" + ','
+        todos_cds = todos_cds[:-1]
+        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
+        query += 'END\n'
+        query += 'WHERE {cd} IN({todos_cds}) and SK_REDE_HOSPITALAR IN (7, 8, 9);\n'.format(cd=CD, todos_cds=todos_cds)
+
+        print(query)
+        cursor.execute(query)
+        conn.commit()
+        conn.close()
+
 def df_atendime():
     print("Entrou no df_atendime")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-    df_dim = pd.read_sql(query_atendime.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
-    df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-    df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
-    df_dim["CD_MOT_ALT"] = df_dim["CD_MOT_ALT"].fillna(0)
-    df_dim["CD_TIP_RES"] = df_dim["CD_TIP_RES"].fillna(0)
-    df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
-    df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
-    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
-    df_dim["CD_ATENDIMENTO_PAI"] = df_dim["CD_ATENDIMENTO_PAI"].fillna(0)
-    df_dim["CD_LEITO"] = df_dim["CD_LEITO"].fillna(0)
-    df_dim["CD_ORI_ATE"] = df_dim["CD_ORI_ATE"].fillna(0)
-    df_dim["CD_SERVICO"] = df_dim["CD_SERVICO"].fillna(0)
-    df_dim["TP_ATENDIMENTO"] = df_dim["TP_ATENDIMENTO"].fillna("0")
-    df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
-    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
-    df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
+        df_dim = pd.read_sql(query_atendime.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
-    df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
+        df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
+        df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
+        df_dim["CD_MOT_ALT"] = df_dim["CD_MOT_ALT"].fillna(0)
+        df_dim["CD_TIP_RES"] = df_dim["CD_TIP_RES"].fillna(0)
+        df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
+        df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
+        df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+        df_dim["CD_ATENDIMENTO_PAI"] = df_dim["CD_ATENDIMENTO_PAI"].fillna(0)
+        df_dim["CD_LEITO"] = df_dim["CD_LEITO"].fillna(0)
+        df_dim["CD_ORI_ATE"] = df_dim["CD_ORI_ATE"].fillna(0)
+        df_dim["CD_SERVICO"] = df_dim["CD_SERVICO"].fillna(0)
+        df_dim["TP_ATENDIMENTO"] = df_dim["TP_ATENDIMENTO"].fillna("0")
+        df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
+        df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+        df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-    lista_cds_atendimentos = df_dim['CD_ATENDIMENTO'].to_list()
-    lista_cds_atendimentos = [str(cd) for cd in lista_cds_atendimentos]
-    atendimentos = ','.join(lista_cds_atendimentos)
+        df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
+        df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
 
-    print(df_dim.info())
+        lista_cds_atendimentos = df_dim['CD_ATENDIMENTO'].to_list()
+        lista_cds_atendimentos = [str(cd) for cd in lista_cds_atendimentos]
+        atendimentos = ','.join(lista_cds_atendimentos)
 
-    df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        print(df_dim.info())
 
-    df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
-    df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
+        df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    print(df_stage.info())
+        df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
+        df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
 
-    df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        print(df_stage.info())
 
-    df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
-    df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
+        df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
+        df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
-    con = connect_rhp_hdata()
-    cursor = con.cursor()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
+        con = connect_rhp_hdata()
+        cursor = con.cursor()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
 
-    cursor.executemany(sql, cols)
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor.executemany(sql, cols)
 
-    print("Dados ATENDIME inseridos")
+        con.commit()
+        cursor.close
+        con.close
 
-    df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        print("Dados ATENDIME inseridos")
 
-    df_upd['HR_ALTA'] = pd.to_datetime(df_upd['HR_ALTA'])
-    df_upd['HR_ALTA_MEDICA'] = pd.to_datetime(df_upd['HR_ALTA_MEDICA'])
+        df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
 
-    print("dados para update")
-    print(df_upd.info())
+        df_upd['HR_ALTA'] = pd.to_datetime(df_upd['HR_ALTA'])
+        df_upd['HR_ALTA_MEDICA'] = pd.to_datetime(df_upd['HR_ALTA_MEDICA'])
 
-    df_diagnostico_atendime(atendimentos)
+        print("dados para update")
+        print(df_upd.info())
+
+        update_cells(df_upd,
+                    'MV_RHP.ATENDIME',
+                    'CD_ATENDIMENTO')
+
+        df_diagnostico_atendime(atendimentos)
 
 def df_cid():
     print("Entrou no df_cid")
@@ -156,50 +197,58 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-    df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
-    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
-    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+        df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
+        df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
+        df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
 
-    df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    con = connect_rhp_hdata()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    cursor = con.cursor()
+        con = connect_rhp_hdata()
 
-    sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO, CD_CLASSIFICACAO) VALUES (:1, :2, :3, :4, :5)"
+        cursor = con.cursor()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        sql="INSERT INTO MV_RHP.SACR_CLASSIFICACAO_RISCO (CD_CLASSIFICACAO_RISCO, CD_COR_REFERENCIA, CD_TRIAGEM_ATENDIMENTO, DH_CLASSIFICACAO_RISCO, CD_CLASSIFICACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    cursor.executemany(sql, cols)
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor.executemany(sql, cols)
 
-    print("Dados SACR_CLASSIFICACAO_RISCO inseridos")
+        con.commit()
+        cursor.close
+        con.close
 
-    df_upd = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        print("Dados SACR_CLASSIFICACAO_RISCO inseridos")
 
-    print("dados para update")
-    print(df_upd.info())
+        df_upd = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
+
+        print("dados para update")
+        print(df_upd.info())
+
+        update_cells(df_upd,
+                    'MV_RHP.SACR_CLASSIFICACAO_RISCO',
+                    'CD_CLASSIFICACAO_RISCO')
 
 def df_classificacao():
     print("Entrou no df_classificacao")
@@ -371,51 +420,57 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-    df_dim = pd.read_sql(query_documento_clinico.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
-    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+        df_dim = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+        df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
 
-    df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    con = connect_rhp_hdata()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    cursor = con.cursor()
+        con = connect_rhp_hdata()
 
-    sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+        cursor = con.cursor()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
 
-    cursor.executemany(sql, cols)
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor.executemany(sql, cols)
 
-    print("Dados PW_DOCUMENTO_CLINICO inseridos")
+        con.commit()
+        cursor.close
+        con.close
 
-    df_upd = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-    print("dados para update")
-    print(df_upd.info())
+        df_upd = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
+
+        print("dados para update")
+        print(df_upd.info())
+
+        update_cells(df_upd, 'MV_RHP.PW_DOCUMENTO_CLINICO', 'CD_OBJETO')
 
 def df_esp_med():
     print("Entrou no df_esp_med")
@@ -798,48 +853,54 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-    df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
-    
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_dim = pd.read_sql(query_registro_alta.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    con = connect_rhp_hdata()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    cursor = con.cursor()
+        con = connect_rhp_hdata()
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
+        cursor = con.cursor()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
 
-    cursor.executemany(sql, cols)
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor.executemany(sql, cols)
 
-    print("Dados PW_REGISTRO_ALTA inseridos")
+        con.commit()
+        cursor.close
+        con.close
 
-    df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        print("Dados PW_REGISTRO_ALTA inseridos")
 
-    print("dados para update")
-    print(df_upd.info())
+        df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
+
+        print("dados para update")
+        print(df_upd.info())
+
+        update_cells(df_upd, 'MV_RHP.PW_REGITRO_ALTA', 'CD_ATENDIMENTO')
 
 def df_setor():
     print("Entrou no df_setor")
@@ -969,49 +1030,55 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-    df_dim = pd.read_sql(query_tempo_processo.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim = pd.read_sql(query_tempo_processo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    con = connect_rhp_hdata()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    cursor = con.cursor()
+        con = connect_rhp_hdata()
 
-    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
+        cursor = con.cursor()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
-    cursor.executemany(sql, cols)
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor.executemany(sql, cols)
 
-    print("Dados SACR_TEMPO_PROCESSO inseridos")
+        con.commit()
+        cursor.close
+        con.close
 
-    df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        print("Dados SACR_TEMPO_PROCESSO inseridos")
 
-    print("dados para update")
-    print(df_upd.info())
+        df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
+
+        print("dados para update")
+        print(df_upd.info())
+
+        update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
 
 def df_tip_mar():
     print("Entrou no df_tip_mar")
@@ -1099,51 +1166,57 @@ def df_tip_res():
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+        data_1 = dt
+        data_2 = dt + datetime.timedelta(days=1)
 
-    df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
-    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
-    df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
+        df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=dt_back.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+        df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+        df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
 
-    df_diff = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
-    
-    print("dados para incremento")
-    print(df_diff.info())
+        df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    con = connect_rhp_hdata()
+        df_diff = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        
+        print("dados para incremento")
+        print(df_diff.info())
 
-    cursor = con.cursor()
+        con = connect_rhp_hdata()
 
-    sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
+        cursor = con.cursor()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
 
-    cursor.executemany(sql, cols)
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    con.commit()
-    cursor.close
-    con.close
+        cursor.executemany(sql, cols)
 
-    print("Dados TRIAGEM_ATENDIMENTO inseridos")
+        con.commit()
+        cursor.close
+        con.close
 
-    df_upd = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        print("Dados TRIAGEM_ATENDIMENTO inseridos")
 
-    print("dados para update")
-    print(df_upd.info())
+        df_upd = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
+
+        print("dados para update")
+        print(df_upd.info())
+
+        update_cells(df_upd, 'MV_RHP.TRIAGEM_ATENDIMENTO', 'CD_TRIAGEM_ATENDIMENTO')
 
 def df_usuario():
     print("Entrou no df_usuario")
@@ -1187,8 +1260,8 @@ def df_usuario():
     print("dados para update")
     print(df_upd.info())
 
-dt = datetime.datetime.today()
-dt_back = dt - datetime.timedelta(days=5)
+dt_today = datetime.datetime.today()
+dt_ini = dt - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10,22 * * *")
