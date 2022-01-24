@@ -34,35 +34,29 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def update_cells(df_eq, table_name, CD):
     d = df_eq.to_dict(orient='split')
     print(d)
-    for i in range(len(d['columns']) - 1):
-
+    for dado in d['data']:
         conn = connect_rhp_hdata()
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela}\n'.format(nome_tabela=table_name)
-        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1],
-                                                          cd=d['columns'][0])
-        todos_cds = ''
-        for j in d['data']:
-            if j[i + 1] is None:
-                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
-            elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
-                                                                             novo_valor=int(j[i + 1]))
+        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        for i in range(len(d['data']) - 1)
+            if pd.isna(dado[i + 1]):
+                query += 'SET {nome_coluna} is null '.format(nome_coluna=d['columns'][i + 1])
             else:
-                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
-                                                                             novo_valor=j[i + 1])
-            todos_cds += "'" + str(j[0]) + "'" + ','
-        todos_cds = todos_cds[:-1]
-        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
-        query += 'END\n'
-        query += 'WHERE {cd} IN({todos_cds}) and SK_REDE_HOSPITALAR IN (7, 8, 9);\n'.format(cd=CD, todos_cds=todos_cds)
+                if type(dado[i + 1]) == np.int64 or type(dado[i + 1]) == np.float64:
+                    query += 'SET {nome_coluna} = {novo_valor} '.format(nome_coluna=d['columns'][i + 1],
+                                                            novo_valor=dado[i + 1])
+                else:
+                    query += 'SET {nome_coluna} = \'{novo_valor}\' '.format(nome_coluna=d['columns'][i + 1],
+                                                            novo_valor=dado[i + 1])
+            query += 'END '
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=dado[0])
 
-        print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+            print(query)
+            # cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_atendime():
     print("Entrou no df_atendime")
