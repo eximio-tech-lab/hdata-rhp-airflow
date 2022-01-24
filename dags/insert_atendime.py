@@ -35,12 +35,12 @@ def update_cells(df_eq, table_name, CD):
     d = df_eq.to_dict(orient='split')
     print(d)
     for dado in d['data']:
-        conn = connect_rhp_hdata()
-        cursor = conn.cursor()
-
-        query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
         for i in range(len(dado) - 1):
+            conn = connect_rhp_hdata()
+            cursor = conn.cursor()
+
+            query = ''
+            query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
             if pd.isna(dado[i + 1]):
                 query += 'SET {nome_coluna} is null '.format(nome_coluna=d['columns'][i + 1])
             else:
@@ -50,7 +50,6 @@ def update_cells(df_eq, table_name, CD):
                 else:
                     query += 'SET {nome_coluna} = \'{novo_valor}\' '.format(nome_coluna=d['columns'][i + 1],
                                                             novo_valor=dado[i + 1])
-            query += 'END '
             query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=dado[0])
 
             print(query)
