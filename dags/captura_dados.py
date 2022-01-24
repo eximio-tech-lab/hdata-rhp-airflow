@@ -1261,7 +1261,7 @@ def df_usuario():
     print(df_upd.info())
 
 dt_today = datetime.datetime.today()
-dt_ini = dt - datetime.timedelta(days=5)
+dt_ini = dt_today - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10,22 * * *")
