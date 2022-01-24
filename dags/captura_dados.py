@@ -36,6 +36,24 @@ def df_atendime():
 
     df_dim = pd.read_sql(query_atendime.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
+    df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
+    df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_CID"] = df_dim["CD_CID"].fillna("0")
+    df_dim["CD_MOT_ALT"] = df_dim["CD_MOT_ALT"].fillna(0)
+    df_dim["CD_TIP_RES"] = df_dim["CD_TIP_RES"].fillna(0)
+    df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
+    df_dim["CD_ESPECIALID"] = df_dim["CD_ESPECIALID"].fillna(0)
+    df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+    df_dim["CD_ATENDIMENTO_PAI"] = df_dim["CD_ATENDIMENTO_PAI"].fillna(0)
+    df_dim["CD_LEITO"] = df_dim["CD_LEITO"].fillna(0)
+    df_dim["CD_ORI_ATE"] = df_dim["CD_ORI_ATE"].fillna(0)
+    df_dim["CD_SERVICO"] = df_dim["CD_SERVICO"].fillna(0)
+    df_dim["TP_ATENDIMENTO"] = df_dim["TP_ATENDIMENTO"].fillna("0")
+    df_dim["CD_TIP_MAR"] = df_dim["CD_TIP_MAR"].fillna(0)
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
+
     df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
     df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
 
@@ -126,6 +144,10 @@ def df_classificacao_risco():
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+
+    df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
+    df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
+    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
 
     df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
@@ -302,6 +324,11 @@ def df_documento_clinico():
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_documento_clinico.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+
+    df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
+    df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
 
     df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini='01/12/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
@@ -661,6 +688,8 @@ def df_registro_alta():
     print(dt.strftime('%d/%m/%Y'))
 
     df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
+    
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
     df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini='01/10/2021', data_fim='31/01/2022'), connect_rhp_hdata())
 
@@ -803,6 +832,9 @@ def df_tempo_processo():
 
     df_dim = pd.read_sql(query_tempo_processo.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
+    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+
     df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini="01/06/2021", data_fim="31/01/2022"), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
@@ -909,6 +941,11 @@ def df_triagem_atendimento():
 
     df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp())
 
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+    df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+    df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
+
     df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
@@ -977,7 +1014,7 @@ def df_usuario():
 dt = datetime.datetime.today() - datetime.timedelta(days=1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10,22 * * 1-5")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10,22 * * *")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
