@@ -143,12 +143,15 @@ def df_atendime():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
     df_diagnostico_atendime(atendimentos)
 
@@ -226,12 +229,15 @@ def df_cid():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CID', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CID', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
@@ -312,12 +318,15 @@ def df_classificacao_risco():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_classificacao():
     print("Entrou no df_classificacao")
@@ -393,9 +402,9 @@ def df_classificacao():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO', todos_cds=cds)
 
-        # print(query)
+        print(query)
         cursor.execute(query)
         conn.commit()
         conn.close()
@@ -474,7 +483,7 @@ def df_convenio():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CONVENIO', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CONVEIO', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -555,7 +564,7 @@ def df_cor_referencia():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_COR_REFERENCIA', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_COR_REFERENCIA', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -636,7 +645,7 @@ def df_diagnostico_atendime(atendimentos):
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_DIAGNOSTICO_ATENDIME', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_DIAGNOSTICO_ATENDIME', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -723,12 +732,15 @@ def df_documento_clinico():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_esp_med():
     print("Entrou no df_esp_med")
@@ -806,7 +818,7 @@ def df_esp_med():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ESPECIALID', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ESPECILID', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -887,7 +899,7 @@ def df_especialidad():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ESPECIALID', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ESPECIALID', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -968,7 +980,7 @@ def df_gru_cid():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_GRU_CID', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_GRU_CID', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -1084,7 +1096,7 @@ def df_multi_empresa():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_MULTI_EMPRESA', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_MULTI_EMPRESA', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -1165,9 +1177,9 @@ def df_ori_ate():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ORI_ATE', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ORI_ATE', todos_cds=cds)
 
-        # print(query)
+        print(query)
         cursor.execute(query)
         conn.commit()
         conn.close()
@@ -1177,11 +1189,7 @@ def df_prestador():
 
     df_dim = pd.read_sql(query_prestador, connect_rhp())
 
-    print(df_dim['DT_NASCIMENTO'][df_dim['DT_NASCIMENTO'] > dt])
-
     df_dim['DT_NASCIMENTO'][df_dim['DT_NASCIMENTO'] > dt] = None
-
-    print(df_dim['DT_NASCIMENTO'][df_dim['DT_NASCIMENTO'] > dt])
 
     df_stage = pd.read_sql(query_prestador_hdata, connect_rhp_hdata())
 
@@ -1252,12 +1260,15 @@ def df_prestador():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PRESTADOR', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PRESTADOR', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_paciente():
     print("Entrou no df_paciente")
@@ -1339,12 +1350,15 @@ def df_paciente():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PACIENTE', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PACIENTE', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_pagu_objeto():
     print("Entrou no df_pagu_objeto")
@@ -1420,7 +1434,7 @@ def df_pagu_objeto():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -1504,12 +1518,15 @@ def df_registro_alta():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_setor():
     print("Entrou no df_setor")
@@ -1585,7 +1602,7 @@ def df_setor():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SETOR', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SETOR', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -1666,12 +1683,15 @@ def df_sgru_cid():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SGRU_CID', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SGRU_CID', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_sintoma_avaliacao():
     print("Entrou no df_sintoma_avaliacao")
@@ -1747,7 +1767,7 @@ def df_sintoma_avaliacao():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SINTOMA_AVALIACAO', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SINTOMA_AVALIACAO', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -1912,7 +1932,7 @@ def df_tip_mar():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TIP_MAR', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TIP_MAR', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -1993,7 +2013,7 @@ def df_tip_res():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TIP_RES', todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TIP_RES', todos_cds=cds)
 
         # print(query)
         cursor.execute(query)
@@ -2080,12 +2100,15 @@ def df_triagem_atendimento():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TRIAGEM_ATENDIMENTO', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TRIAGEM_ATENDIMENTO', todos_cds=cds)
+
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_usuario():
     print("Entrou no df_usuario")
@@ -2161,12 +2184,15 @@ def df_usuario():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_USUARIO', todos_cds=todos_cds)
 
-        # print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+        cds_split = np.array_split(todos_cds, 50)
+        for cds in cds_split:
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_USUARIO', todos_cds=cds)
+
+            print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 dt = datetime.datetime.today()
 dt_back = dt - datetime.timedelta(days=5)
