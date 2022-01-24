@@ -671,7 +671,7 @@ def df_multi_empresa():
 
     print("Dados MULTI_EMPRESAS inseridos")
 
-    df_upd = df_dim.merge(df_stage["CD_MULTI_EMPRESAS"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+    df_upd = df_dim.merge(df_stage["CD_MULTI_EMPRESA"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
     df_upd = df_upd.drop(columns=['_merge'])
     df_upd = df_upd.reset_index(drop=True)
 
