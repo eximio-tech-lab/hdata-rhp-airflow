@@ -877,7 +877,7 @@ def df_registro_alta():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
+        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (CD_ATENDIMENTO, HR_ALTA_MEDICA) VALUES (:1, :2)"
 
         df_list = df_diff.values.tolist()
         n = 0
