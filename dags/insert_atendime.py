@@ -118,7 +118,7 @@ def df_atendime():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.ATENDIME '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -201,7 +201,7 @@ def df_cid():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.CID '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -287,7 +287,7 @@ def df_classificacao_risco():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO_RISCO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -368,7 +368,7 @@ def df_classificacao():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SACR_CLASSIFICACAO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -449,7 +449,7 @@ def df_convenio():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.CONVENIO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -530,7 +530,7 @@ def df_cor_referencia():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SACR_COR_REFERENCIA '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -611,7 +611,7 @@ def df_diagnostico_atendime(atendimentos):
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.DIAGNOSTICO_ATENDIME '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -698,7 +698,7 @@ def df_documento_clinico():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.PW_DOCUMENTO_CLINICO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -781,7 +781,7 @@ def df_esp_med():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.ESP_MED '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -862,7 +862,7 @@ def df_especialidad():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.ESPECIALID '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -943,7 +943,7 @@ def df_gru_cid():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.GRU_CID '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1059,7 +1059,7 @@ def df_multi_empresa():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.MOT_ALT '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1140,7 +1140,7 @@ def df_ori_ate():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.ORI_ATE '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1221,7 +1221,7 @@ def df_prestador():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.PRESTADOR '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1308,7 +1308,7 @@ def df_paciente():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.PACIENTE '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1389,7 +1389,7 @@ def df_pagu_objeto():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.PAGU_OBJETO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1473,7 +1473,7 @@ def df_registro_alta():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.PW_REGISTRO_ALTA '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1554,7 +1554,7 @@ def df_setor():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SETOR '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1635,7 +1635,7 @@ def df_sgru_cid():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SGRU_CID '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1716,7 +1716,7 @@ def df_sintoma_avaliacao():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SACR_SINTOMA_AVALIACAO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1801,7 +1801,7 @@ def df_tempo_processo():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.SACR_TEMPO_PROCESSO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1882,7 +1882,7 @@ def df_tip_mar():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.TIP_MAR '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1963,7 +1963,7 @@ def df_tip_res():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.TIP_RES '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -2050,7 +2050,7 @@ def df_triagem_atendimento():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.TRIAGEM_ATENDIMENTO '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -2131,7 +2131,7 @@ def df_usuario():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+        query = 'UPDATE MV_RHP.USUARIOS '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
