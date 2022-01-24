@@ -40,7 +40,7 @@ def update_cells(df_eq, table_name, CD):
 
         query = ''
         query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
-        for i in range(len(dado) - 1)
+        for i in range(len(dado) - 1):
             if pd.isna(dado[i + 1]):
                 query += 'SET {nome_coluna} is null '.format(nome_coluna=d['columns'][i + 1])
             else:
