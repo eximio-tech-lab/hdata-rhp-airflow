@@ -894,6 +894,8 @@ def df_registro_alta():
             data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
             first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
+        data_fim = data_fim + datetime.timedelta(days=1)
+
         print(dt.strftime("%d/%m/%Y"))
         print(data_fim.strftime("%d/%m/%Y"))
 
