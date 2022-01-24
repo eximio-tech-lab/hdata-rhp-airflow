@@ -1072,14 +1072,14 @@ def df_tempo_processo():
 
         print("Dados SACR_TEMPO_PROCESSO inseridos")
 
-        df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        # df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        # df_upd = df_upd.drop(columns=['_merge'])
+        # df_upd = df_upd.reset_index(drop=True)
 
-        print("dados para update")
-        print(df_upd.info())
+        # print("dados para update")
+        # print(df_upd.info())
 
-        update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
+        # update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
 
 def df_tip_mar():
     print("Entrou no df_tip_mar")
