@@ -1177,9 +1177,11 @@ def df_prestador():
 
     df_dim = pd.read_sql(query_prestador, connect_rhp())
 
-    df_dim[df_dim['DT_NASCIMENTO'] > dt]['DT_NASCIMENTO'] = None
+    print(df_dim['DT_NASCIMENTO'][df_dim['DT_NASCIMENTO'] > dt])
 
-    print(df_dim[df_dim['DT_NASCIMENTO'] > dt]['DT_NASCIMENTO'])
+    df_dim['DT_NASCIMENTO'][df_dim['DT_NASCIMENTO'] > dt] = None
+
+    print(df_dim['DT_NASCIMENTO'][df_dim['DT_NASCIMENTO'] > dt])
 
     df_stage = pd.read_sql(query_prestador_hdata, connect_rhp_hdata())
 
