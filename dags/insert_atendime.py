@@ -1177,7 +1177,7 @@ def df_prestador():
 
     df_dim = pd.read_sql(query_prestador, connect_rhp())
 
-    df_dim['DT_NASCIMENTO'] = df_dim[df_dim['DT_NASCIMENTO'] <= datetime.datetime(dt.year, dt.month, dt.day, 23, 59, 59)]
+    df_dim[df_dim['DT_NASCIMENTO'] > datetime.datetime(dt.year, dt.month, dt.day, 23, 59, 59)]['DT_NASCIMENTO'] = None
 
     df_stage = pd.read_sql(query_prestador_hdata, connect_rhp_hdata())
 
