@@ -144,7 +144,7 @@ def df_atendime():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=cds)
 
@@ -230,7 +230,7 @@ def df_cid():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CID', todos_cds=cds)
 
@@ -319,7 +319,7 @@ def df_classificacao_risco():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=cds)
 
@@ -733,7 +733,7 @@ def df_documento_clinico():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=cds)
 
@@ -1261,7 +1261,7 @@ def df_prestador():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PRESTADOR', todos_cds=cds)
 
@@ -1519,7 +1519,7 @@ def df_registro_alta():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=cds)
 
@@ -1684,7 +1684,7 @@ def df_sgru_cid():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SGRU_CID', todos_cds=cds)
 
@@ -2101,7 +2101,7 @@ def df_triagem_atendimento():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TRIAGEM_ATENDIMENTO', todos_cds=cds)
 
@@ -2185,7 +2185,7 @@ def df_usuario():
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
 
-        cds_split = np.array_split(todos_cds, 50)
+        cds_split = np.array_split(todos_cds, round(len(todos_cds)/900))
         for cds in cds_split:
             query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_USUARIO', todos_cds=cds)
 
