@@ -123,7 +123,7 @@ def df_atendime():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -206,7 +206,7 @@ def df_cid():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -292,7 +292,7 @@ def df_classificacao_risco():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -373,7 +373,7 @@ def df_classificacao():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -454,7 +454,7 @@ def df_convenio():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -535,7 +535,7 @@ def df_cor_referencia():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -616,7 +616,7 @@ def df_diagnostico_atendime(atendimentos):
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -703,7 +703,7 @@ def df_documento_clinico():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -786,7 +786,7 @@ def df_esp_med():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -867,7 +867,7 @@ def df_especialidad():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -948,7 +948,7 @@ def df_gru_cid():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1064,7 +1064,7 @@ def df_multi_empresa():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1145,7 +1145,7 @@ def df_ori_ate():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1226,7 +1226,7 @@ def df_prestador():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1313,7 +1313,7 @@ def df_paciente():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1394,7 +1394,7 @@ def df_pagu_objeto():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1478,7 +1478,7 @@ def df_registro_alta():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1559,7 +1559,7 @@ def df_setor():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1640,7 +1640,7 @@ def df_sgru_cid():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1721,7 +1721,7 @@ def df_sintoma_avaliacao():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1806,7 +1806,7 @@ def df_tempo_processo():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1886,7 +1886,7 @@ def df_tip_mar():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -1967,7 +1967,7 @@ def df_tip_res():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -2054,7 +2054,7 @@ def df_triagem_atendimento():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
@@ -2135,7 +2135,7 @@ def df_usuario():
                                                           cd=d['columns'][0])
         todos_cds = ''
         for j in d['data']:
-            if np.isnull(j[i + 1]):
+            if pd.isna(j[i + 1]):
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
                 if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
