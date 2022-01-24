@@ -33,35 +33,28 @@ HOSPITAL = "REAL HOSPITAL PORTGUES"
 def update_cells(df_eq, table_name, CD):
     d = df_eq.to_dict(orient='split')
     print(d)
-    for i in range(len(d['columns']) - 1):
+    for dado in d['data']:
+        for i in range(len(dado) - 1):
+            conn = connect_rhp_hdata()
+            cursor = conn.cursor()
 
-        conn = connect_rhp_hdata()
-        cursor = conn.cursor()
-
-        query = ''
-        query = 'UPDATE {nome_tabela}\n'.format(nome_tabela=table_name)
-        query += 'SET {nome_coluna} = CASE {cd}\n'.format(nome_coluna=d['columns'][i + 1],
-                                                          cd=d['columns'][0])
-        todos_cds = ''
-        for j in d['data']:
-            if j[i + 1] is None:
-                query += 'WHEN {cd_p_update} THEN null \n'.format(cd_p_update=j[0])
-            elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
-                                                                             novo_valor=int(j[i + 1]))
+            query = ''
+            query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
+            if pd.isna(dado[i + 1]):
+                query += 'SET {nome_coluna} is null '.format(nome_coluna=d['columns'][i + 1])
             else:
-                query += 'WHEN {cd_p_update} THEN {novo_valor}\n'.format(cd_p_update=j[0],
-                                                                             novo_valor=j[i + 1])
-            todos_cds += "'" + str(j[0]) + "'" + ','
-        todos_cds = todos_cds[:-1]
-        query += 'ELSE {nome_coluna}\n'.format(nome_coluna=d['columns'][i + 1])
-        query += 'END\n'
-        query += 'WHERE {cd} IN({todos_cds}) and SK_REDE_HOSPITALAR IN (7, 8, 9);\n'.format(cd=CD, todos_cds=todos_cds)
+                if type(dado[i + 1]) == np.int64 or type(dado[i + 1]) == np.float64:
+                    query += 'SET {nome_coluna} = {novo_valor} '.format(nome_coluna=d['columns'][i + 1],
+                                                            novo_valor=dado[i + 1])
+                else:
+                    query += 'SET {nome_coluna} = \'{novo_valor}\' '.format(nome_coluna=d['columns'][i + 1],
+                                                            novo_valor=dado[i + 1])
+            query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=dado[0])
 
-        print(query)
-        cursor.execute(query)
-        conn.commit()
-        conn.close()
+            # print(query)
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
 
 def df_atendime():
     print("Entrou no df_atendime")
@@ -120,7 +113,7 @@ def df_atendime():
         con = connect_rhp_hdata()
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.ATENDIME (CD_MULTI_EMPRESA, CD_PACIENTE, CD_ATENDIMENTO, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
+        sql="INSERT INTO MV_RHP.ATENDIME (CD_ATENDIMENTO, CD_MULTI_EMPRESA, CD_PACIENTE, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -137,9 +130,7 @@ def df_atendime():
 
         print("Dados ATENDIME inseridos")
 
-        df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        df_upd = df_dim[df_dim['CD_ATENDIMENTO'].isin(df_stage['CD_ATENDIMENTO'])]
 
         df_upd['HR_ALTA'] = pd.to_datetime(df_upd['HR_ALTA'])
         df_upd['HR_ALTA_MEDICA'] = pd.to_datetime(df_upd['HR_ALTA_MEDICA'])
@@ -147,9 +138,11 @@ def df_atendime():
         print("dados para update")
         print(df_upd.info())
 
-        update_cells(df_upd,
-                    'MV_RHP.ATENDIME',
-                    'CD_ATENDIMENTO')
+        if not df_upd.empty:
+
+            update_cells(df_upd,
+                        'MV_RHP.ATENDIME',
+                        'CD_ATENDIMENTO')
 
         df_diagnostico_atendime(atendimentos)
 
@@ -239,16 +232,16 @@ def df_classificacao_risco():
 
         print("Dados SACR_CLASSIFICACAO_RISCO inseridos")
 
-        df_upd = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        df_upd = df_dim[df_dim['CD_CLASSIFICACAO_RISCO'].isin(df_stage['CD_CLASSIFICACAO_RISCO'])]
 
         print("dados para update")
         print(df_upd.info())
 
-        update_cells(df_upd,
-                    'MV_RHP.SACR_CLASSIFICACAO_RISCO',
-                    'CD_CLASSIFICACAO_RISCO')
+        if not df_upd.empty:
+
+            update_cells(df_upd,
+                        'MV_RHP.SACR_CLASSIFICACAO_RISCO',
+                        'CD_CLASSIFICACAO_RISCO')
 
 def df_classificacao():
     print("Entrou no df_classificacao")
@@ -463,14 +456,14 @@ def df_documento_clinico():
 
         print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
-        df_upd = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        df_upd = df_dim[df_dim['CD_OBJETO'].isin(df_stage['CD_OBJETO'])]
 
         print("dados para update")
         print(df_upd.info())
 
-        update_cells(df_upd, 'MV_RHP.PW_DOCUMENTO_CLINICO', 'CD_OBJETO')
+        if not df_upd.empty:
+
+            update_cells(df_upd, 'MV_RHP.PW_DOCUMENTO_CLINICO', 'CD_OBJETO')
 
 def df_esp_med():
     print("Entrou no df_esp_med")
@@ -670,7 +663,7 @@ def df_multi_empresa():
 
     print("Dados MULTI_EMPRESAS inseridos")
 
-    df_upd = df_dim.merge(df_stage["CD_MULTI_EMPRESAS"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+    df_upd = df_dim.merge(df_stage["CD_MULTI_EMPRESA"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
     df_upd = df_upd.drop(columns=['_merge'])
     df_upd = df_upd.reset_index(drop=True)
 
@@ -876,7 +869,7 @@ def df_registro_alta():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (HR_ALTA_MEDICA, CD_ATENDIMENTO) VALUES (:1, :2)"
+        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (CD_ATENDIMENTO, HR_ALTA_MEDICA) VALUES (:1, :2)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -893,14 +886,14 @@ def df_registro_alta():
 
         print("Dados PW_REGISTRO_ALTA inseridos")
 
-        df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        df_upd = df_dim[df_dim['CD_ATENDIMENTO'].isin(df_stage['CD_ATENDIMENTO'])]
 
         print("dados para update")
         print(df_upd.info())
 
-        update_cells(df_upd, 'MV_RHP.PW_REGITRO_ALTA', 'CD_ATENDIMENTO')
+        if not df_upd.empty:
+
+            update_cells(df_upd, 'MV_RHP.PW_REGITRO_ALTA', 'CD_ATENDIMENTO')
 
 def df_setor():
     print("Entrou no df_setor")
@@ -1054,7 +1047,7 @@ def df_tempo_processo():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
+        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (CD_ATENDIMENTO, DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO) VALUES (:1, :2, :3)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -1071,14 +1064,14 @@ def df_tempo_processo():
 
         print("Dados SACR_TEMPO_PROCESSO inseridos")
 
-        df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        # df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+        # df_upd = df_upd.drop(columns=['_merge'])
+        # df_upd = df_upd.reset_index(drop=True)
 
-        print("dados para update")
-        print(df_upd.info())
+        # print("dados para update")
+        # print(df_upd.info())
 
-        update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
+        # update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
 
 def df_tip_mar():
     print("Entrou no df_tip_mar")
@@ -1192,7 +1185,7 @@ def df_triagem_atendimento():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_ATENDIMENTO, CD_TRIAGEM_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
+        sql="INSERT INTO MV_RHP.TRIAGEM_ATENDIMENTO (CD_TRIAGEM_ATENDIMENTO, CD_ATENDIMENTO, CD_SINTOMA_AVALIACAO, DS_SENHA, DH_PRE_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -1209,14 +1202,14 @@ def df_triagem_atendimento():
 
         print("Dados TRIAGEM_ATENDIMENTO inseridos")
 
-        df_upd = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        df_upd = df_upd.drop(columns=['_merge'])
-        df_upd = df_upd.reset_index(drop=True)
+        df_upd = df_dim[df_dim['CD_TRIAGEM_ATENDIMENTO'].isin(df_stage['CD_TRIAGEM_ATENDIMENTO'])]
 
         print("dados para update")
         print(df_upd.info())
 
-        update_cells(df_upd, 'MV_RHP.TRIAGEM_ATENDIMENTO', 'CD_TRIAGEM_ATENDIMENTO')
+        if not df_upd.empty:
+
+            update_cells(df_upd, 'MV_RHP.TRIAGEM_ATENDIMENTO', 'CD_TRIAGEM_ATENDIMENTO')
 
 def df_usuario():
     print("Entrou no df_usuario")
@@ -1261,10 +1254,10 @@ def df_usuario():
     print(df_upd.info())
 
 dt_today = datetime.datetime.today()
-dt_ini = dt_today - datetime.timedelta(days=5)
+dt_ini = dt_today - datetime.timedelta(days=3)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10,22 * * *")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10 * * *")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",

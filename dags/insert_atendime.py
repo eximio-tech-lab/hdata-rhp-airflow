@@ -52,8 +52,8 @@ def update_cells(df_eq, table_name, CD):
                                                             novo_valor=dado[i + 1])
             query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=dado[0])
 
-            print(query)
-            # cursor.execute(query)
+            # print(query)
+            cursor.execute(query)
             conn.commit()
             conn.close()
 
