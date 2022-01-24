@@ -126,14 +126,14 @@ def df_atendime():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -209,14 +209,14 @@ def df_cid():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -295,14 +295,14 @@ def df_classificacao_risco():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -376,14 +376,14 @@ def df_classificacao():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -457,14 +457,14 @@ def df_convenio():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -538,14 +538,14 @@ def df_cor_referencia():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -619,14 +619,14 @@ def df_diagnostico_atendime(atendimentos):
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -706,14 +706,14 @@ def df_documento_clinico():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -789,14 +789,14 @@ def df_esp_med():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -870,14 +870,14 @@ def df_especialidad():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -951,14 +951,14 @@ def df_gru_cid():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1045,7 +1045,7 @@ def df_multi_empresa():
 
     print("Dados MULTI_EMPRESAS inseridos")
 
-    df_upd = df_dim.merge(df_stage["CD_MULTI_EMPRESAS"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+    df_upd = df_dim.merge(df_stage["CD_MULTI_EMPRESA"],indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
     df_upd = df_upd.drop(columns=['_merge'])
     df_upd = df_upd.reset_index(drop=True)
 
@@ -1059,7 +1059,7 @@ def df_multi_empresa():
         cursor = conn.cursor()
 
         query = ''
-        query = 'UPDATE MV_RHP.MOT_ALT '
+        query = 'UPDATE MV_RHP.MULTI_EMPRESAS '
         query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
                                                           cd=d['columns'][0])
         todos_cds = ''
@@ -1067,14 +1067,14 @@ def df_multi_empresa():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1148,14 +1148,14 @@ def df_ori_ate():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1229,14 +1229,14 @@ def df_prestador():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1316,14 +1316,14 @@ def df_paciente():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1397,14 +1397,14 @@ def df_pagu_objeto():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1481,14 +1481,14 @@ def df_registro_alta():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1562,14 +1562,14 @@ def df_setor():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1643,14 +1643,14 @@ def df_sgru_cid():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1724,14 +1724,14 @@ def df_sintoma_avaliacao():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1809,14 +1809,14 @@ def df_tempo_processo():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1890,14 +1890,14 @@ def df_tip_mar():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -1971,14 +1971,14 @@ def df_tip_res():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -2058,14 +2058,14 @@ def df_triagem_atendimento():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
@@ -2139,14 +2139,14 @@ def df_usuario():
             if j[i + 1] is None:
                 query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
             elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
                 else:
                     query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
                                                                              novo_valor=int(j[i + 1]))
             else:
-                if d['columns'][i + 1].dtypes == np.int64 or d['columns'][i + 1].dtypes == np.float64:
+                if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
                     query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
                                                                              novo_valor=j[i + 1])
                 else:
