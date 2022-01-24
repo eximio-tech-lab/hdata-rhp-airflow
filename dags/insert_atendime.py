@@ -885,91 +885,101 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    print(dt_back.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 1, 19)):
 
-    df_dim = pd.read_sql(query_registro_alta.format(data_ini='01/01/2019', data_fim='19/01/2022'), connect_rhp())
-    
-    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-    df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini='01/01/2019', data_fim='19/01/2022'), connect_rhp_hdata())
+        print(dt.strftime("%d/%m/%Y"))
+        print(data_fim.strftime("%d/%m/%Y"))
 
-    df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt.strftime("%d/%m/%Y"), data_fim=data_fim.strftime("%d/%m/%Y")), connect_rhp())
+        
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini=dt.strftime("%d/%m/%Y"), data_fim=data_fim.strftime("%d/%m/%Y")), connect_rhp_hdata())
 
-    con = connect_rhp_hdata()
+        df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    cursor = con.cursor()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (CD_ATENDIMENTO, HR_ALTA_MEDICA) VALUES (:1, :2)"
+        con = connect_rhp_hdata()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        cursor = con.cursor()
 
-    cursor.executemany(sql, cols)
+        sql="INSERT INTO MV_RHP.PW_REGISTRO_ALTA (CD_ATENDIMENTO, HR_ALTA_MEDICA) VALUES (:1, :2)"
 
-    con.commit()
-    cursor.close
-    con.close
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    print("Dados PW_REGISTRO_ALTA inseridos")
+        cursor.executemany(sql, cols)
 
-    df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] == 'both']
-    df_upd = df_upd.drop(columns=['_merge'])
-    df_upd = df_upd.reset_index(drop=True)
+        con.commit()
+        cursor.close
+        con.close
 
-    print("dados para update")
-    print(df_upd.info())
+        print("Dados PW_REGISTRO_ALTA inseridos")
 
-    if not df_upd.empty:
+        df_upd = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] == 'both']
+        df_upd = df_upd.drop(columns=['_merge'])
+        df_upd = df_upd.reset_index(drop=True)
 
-        d = df_upd.to_dict(orient='split')
-        print(d)
-        for i in range(len(d['columns']) - 1):
-            conn = connect_rhp_hdata()
-            cursor = conn.cursor()
+        print("dados para update")
+        print(df_upd.info())
 
-            query = ''
-            query = 'UPDATE MV_RHP.PW_REGISTRO_ALTA '
-            query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
-                                                            cd=d['columns'][0])
-            todos_cds = ''
-            for j in d['data']:
-                if pd.isna(j[i + 1]):
-                    query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
-                elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
-                    if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
-                        query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
-                                                                                novo_valor=int(j[i + 1]))
+        if not df_upd.empty:
+
+            d = df_upd.to_dict(orient='split')
+            print(d)
+            for i in range(len(d['columns']) - 1):
+                conn = connect_rhp_hdata()
+                cursor = conn.cursor()
+
+                query = ''
+                query = 'UPDATE MV_RHP.PW_REGISTRO_ALTA '
+                query += 'SET {nome_coluna} = CASE {cd} '.format(nome_coluna=d['columns'][i + 1],
+                                                                cd=d['columns'][0])
+                todos_cds = ''
+                for j in d['data']:
+                    if pd.isna(j[i + 1]):
+                        query += 'WHEN {cd_p_update} THEN null  '.format(cd_p_update=j[0])
+                    elif 'cd' in d['columns'][i + 1] and 'dt' not in d['columns'][i + 1] and 'cid' not in d['columns'][i + 1]:
+                        if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
+                            query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
+                                                                                    novo_valor=int(j[i + 1]))
+                        else:
+                            query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
+                                                                                    novo_valor=int(j[i + 1]))
                     else:
-                        query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
-                                                                                novo_valor=int(j[i + 1]))
-                else:
-                    if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
-                        query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
-                                                                                novo_valor=j[i + 1])
-                    else:
-                        query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
-                                                                                novo_valor=j[i + 1])
-                todos_cds += "'" + str(j[0]) + "'" + ','
-            todos_cds = todos_cds[:-1]
-            query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
-            query += 'END '
+                        if type(d['columns'][i + 1]) == np.int64 or type(d['columns'][i + 1]) == np.float64:
+                            query += 'WHEN {cd_p_update} THEN {novo_valor} '.format(cd_p_update=j[0],
+                                                                                    novo_valor=j[i + 1])
+                        else:
+                            query += 'WHEN {cd_p_update} THEN \'{novo_valor}\' '.format(cd_p_update=j[0],
+                                                                                    novo_valor=j[i + 1])
+                    todos_cds += "'" + str(j[0]) + "'" + ','
+                todos_cds = todos_cds[:-1]
+                query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
+                query += 'END '
 
-            for cds in todos_cds.split(','):
-                query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=cds)
+                for cds in todos_cds.split(','):
+                    query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=cds)
 
-                print(query)
-                cursor.execute(query)
-                conn.commit()
-                conn.close()
+                    print(query)
+                    cursor.execute(query)
+                    conn.commit()
+                    conn.close()
 
 def df_setor():
     print("Entrou no df_setor")
