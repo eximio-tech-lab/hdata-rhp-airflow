@@ -143,7 +143,7 @@ def df_atendime():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -226,7 +226,7 @@ def df_cid():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CID', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -312,7 +312,7 @@ def df_classificacao_risco():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO_RISCO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -393,7 +393,7 @@ def df_classificacao():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CLASSIFICACAO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -474,7 +474,7 @@ def df_convenio():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_CONVENIO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -555,7 +555,7 @@ def df_cor_referencia():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_COR_REFERENCIA', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -636,7 +636,7 @@ def df_diagnostico_atendime(atendimentos):
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_DIAGNOSTICO_ATENDIME', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -723,7 +723,7 @@ def df_documento_clinico():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -806,7 +806,7 @@ def df_esp_med():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ESPECIALID', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -887,7 +887,7 @@ def df_especialidad():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ESPECIALID', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -968,7 +968,7 @@ def df_gru_cid():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_GRU_CID', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1084,7 +1084,7 @@ def df_multi_empresa():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_MULTI_EMPRESA', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1165,7 +1165,7 @@ def df_ori_ate():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ORI_ATE', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1246,7 +1246,7 @@ def df_prestador():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PRESTADOR', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1333,7 +1333,7 @@ def df_paciente():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_PACIENTE', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1414,7 +1414,7 @@ def df_pagu_objeto():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_OBJETO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1498,7 +1498,7 @@ def df_registro_alta():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_ATENDIMENTO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1579,7 +1579,7 @@ def df_setor():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SETOR', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1660,7 +1660,7 @@ def df_sgru_cid():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SGRU_CID', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1741,7 +1741,7 @@ def df_sintoma_avaliacao():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_SINTOMA_AVALIACAO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1826,7 +1826,6 @@ def df_tempo_processo():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1907,7 +1906,7 @@ def df_tip_mar():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TIP_MAR', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -1988,7 +1987,7 @@ def df_tip_res():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TIP_RES', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -2075,7 +2074,7 @@ def df_triagem_atendimento():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_TRIAGEM_ATENDIMENTO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
@@ -2156,7 +2155,7 @@ def df_usuario():
         todos_cds = todos_cds[:-1]
         query += 'ELSE {nome_coluna} '.format(nome_coluna=d['columns'][i + 1])
         query += 'END '
-        query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=todos_cds)
+        query += 'WHERE {cd} IN({todos_cds})'.format(cd='CD_USUARIO', todos_cds=todos_cds)
 
         print(query)
         # cursor.execute(query)
