@@ -81,6 +81,10 @@ def df_pre_med():
         df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
+        lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
+        lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
+        cd_pre_med = ','.join(lista_cds_pre_med)
+
         df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
@@ -111,10 +115,12 @@ def df_pre_med():
 
         print("Dados PRE_MED inseridos")
 
-def df_itpre_med():
+        df_itpre_med(cd_pre_med)
+
+def df_itpre_med(cd_pre_med):
     print("Entrou no df_itpre_med")
 
-    df_dim = pd.read_sql(query_itpre_med, connect_rhp())
+    df_dim = pd.read_sql(query_itpre_med.format(cd_pre_med=cd_pre_med), connect_rhp())
 
     print(df_dim)
 
@@ -880,6 +886,10 @@ def df_mvto_estoque():
         df_dim["CD_MOT_DEV"] = df_dim["CD_MOT_DEV"].fillna(0)
         df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
 
+        lista_cds_mvto_estoque = df_dim['CD_MVTO_ESTOQUE'].to_list()
+        lista_cds_mvto_estoque = [str(cd) for cd in lista_cds_mvto_estoque]
+        cd_mvto_estoque = ','.join(lista_cds_mvto_estoque)
+
         print(df_dim.info())
 
         df_stage = pd.read_sql(query_mvto_estoque_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
@@ -912,10 +922,12 @@ def df_mvto_estoque():
 
         print("Dados MVTO_ESTOQUE inseridos")
 
-def df_itmvto_estoque():
+        df_itmvto_estoque(cd_mvto_estoque)
+
+def df_itmvto_estoque(cd_mvto_estoque):
     print("Entrou no df_itmvto_estoque")
 
-    df_dim = pd.read_sql(query_itmvto_estoque, connect_rhp())
+    df_dim = pd.read_sql(query_itmvto_estoque.format(cd_mvto_estoque=cd_mvto_estoque), connect_rhp())
 
     print(df_dim)
 
@@ -1551,10 +1563,10 @@ t25 = PythonOperator(
     python_callable=df_pre_med,
     dag=dag)
 
-t26 = PythonOperator(
-    task_id="insert_itpre_med_rhp",
-    python_callable=df_itpre_med,
-    dag=dag)
+# t26 = PythonOperator(
+#     task_id="insert_itpre_med_rhp",
+#     python_callable=df_itpre_med,
+#     dag=dag)
 
 # t27 = PythonOperator(
 #     task_id="insert_tip_presc_rhp",
@@ -1706,4 +1718,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-(t26, t28, t30, t32, t33, t34, t35, t36, t37, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t25
+(t28, t30, t32, t33, t34, t35, t36, t37, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t25
