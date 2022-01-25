@@ -1653,10 +1653,10 @@ t35 = PythonOperator(
 #     python_callable=df_quantidade_diarias,
 #     dag=dag)
 
-# t45 = PythonOperator(
-#     task_id="insert_remessa_fatura_rhp",
-#     python_callable=df_remessa_fatura,
-#     dag=dag)
+t45 = PythonOperator(
+    task_id="insert_remessa_fatura_rhp",
+    python_callable=df_remessa_fatura,
+    dag=dag)
 
 # t46 = PythonOperator(
 #     task_id="insert_repasse_rhp",
@@ -1718,4 +1718,4 @@ t55 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t28, t30, t32, t33, t34, t35, t52, t53, t54, t55) >> t25
+(t28, t30, t32, t33, t34, t35, t45, t52, t53, t54, t55) >> t25
