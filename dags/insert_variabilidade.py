@@ -8,13 +8,14 @@ from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+# from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
 
-START_DATE = airflow.utils.dates.days_ago(0)
+START_DATE = airflow.utils.dates.days_ago(2)
 
 default_args = {
     "owner": "raphael",
@@ -1542,8 +1543,8 @@ def df_mot_dev():
 dt_today = datetime.datetime.today()
 dt_ini = dt_today - datetime.timedelta(days=5)
 
-dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
-# dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval="0 7 * * 1-5")
+# dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
+dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval="0 7,8,9,10 * * *")
 
 t25 = PythonOperator(
     task_id="insert_pre_med_rhp",
@@ -1630,10 +1631,10 @@ t42 = PythonOperator(
     python_callable=df_mvto_estoque,
     dag=dag)
 
-t43 = PythonOperator(
-    task_id="insert_itmvto_estoque_rhp",
-    python_callable=df_itmvto_estoque,
-    dag=dag)
+# t43 = PythonOperator(
+#     task_id="insert_itmvto_estoque_rhp",
+#     python_callable=df_itmvto_estoque,
+#     dag=dag)
 
 # t44 = PythonOperator(
 #     task_id="insert_quantidade_diarias_rhp",
@@ -1705,4 +1706,4 @@ t57 = PythonOperator(
     python_callable=df_mot_dev,
     dag=dag)
 
-(t26, t28, t30, t32, t33, t34, t35, t36, t37, t43, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t25
+(t26, t28, t30, t32, t33, t34, t35, t36, t37, t45, t49, t51, t52, t53, t54, t55, t56, t57) >> t38 >> t39 >> t40 >> t41 >> t42 >> t46 >> t47 >> t48 >> t25

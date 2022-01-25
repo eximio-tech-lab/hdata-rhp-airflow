@@ -1257,7 +1257,7 @@ dt_today = datetime.datetime.today()
 dt_ini = dt_today - datetime.timedelta(days=3)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,9,10 * * *")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,8,9,10 * * *")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
