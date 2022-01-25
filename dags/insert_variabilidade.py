@@ -120,50 +120,54 @@ def df_pre_med():
 def df_itpre_med(cd_pre_med):
     print("Entrou no df_itpre_med")
 
-    df_dim = pd.read_sql(query_itpre_med.format(cd_pre_med=cd_pre_med), connect_rhp())
+    cd_pre_med = np.array_split(cd_pre_med, round(len(cd_pre_med)/900))
 
-    print(df_dim)
+    for cds in cd_pre_med:
 
-    df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
-    df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
-    df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
-    df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
-    df_dim["CD_TIP_ESQ"] = df_dim["CD_TIP_ESQ"].fillna("0")
-    df_dim["CD_FOR_APL"] = df_dim["CD_FOR_APL"].fillna("0")
-    df_dim["CD_TIP_FRE"] = df_dim["CD_TIP_FRE"].fillna(0)
-    df_dim["TP_JUSTIFICATIVA"] = df_dim["TP_JUSTIFICATIVA"].fillna("0")
+        df_dim = pd.read_sql(query_itpre_med.format(cd_pre_med=cds), connect_rhp())
 
-    print(df_dim.info())
+        print(df_dim)
 
-    df_stage = pd.read_sql(query_itpre_med_hdata, connect_rhp_hdata())
+        df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
+        df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
+        df_dim["CD_PRODUTO"] = df_dim["CD_PRODUTO"].fillna(0)
+        df_dim["CD_TIP_PRESC"] = df_dim["CD_TIP_PRESC"].fillna(0)
+        df_dim["CD_TIP_ESQ"] = df_dim["CD_TIP_ESQ"].fillna("0")
+        df_dim["CD_FOR_APL"] = df_dim["CD_FOR_APL"].fillna("0")
+        df_dim["CD_TIP_FRE"] = df_dim["CD_TIP_FRE"].fillna(0)
+        df_dim["TP_JUSTIFICATIVA"] = df_dim["TP_JUSTIFICATIVA"].fillna("0")
 
-    df_diff = df_dim.merge(df_stage["CD_ITPRE_MED"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        print(df_dim.info())
 
-    print("dados para incremento")
-    print(df_diff.info())
+        df_stage = pd.read_sql(query_itpre_med_hdata, connect_rhp_hdata())
 
-    con = connect_rhp_hdata()
+        df_diff = df_dim.merge(df_stage["CD_ITPRE_MED"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-    cursor = con.cursor()
+        print("dados para incremento")
+        print(df_diff.info())
 
-    sql="INSERT INTO MV_RHP.ITPRE_MED (CD_PRE_MED, CD_ITPRE_MED, CD_PRODUTO, CD_TIP_PRESC, CD_TIP_ESQ, CD_FOR_APL, CD_TIP_FRE, TP_JUSTIFICATIVA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+        con = connect_rhp_hdata()
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        cursor = con.cursor()
 
-    cursor.executemany(sql, cols)
+        sql="INSERT INTO MV_RHP.ITPRE_MED (CD_PRE_MED, CD_ITPRE_MED, CD_PRODUTO, CD_TIP_PRESC, CD_TIP_ESQ, CD_FOR_APL, CD_TIP_FRE, TP_JUSTIFICATIVA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
-    con.commit()
-    cursor.close
-    con.close
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    print("Dados ITPRE_MED inseridos")
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados ITPRE_MED inseridos")
 
 def df_tip_presc():
     print("Entrou no df_tip_presc")
