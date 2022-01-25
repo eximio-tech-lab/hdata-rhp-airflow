@@ -60,7 +60,7 @@ def df_atendime():
     print("Entrou no df_atendime")
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
         data_1 = dt
-        data_2 = dt + datetime.timedelta(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
@@ -192,7 +192,7 @@ def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
         data_1 = dt
-        data_2 = dt + datetime.timedelta(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
@@ -415,7 +415,7 @@ def df_documento_clinico():
     print("Entrou no df_documento_clinico")
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
         data_1 = dt
-        data_2 = dt + datetime.timedelta(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
@@ -848,7 +848,7 @@ def df_registro_alta():
     print("Entrou no df_registro_alta")
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
         data_1 = dt
-        data_2 = dt + datetime.timedelta(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
@@ -1025,7 +1025,7 @@ def df_tempo_processo():
     print("Entrou no df_tempo_processo")
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
         data_1 = dt
-        data_2 = dt + datetime.timedelta(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
@@ -1161,7 +1161,7 @@ def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
         data_1 = dt
-        data_2 = dt + datetime.timedelta(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
@@ -1257,7 +1257,7 @@ dt_today = datetime.datetime.today()
 dt_ini = dt_today - datetime.timedelta(days=3)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,8,9,10 * * *")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 7,8 * * *")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
