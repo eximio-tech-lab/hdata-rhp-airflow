@@ -81,9 +81,10 @@ def df_pre_med():
         df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
+        print(df_dim.info())
+
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
         lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
-        cd_pre_med = ','.join(lista_cds_pre_med)
 
         df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
@@ -115,16 +116,20 @@ def df_pre_med():
 
         print("Dados PRE_MED inseridos")
 
-        df_itpre_med(cd_pre_med)
+        df_itpre_med(lista_cds_pre_med)
 
-def df_itpre_med(cd_pre_med):
+def df_itpre_med(lista_cds_pre_med):
     print("Entrou no df_itpre_med")
 
-    cd_pre_med = np.array_split(cd_pre_med, round(len(cd_pre_med)/900))
+    lista_cds_pre_med_dividida = np.array_split(lista_cds_pre_med, round(len(lista_cds_pre_med)/900))
+    print(lista_cds_pre_med_dividida)
 
-    for cds in cd_pre_med:
+    for cds in lista_cds_pre_med_dividida:
+        cd_pre_med = ','.join(cds)
 
-        df_dim = pd.read_sql(query_itpre_med.format(cd_pre_med=cds), connect_rhp())
+        print(cd_pre_med)
+
+        df_dim = pd.read_sql(query_itpre_med.format(cd_pre_med=cd_pre_med), connect_rhp())
 
         print(df_dim)
 
