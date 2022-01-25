@@ -121,17 +121,12 @@ def df_pre_med():
 def df_itpre_med(lista_cds_pre_med):
     print("Entrou no df_itpre_med")
 
-    lista_cds_pre_med_dividida = np.array_split(lista_cds_pre_med, round(len(lista_cds_pre_med)/900))
-    print(lista_cds_pre_med_dividida)
+    lista_cds_pre_med_dividida = np.array_split(lista_cds_pre_med, round(len(lista_cds_pre_med)/900))=
 
     for cds in lista_cds_pre_med_dividida:
         cd_pre_med = ','.join(cds)
 
-        print(cd_pre_med)
-
         df_dim = pd.read_sql(query_itpre_med.format(cd_pre_med=cd_pre_med), connect_rhp())
-
-        print(df_dim)
 
         df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
         df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
