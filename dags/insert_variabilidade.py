@@ -66,7 +66,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -655,7 +655,7 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -715,7 +715,7 @@ def df_itreg_amb():
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -765,7 +765,7 @@ def df_reg_fat():
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -824,7 +824,7 @@ def df_itreg_fat():
 
 def df_custo_final():
     print("Entrou no df_custo_final")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -870,7 +870,7 @@ def df_custo_final():
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -1014,7 +1014,7 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -1060,7 +1060,7 @@ def df_remessa_fatura():
 
 def df_repasse():
     print("Entrou no df_repasse")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -1149,7 +1149,7 @@ def df_it_repasse():
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -1246,7 +1246,7 @@ def df_glosas():
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt + datetime.timedelta(days=1)
 
@@ -1552,8 +1552,8 @@ def df_mot_dev():
 
     print("Dados MOT_DEV inseridos")
 
-dt_today = datetime.datetime.today()
-dt_ini = dt_today - datetime.timedelta(days=5)
+dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
 dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval="0 7,8,9,10 * * *")
