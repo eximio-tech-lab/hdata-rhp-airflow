@@ -1607,10 +1607,10 @@ t34 = PythonOperator(
     python_callable=df_pro_fat,
     dag=dag)
 
-t35 = PythonOperator(
-    task_id="insert_tuss_rhp",
-    python_callable=df_tuss,
-    dag=dag)
+# t35 = PythonOperator(
+#     task_id="insert_tuss_rhp",
+#     python_callable=df_tuss,
+#     dag=dag)
 
 # t36 = PythonOperator(
 #     task_id="insert_uni_pro_rhp",
@@ -1722,4 +1722,4 @@ t55 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t28, t30, t32, t33, t34, t35, t45, t52, t53, t54, t55) >> t25
+(t28, t30, t32, t33, t34, t45, t52, t53, t54, t55) >> t25
