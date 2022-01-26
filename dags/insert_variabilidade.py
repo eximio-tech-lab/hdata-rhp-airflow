@@ -169,6 +169,18 @@ def df_itpre_med(lista_cds_pre_med):
 
         print("Dados ITPRE_MED inseridos")
 
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="UPDATE MV_RHP.ITPRE_MED SET CD_PRODUTO = NULL WHERE CD_PRODUTO = 0"
+
+    cursor.executemany(sql)
+
+    con.commit()
+    cursor.close
+    con.close
+
 def df_tip_presc():
     print("Entrou no df_tip_presc")
 
