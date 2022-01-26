@@ -1047,7 +1047,7 @@ def df_tempo_processo():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (CD_ATENDIMENTO, DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO) VALUES (:1, :2, :3)"
+        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO) VALUES (:1, :2, :3)"
 
         df_list = df_diff.values.tolist()
         n = 0
