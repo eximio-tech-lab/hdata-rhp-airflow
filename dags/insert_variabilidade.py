@@ -175,7 +175,7 @@ def df_itpre_med(lista_cds_pre_med):
 
     sql="UPDATE MV_RHP.ITPRE_MED SET CD_PRODUTO = NULL WHERE CD_PRODUTO = 0"
 
-    cursor.executemany(sql)
+    cursor.execute(sql)
 
     con.commit()
     cursor.close
