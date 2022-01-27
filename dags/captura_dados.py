@@ -58,7 +58,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_atendime():
     print("Entrou no df_atendime")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -190,7 +190,7 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -414,7 +414,7 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -847,7 +847,7 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1024,7 +1024,7 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1160,7 +1160,7 @@ def df_tip_res():
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_today):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1254,8 +1254,8 @@ def df_usuario():
     print("dados para update")
     print(df_upd.info())
 
-dt_today = datetime.datetime.today()
-dt_ini = dt_today - datetime.timedelta(days=3)
+dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 6,7,8,9 * * *")
