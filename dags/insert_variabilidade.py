@@ -14,6 +14,7 @@ from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
+from utils.integrity_checker import notify_email
 
 START_DATE = airflow.utils.dates.days_ago(2)
 

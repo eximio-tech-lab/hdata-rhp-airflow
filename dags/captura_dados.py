@@ -13,6 +13,7 @@ from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
+from utils.integrity_checker import notify_email
 
 START_DATE = airflow.utils.dates.days_ago(2)
 
@@ -1263,56 +1264,67 @@ dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 6
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
     python_callable=df_atendime,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t1 = PythonOperator(
     task_id="captura_cid_rhp",
     python_callable=df_cid,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t2 = PythonOperator(
     task_id="captura_classificacao_risco_rhp",
     python_callable=df_classificacao_risco,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t3 = PythonOperator(
     task_id="captura_classificacao_rhp",
     python_callable=df_classificacao,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t4 = PythonOperator(
     task_id="captura_convenio_rhp",
     python_callable=df_convenio,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t5 = PythonOperator(
     task_id="captura_cor_referencia_rhp",
     python_callable=df_cor_referencia,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t7 = PythonOperator(
     task_id="captura_documento_clinico_rhp",
     python_callable=df_documento_clinico,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t8 = PythonOperator(
     task_id="captura_esp_med_rhp",
     python_callable=df_esp_med,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t9 = PythonOperator(
     task_id="captura_especialidad_rhp",
     python_callable=df_especialidad,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t10 = PythonOperator(
     task_id="captura_gru_cid_rhp",
     python_callable=df_gru_cid,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t10 = PythonOperator(
     task_id="captura_prestador_rhp",
     python_callable=df_prestador,
+    on_failure_callback=notify_email,
     dag=dag)
 
 # t11 = PythonOperator(
@@ -1323,66 +1335,79 @@ t10 = PythonOperator(
 t12 = PythonOperator(
     task_id="captura_multi_empresa_rhp",
     python_callable=df_multi_empresa,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t13 = PythonOperator(
     task_id="captura_ori_ate_rhp",
     python_callable=df_ori_ate,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t14 = PythonOperator(
     task_id="captura_paciente_rhp",
     python_callable=df_paciente,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t15 = PythonOperator(
     task_id="captura_pagu_objeto_rhp",
     python_callable=df_pagu_objeto,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t16 = PythonOperator(
     task_id="captura_registro_alta_rhp",
     python_callable=df_registro_alta,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t17 = PythonOperator(
     task_id="captura_setor_rhp",
     python_callable=df_setor,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t18 = PythonOperator(
     task_id="captura_sgru_cid_rhp",
     python_callable=df_sgru_cid,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t19 = PythonOperator(
     task_id="captura_sintoma_avaliacao_rhp",
     python_callable=df_sintoma_avaliacao,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t20 = PythonOperator(
     task_id="captura_tempo_processo_rhp",
     python_callable=df_tempo_processo,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t21 = PythonOperator(
     task_id="captura_tip_mar_rhp",
     python_callable=df_tip_mar,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t22 = PythonOperator(
     task_id="captura_tip_res_rhp",
     python_callable=df_tip_res,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t23 = PythonOperator(
     task_id="captura_triagem_atendimento_rhp",
     python_callable=df_triagem_atendimento,
+    on_failure_callback=notify_email,
     dag=dag)
 
 t24 = PythonOperator(
     task_id="captura_usuario_rhp",
     python_callable=df_usuario,
+    on_failure_callback=notify_email,
     dag=dag)
 
 (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
