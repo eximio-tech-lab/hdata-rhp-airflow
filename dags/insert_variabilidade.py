@@ -121,7 +121,7 @@ def df_pre_med():
 def df_itpre_med(lista_cds_pre_med):
     print("Entrou no df_itpre_med")
 
-    lista_cds_pre_med_dividida = np.array_split(lista_cds_pre_med, round(len(lista_cds_pre_med)/900))
+    lista_cds_pre_med_dividida = np.array_split(lista_cds_pre_med, round(len(lista_cds_pre_med)/900) + 1)
 
     for cds in lista_cds_pre_med_dividida:
         cd_pre_med = ','.join(cds)
