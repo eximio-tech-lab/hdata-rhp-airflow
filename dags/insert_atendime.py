@@ -142,11 +142,11 @@ def df_atendime():
         print("dados para update")
         print(df_upd.info())
 
-        if not df_upd.empty:
+        # if not df_upd.empty:
 
-            update_cells(df_upd,
-                        'MV_RHP.ATENDIME',
-                        'CD_ATENDIMENTO')
+        #     update_cells(df_upd,
+        #                 'MV_RHP.ATENDIME',
+        #                 'CD_ATENDIMENTO')
 
         df_diagnostico_atendime(atendimentos)
 
@@ -244,11 +244,11 @@ def df_classificacao_risco():
         print("dados para update")
         print(df_upd.info())
 
-        if not df_upd.empty:
+        # if not df_upd.empty:
 
-            update_cells(df_upd,
-                        'MV_RHP.SACR_CLASSIFICACAO_RISCO',
-                        'CD_CLASSIFICACAO_RISCO')
+        #     update_cells(df_upd,
+        #                 'MV_RHP.SACR_CLASSIFICACAO_RISCO',
+        #                 'CD_CLASSIFICACAO_RISCO')
 
 def df_classificacao():
     print("Entrou no df_classificacao")
@@ -471,9 +471,9 @@ def df_documento_clinico():
         print("dados para update")
         print(df_upd.info())
 
-        if not df_upd.empty:
+        # if not df_upd.empty:
 
-            update_cells(df_upd, 'MV_RHP.PW_DOCUMENTO_CLINICO', 'CD_OBJETO')
+        #     update_cells(df_upd, 'MV_RHP.PW_DOCUMENTO_CLINICO', 'CD_OBJETO')
 
 def df_esp_med():
     print("Entrou no df_esp_med")
@@ -904,9 +904,9 @@ def df_registro_alta():
         print("dados para update")
         print(df_upd.info())
 
-        if not df_upd.empty:
+        # if not df_upd.empty:
 
-            update_cells(df_upd, 'MV_RHP.PW_REGITRO_ALTA', 'CD_ATENDIMENTO')
+        #     update_cells(df_upd, 'MV_RHP.PW_REGITRO_ALTA', 'CD_ATENDIMENTO')
 
 def df_setor():
     print("Entrou no df_setor")
@@ -1226,9 +1226,9 @@ def df_triagem_atendimento():
         print("dados para update")
         print(df_upd.info())
 
-        if not df_upd.empty:
+        # if not df_upd.empty:
 
-            update_cells(df_upd, 'MV_RHP.TRIAGEM_ATENDIMENTO', 'CD_TRIAGEM_ATENDIMENTO')
+        #     update_cells(df_upd, 'MV_RHP.TRIAGEM_ATENDIMENTO', 'CD_TRIAGEM_ATENDIMENTO')
 
 def df_usuario():
     print("Entrou no df_usuario")
