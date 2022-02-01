@@ -1287,25 +1287,25 @@ t1 = PythonOperator(
     python_callable=df_cid,
     dag=dag)
 
-t2 = PythonOperator(
-    task_id="insert_classificacao_risco_rhp",
-    python_callable=df_classificacao_risco,
-    dag=dag)
+# t2 = PythonOperator(
+#     task_id="insert_classificacao_risco_rhp",
+#     python_callable=df_classificacao_risco,
+#     dag=dag)
 
-t3 = PythonOperator(
-    task_id="insert_classificacao_rhp",
-    python_callable=df_classificacao,
-    dag=dag)
+# t3 = PythonOperator(
+#     task_id="insert_classificacao_rhp",
+#     python_callable=df_classificacao,
+#     dag=dag)
 
 t4 = PythonOperator(
     task_id="insert_convenio_rhp",
     python_callable=df_convenio,
     dag=dag)
 
-t5 = PythonOperator(
-    task_id="insert_cor_referencia_rhp",
-    python_callable=df_cor_referencia,
-    dag=dag)
+# t5 = PythonOperator(
+#     task_id="insert_cor_referencia_rhp",
+#     python_callable=df_cor_referencia,
+#     dag=dag)
 
 t7 = PythonOperator(
     task_id="insert_documento_clinico_rhp",
@@ -1402,4 +1402,4 @@ t24 = PythonOperator(
     python_callable=df_usuario,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
+(t1, t4, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t0
