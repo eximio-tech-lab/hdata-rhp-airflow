@@ -62,7 +62,7 @@ def df_atendime():
     for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 1, 31)):
 
         data_1 = dt
-        data_2 = dt + datetime.interval(days=1)
+        data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
