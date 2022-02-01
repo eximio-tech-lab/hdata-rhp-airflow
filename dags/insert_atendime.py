@@ -140,13 +140,13 @@ def df_atendime():
         print("dados para update")
         print(df_upd.info())
 
-        # if not df_upd.empty:
+        if not df_dim.empty:
 
         #     update_cells(df_upd,
         #                 'MV_RHP.ATENDIME',
         #                 'CD_ATENDIMENTO')
 
-        df_diagnostico_atendime(atendimentos)
+            df_diagnostico_atendime(atendimentos)
 
 def df_cid():
     print("Entrou no df_cid")
