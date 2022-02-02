@@ -95,33 +95,33 @@ def df_atendime():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        # df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-        df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
-        df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
+        # df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
+        # df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
 
-        print(df_stage.info())
+        # print(df_stage.info())
 
-        df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
-        print(df_diff.info())
+        # df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        # df_diff = df_diff.drop(columns=['_merge'])
+        # df_diff = df_diff.reset_index(drop=True)
+        # print(df_diff.info())
 
-        df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
-        df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
+        # df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
+        # df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
-        print("dados para incremento")
-        print(df_diff.info())
+        # print("dados para incremento")
+        # print(df_diff.info())
 
         con = connect_rhp_hdata()
         cursor = con.cursor()
 
         sql="INSERT INTO MV_RHP.ATENDIME (CD_ATENDIMENTO, CD_MULTI_EMPRESA, CD_PACIENTE, CD_CID, CD_MOT_ALT, CD_TIP_RES, CD_CONVENIO, CD_ESPECIALID, CD_PRESTADOR, CD_ATENDIMENTO_PAI, CD_LEITO, CD_ORI_ATE, CD_SERVICO, TP_ATENDIMENTO, DT_ATENDIMENTO, HR_ATENDIMENTO, HR_ALTA, HR_ALTA_MEDICA, CD_TIP_MAR, CD_SINTOMA_AVALIACAO, NM_USUARIO_ALTA_MEDICA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15, :16, :17, :18, :19, :20, :21)"
 
-        df_list = df_diff.values.tolist()
+        df_list = df_dim.values.tolist()
         n = 0
         cols = []
-        for i in df_diff.iterrows():
+        for i in df_dim.iterrows():
             cols.append(df_list[n])
             n += 1
 
@@ -133,13 +133,13 @@ def df_atendime():
 
         print("Dados ATENDIME inseridos")
 
-        df_upd = df_dim[df_dim['CD_ATENDIMENTO'].isin(df_stage['CD_ATENDIMENTO'])]
+        # df_upd = df_dim[df_dim['CD_ATENDIMENTO'].isin(df_stage['CD_ATENDIMENTO'])]
 
-        df_upd['HR_ALTA'] = pd.to_datetime(df_upd['HR_ALTA'])
-        df_upd['HR_ALTA_MEDICA'] = pd.to_datetime(df_upd['HR_ALTA_MEDICA'])
+        # df_upd['HR_ALTA'] = pd.to_datetime(df_upd['HR_ALTA'])
+        # df_upd['HR_ALTA_MEDICA'] = pd.to_datetime(df_upd['HR_ALTA_MEDICA'])
 
-        print("dados para update")
-        print(df_upd.info())
+        # print("dados para update")
+        # print(df_upd.info())
 
         if not df_dim.empty:
 
