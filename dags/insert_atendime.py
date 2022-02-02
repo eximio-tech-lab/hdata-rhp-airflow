@@ -105,6 +105,7 @@ def df_atendime():
         df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
         df_diff = df_diff.reset_index(drop=True)
+        print(df_diff.info())
 
         df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
         df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
