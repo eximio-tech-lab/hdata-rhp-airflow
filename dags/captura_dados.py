@@ -85,8 +85,8 @@ def df_atendime():
         df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
         df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
 
-        df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
-        df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
+        # df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
+        # df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
 
         lista_cds_atendimentos = df_dim['CD_ATENDIMENTO'].to_list()
         lista_cds_atendimentos = [str(cd) for cd in lista_cds_atendimentos]
