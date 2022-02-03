@@ -117,7 +117,9 @@ def df_pre_med():
 
         print("Dados PRE_MED inseridos")
 
-        df_itpre_med(lista_cds_pre_med)
+        if not df_dim.empty:
+
+            df_itpre_med(lista_cds_pre_med)
 
 def df_itpre_med(lista_cds_pre_med):
     print("Entrou no df_itpre_med")
