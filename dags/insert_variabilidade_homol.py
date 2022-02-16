@@ -1033,7 +1033,7 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 10, 1), until=datetime.datetime(2022, 1, 31)):
         data_1 = dt
         data_2 = dt
 
