@@ -87,14 +87,14 @@ def df_pre_med():
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
         lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
 
-        # df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-        # df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        # df_diff = df_diff.drop(columns=['_merge'])
-        # df_diff = df_diff.reset_index(drop=True)
+        df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
         
-        # print("dados para incremento")
-        # print(df_diff.info())
+        print("dados para incremento")
+        print(df_diff.info())
 
         con = connect_rhp_hdata()
 
@@ -102,10 +102,10 @@ def df_pre_med():
 
         sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
-        df_list = df_dim.values.tolist()
+        df_list = df_diff.values.tolist()
         n = 0
         cols = []
-        for i in df_dim.iterrows():
+        for i in df_diff.iterrows():
             cols.append(df_list[n])
             n += 1
 
@@ -117,7 +117,7 @@ def df_pre_med():
 
         print("Dados PRE_MED inseridos")
 
-        if not df_dim.empty:
+        if not df_diff.empty:
 
             df_itpre_med(lista_cds_pre_med)
 
@@ -142,14 +142,14 @@ def df_itpre_med(lista_cds_pre_med):
 
         print(df_dim.info())
 
-        # df_stage = pd.read_sql(query_itpre_med_hdata.format(cd_pre_med=cd_pre_med), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itpre_med_hdata.format(cd_pre_med=cd_pre_med), connect_rhp_hdata())
 
-        # df_diff = df_dim.merge(df_stage["CD_ITPRE_MED"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        # df_diff = df_diff.drop(columns=['_merge'])
-        # df_diff = df_diff.reset_index(drop=True)
+        df_diff = df_dim.merge(df_stage["CD_ITPRE_MED"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
 
-        # print("dados para incremento")
-        # print(df_diff.info())
+        print("dados para incremento")
+        print(df_diff.info())
 
         con = connect_rhp_hdata()
 
@@ -157,10 +157,10 @@ def df_itpre_med(lista_cds_pre_med):
 
         sql="INSERT INTO MV_RHP.ITPRE_MED (CD_PRE_MED, CD_ITPRE_MED, CD_PRODUTO, CD_TIP_PRESC, CD_TIP_ESQ, CD_FOR_APL, CD_TIP_FRE, TP_JUSTIFICATIVA) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
-        df_list = df_dim.values.tolist()
+        df_list = df_diff.values.tolist()
         n = 0
         cols = []
-        for i in df_dim.iterrows():
+        for i in df_diff.iterrows():
             cols.append(df_list[n])
             n += 1
 
