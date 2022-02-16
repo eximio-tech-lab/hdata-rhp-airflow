@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2020, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 10, 1), until=datetime.datetime(2022, 1, 31)):
         data_1 = dt
         data_2 = dt
 
@@ -674,7 +674,7 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 10, 1), until=datetime.datetime(2022, 1, 31)):
         data_1 = dt
         data_2 = dt
 
@@ -1570,9 +1570,6 @@ def df_mot_dev():
     con.close
 
     print("Dados MOT_DEV inseridos")
-
-dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 dag = DAG("insert_dados_rhp_var", default_args=default_args, schedule_interval=None)
 
