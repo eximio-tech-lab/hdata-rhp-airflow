@@ -1735,4 +1735,4 @@ t55 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
 
-(t28, t30, t32, t33, t34, t45, t52, t53, t54, t55) >> t25
+t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25
