@@ -1271,6 +1271,53 @@ def df_usuario():
     print("dados para update")
     print(df_upd.info())
 
+def df_fech_chec():
+    print("Entrou no df_fech_chec")
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_fech_chec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+
+        df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"] = df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"].fillna(0)
+        df_dim["CD_FECHAMENTO"] = df_dim["CD_FECHAMENTO"].fillna(0)
+        df_dim["CD_ITPRE_MED"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+        df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna(0)
+        df_dim["SN_ALTERADO"] = df_dim["SN_ALTERADO"].fillna("0")
+        df_dim["SN_SUSPENSO"] = df_dim["SN_SUSPENSO"].fillna("0")
+
+        df_stage = pd.read_sql(query_fech_chec_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage["CD_FECHAMENTO_HORARIO_CHECAGEM"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.PW_HR_FECHADO_CHEC (CD_FECHAMENTO_HORARIO_CHECAGEM, CD_FECHAMENTO, CD_ITPRE_MED, CD_USUARIO, DH_CHECAGEM, SN_ALTERADO, SN_SUSPENSO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados PW_HR_FECHADO_CHEC inseridos")
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 

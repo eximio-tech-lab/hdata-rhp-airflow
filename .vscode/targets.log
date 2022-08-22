@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jun  1 10:48:52 2022
+# Make data base, printed on Mon Aug 22 10:34:33 2022
 
 # Variables
 
@@ -18,8 +20,6 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 WSLENV = VSCODE_WSL_EXT_LOCATION/up
 # default
 .SHELLFLAGS := -c
-# environment
-VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -31,17 +31,15 @@ CURDIR := /home/raphael/hdata-airflow
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"74ce6549a467d1dfaba55fb5394742c9.pt-br","_translationsConfigFile":"/home/raphael/.vscode-server/data/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br/tcf.json","_cacheRoot":"/home/raphael/.vscode-server/data/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br","_resolvedLanguagePackCoreLocation":"/home/raphael/.vscode-server/data/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5","_corruptedFile":"/home/raphael/.vscode-server/data/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"8e7a008e83c664b9876a8f72ff0490ae.pt-br","_translationsConfigFile":"/home/raphael/.vscode-server/data/clp/8e7a008e83c664b9876a8f72ff0490ae.pt-br/tcf.json","_cacheRoot":"/home/raphael/.vscode-server/data/clp/8e7a008e83c664b9876a8f72ff0490ae.pt-br","_resolvedLanguagePackCoreLocation":"/home/raphael/.vscode-server/data/clp/8e7a008e83c664b9876a8f72ff0490ae.pt-br/e4503b30fc78200f846c62cf8091b76ff5547662","_corruptedFile":"/home/raphael/.vscode-server/data/clp/8e7a008e83c664b9876a8f72ff0490ae.pt-br/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /home/raphael/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/node
+_ = /home/raphael/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
 XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
-# environment
-VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 5)
 CONSTRAINT := https://raw.githubusercontent.com/apache/airflow/constraints-2.0.0/constraints-3.8.txt
 # environment
@@ -51,9 +49,9 @@ VSCODE_CWD = /mnt/c/Users/rapha/AppData/Local/Programs/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/raphael/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/home/raphael/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/rapha/Oracle_19c/bin:/mnt/c/Users/rapha/Downloads/Oracle_19c/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/rapha/Oracle_19c/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/rapha/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/rapha/AppData/Local/Programs/Python/Python39/:/mnt/c/Users/rapha/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/rapha/AppData/Roaming/npm:/mnt/c/Users/rapha/AppData/Roaming/npm:/snap/bin
+PATH = /home/raphael/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/bin/remote-cli:/home/raphael/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/rapha/Oracle_19c/bin:/mnt/c/Users/rapha/Downloads/Oracle_19c/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/rapha/Oracle_19c/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/rapha/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/rapha/AppData/Local/Programs/Python/Python39/:/mnt/c/Users/rapha/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/rapha/AppData/Roaming/npm:/mnt/c/Users/rapha/AppData/Roaming/npm:/snap/bin
 # environment
-VSCODE_LOG_STACK = false
+ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -61,11 +59,9 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_PIPE_LOGGING = true
-# environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-785c900d-742a-4f28-9001-9771bb57ea83.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-c746f66f-a8d4-46d9-bbf5-b18655031c53.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -105,7 +101,7 @@ USER = raphael
 # makefile
 .DEFAULT_GOAL := venv
 # environment
-NAME = DESKTOP-PD7DJOR
+NAME = HD-RAPHAELQUEIROZ
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
@@ -151,11 +147,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_EXTHOST_WILL_SEND_SOCKET = true
-# environment
 WSL_DISTRO_NAME = Ubuntu-18.04
 # variable set hash-table stats:
-# Load=72/1024=7%, Rehash=0, Collisions=3/99=3%
+# Load=68/1024=7%, Rehash=0, Collisions=3/95=3%
 
 # Pattern-specific Variable Values
 
@@ -290,6 +284,7 @@ reset-airflow:
 
 venv:
 #  Phony target (prerequisite of .PHONY).
+ 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -356,8 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Wed Jun  1 10:48:52 2022
+# Finished Make data base on Mon Aug 22 10:34:33 2022
 
  
-make: *** No rule to make target 'all'.  Stop.
-
