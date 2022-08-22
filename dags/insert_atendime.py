@@ -1318,134 +1318,323 @@ def df_fech_chec():
 
         print("Dados PW_HR_FECHADO_CHEC inseridos")
 
+def df_leito():
+    print("Entrou no df_leito")
+
+    df_dim = pd.read_sql(query_leito, connect_rhp())
+
+    df_stage = pd.read_sql(query_leito_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_LEITO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+    
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.LEITO (CD_LEITO, CD_UNID_INT, DS_ENFERMARIA, DS_LEITO, TP_SITUACAO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados LEITO inseridos")
+
+def df_unid_int():
+    print("Entrou no df_unid_int")
+
+    df_dim = pd.read_sql(query_unid_int, connect_rhp())
+
+    df_stage = pd.read_sql(query_unid_int_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_UNID_INT"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+    
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.UNID_INT (CD_UNID_INT, DS_UNID_INT, DS_LOCALIZACAO, CD_SETOR, SN_ATIVO) VALUES (:1, :2, :3, :4, :5)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados UNID_INT inseridos")
+
+def df_tip_acom():
+    print("Entrou no df_tip_acom")
+
+    df_dim = pd.read_sql(query_tip_acom, connect_rhp())
+
+    df_stage = pd.read_sql(query_tip_acom_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_TIP_ACOM"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+    
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.TIP_ACOM (CD_TIP_ACOM, DS_TIP_ACOM, VL_FATOR_CUSTO, TP_ACOMODACAO) VALUES (:1, :2, :3, :4)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados TIP_ACOM inseridos")
+
+def df_mov_int():
+    print("Entrou no df_mov_int")
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_mov_int.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+
+        df_dim["CD_MOV_INT"] = df_dim["CD_MOV_INT"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_CONVENIO"] = df_dim["CD_CONVENIO"].fillna(0)
+        df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+        df_dim["CD_LEITO"] = df_dim["CD_LEITO"].fillna("0")
+        df_dim["HR_MOV_INT"] = df_dim["HR_MOV_INT"].fillna("0")
+        df_dim["DS_MOTIVO"] = df_dim["DS_MOTIVO"].fillna("0")
+        df_dim["SN_RESERVA"] = df_dim["SN_RESERVA"].fillna("0")
+        df_dim["CD_LEITO_ANTERIOR"] = df_dim["CD_LEITO_ANTERIOR"].fillna(0)
+        df_dim["CD_TIP_ACOM"] = df_dim["CD_TIP_ACOM"].fillna(0)
+        df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
+
+        df_stage = pd.read_sql(query_mov_int_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage["CD_MOV_INT"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.MOV_INT (CD_MOV_INT, CD_ATENDIMENTO, CD_CONVENIO, CD_PRESTADOR, CD_LEITO, DT_MOV_INT, HR_MOV_INT, DS_MOTIVO, SN_RESERVA, CD_LEITO_ANTERIOR, CD_TIP_ACOM, NM_USUARIO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados MOV_INT inseridos")
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
-t0 = PythonOperator(
-    task_id="insert_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
-
-t1 = PythonOperator(
-    task_id="insert_cid_rhp",
-    python_callable=df_cid,
-    dag=dag)
-
-# t2 = PythonOperator(
-#     task_id="insert_classificacao_risco_rhp",
-#     python_callable=df_classificacao_risco,
+# t0 = PythonOperator(
+#     task_id="insert_atendime_rhp",
+#     python_callable=df_atendime,
 #     dag=dag)
 
-# t3 = PythonOperator(
-#     task_id="insert_classificacao_rhp",
-#     python_callable=df_classificacao,
+# t1 = PythonOperator(
+#     task_id="insert_cid_rhp",
+#     python_callable=df_cid,
 #     dag=dag)
 
-t4 = PythonOperator(
-    task_id="insert_convenio_rhp",
-    python_callable=df_convenio,
-    dag=dag)
+# # t2 = PythonOperator(
+# #     task_id="insert_classificacao_risco_rhp",
+# #     python_callable=df_classificacao_risco,
+# #     dag=dag)
 
-# t5 = PythonOperator(
-#     task_id="insert_cor_referencia_rhp",
-#     python_callable=df_cor_referencia,
+# # t3 = PythonOperator(
+# #     task_id="insert_classificacao_rhp",
+# #     python_callable=df_classificacao,
+# #     dag=dag)
+
+# t4 = PythonOperator(
+#     task_id="insert_convenio_rhp",
+#     python_callable=df_convenio,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="insert_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# # t5 = PythonOperator(
+# #     task_id="insert_cor_referencia_rhp",
+# #     python_callable=df_cor_referencia,
+# #     dag=dag)
 
-t8 = PythonOperator(
-    task_id="insert_esp_med_rhp",
-    python_callable=df_esp_med,
-    dag=dag)
-
-t9 = PythonOperator(
-    task_id="insert_especialidad_rhp",
-    python_callable=df_especialidad,
-    dag=dag)
-
-t10 = PythonOperator(
-    task_id="insert_gru_cid_rhp",
-    python_callable=df_gru_cid,
-    dag=dag)
-
-t10 = PythonOperator(
-    task_id="insert_prestador_rhp",
-    python_callable=df_prestador,
-    dag=dag)
-
-# t11 = PythonOperator(
-#     task_id="insert_mot_alt_rhp",
-#     python_callable=df_mot_alt,
+# t7 = PythonOperator(
+#     task_id="insert_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
 #     dag=dag)
 
-t12 = PythonOperator(
-    task_id="insert_multi_empresa_rhp",
-    python_callable=df_multi_empresa,
+# t8 = PythonOperator(
+#     task_id="insert_esp_med_rhp",
+#     python_callable=df_esp_med,
+#     dag=dag)
+
+# t9 = PythonOperator(
+#     task_id="insert_especialidad_rhp",
+#     python_callable=df_especialidad,
+#     dag=dag)
+
+# t10 = PythonOperator(
+#     task_id="insert_gru_cid_rhp",
+#     python_callable=df_gru_cid,
+#     dag=dag)
+
+# t10 = PythonOperator(
+#     task_id="insert_prestador_rhp",
+#     python_callable=df_prestador,
+#     dag=dag)
+
+# # t11 = PythonOperator(
+# #     task_id="insert_mot_alt_rhp",
+# #     python_callable=df_mot_alt,
+# #     dag=dag)
+
+# t12 = PythonOperator(
+#     task_id="insert_multi_empresa_rhp",
+#     python_callable=df_multi_empresa,
+#     dag=dag)
+
+# t13 = PythonOperator(
+#     task_id="insert_ori_ate_rhp",
+#     python_callable=df_ori_ate,
+#     dag=dag)
+
+# t14 = PythonOperator(
+#     task_id="insert_paciente_rhp",
+#     python_callable=df_paciente,
+#     dag=dag)
+
+# t15 = PythonOperator(
+#     task_id="insert_pagu_objeto_rhp",
+#     python_callable=df_pagu_objeto,
+#     dag=dag)
+
+# t16 = PythonOperator(
+#     task_id="insert_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
+
+# t17 = PythonOperator(
+#     task_id="insert_setor_rhp",
+#     python_callable=df_setor,
+#     dag=dag)
+
+# t18 = PythonOperator(
+#     task_id="insert_sgru_cid_rhp",
+#     python_callable=df_sgru_cid,
+#     dag=dag)
+
+# t19 = PythonOperator(
+#     task_id="insert_sintoma_avaliacao_rhp",
+#     python_callable=df_sintoma_avaliacao,
+#     dag=dag)
+
+# t20 = PythonOperator(
+#     task_id="insert_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
+
+# t21 = PythonOperator(
+#     task_id="insert_tip_mar_rhp",
+#     python_callable=df_tip_mar,
+#     dag=dag)
+
+# t22 = PythonOperator(
+#     task_id="insert_tip_res_rhp",
+#     python_callable=df_tip_res,
+#     dag=dag)
+
+# t23 = PythonOperator(
+#     task_id="insert_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
+
+# t24 = PythonOperator(
+#     task_id="insert_usuario_rhp",
+#     python_callable=df_usuario,
+#     dag=dag)
+
+# (t1, t4, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t0
+
+t25 = PythonOperator(
+    task_id="captura_fech_chec_rhp",
+    python_callable=df_fech_chec,
+    on_failure_callback=notify_email,
     dag=dag)
 
-t13 = PythonOperator(
-    task_id="insert_ori_ate_rhp",
-    python_callable=df_ori_ate,
+t26 = PythonOperator(
+    task_id="captura_leito_rhp",
+    python_callable=df_leito,
+    on_failure_callback=notify_email,
     dag=dag)
 
-t14 = PythonOperator(
-    task_id="insert_paciente_rhp",
-    python_callable=df_paciente,
+t27 = PythonOperator(
+    task_id="captura_unid_int_rhp",
+    python_callable=df_unid_int,
+    on_failure_callback=notify_email,
     dag=dag)
 
-t15 = PythonOperator(
-    task_id="insert_pagu_objeto_rhp",
-    python_callable=df_pagu_objeto,
+t28 = PythonOperator(
+    task_id="captura_tip_acom_rhp",
+    python_callable=df_tip_acom,
+    on_failure_callback=notify_email,
     dag=dag)
 
-t16 = PythonOperator(
-    task_id="insert_registro_alta_rhp",
-    python_callable=df_registro_alta,
+t29 = PythonOperator(
+    task_id="captura_mov_int_rhp",
+    python_callable=df_mov_int,
+    on_failure_callback=notify_email,
     dag=dag)
 
-t17 = PythonOperator(
-    task_id="insert_setor_rhp",
-    python_callable=df_setor,
-    dag=dag)
-
-t18 = PythonOperator(
-    task_id="insert_sgru_cid_rhp",
-    python_callable=df_sgru_cid,
-    dag=dag)
-
-t19 = PythonOperator(
-    task_id="insert_sintoma_avaliacao_rhp",
-    python_callable=df_sintoma_avaliacao,
-    dag=dag)
-
-t20 = PythonOperator(
-    task_id="insert_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
-
-t21 = PythonOperator(
-    task_id="insert_tip_mar_rhp",
-    python_callable=df_tip_mar,
-    dag=dag)
-
-t22 = PythonOperator(
-    task_id="insert_tip_res_rhp",
-    python_callable=df_tip_res,
-    dag=dag)
-
-t23 = PythonOperator(
-    task_id="insert_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
-
-t24 = PythonOperator(
-    task_id="insert_usuario_rhp",
-    python_callable=df_usuario,
-    dag=dag)
-
-(t1, t4, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t0
+t25 >> t26 >> t27 >> t28 >> t29

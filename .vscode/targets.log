@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 22 10:34:33 2022
+# Make data base, printed on Mon Aug 22 11:15:40 2022
 
 # Variables
 
@@ -61,7 +61,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-c746f66f-a8d4-46d9-bbf5-b18655031c53.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-280c301e-042e-4518-8538-b1ad9c7cb0e7.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -284,10 +284,10 @@ reset-airflow:
 
 venv:
 #  Phony target (prerequisite of .PHONY).
- 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'Makefile', line 13):
 	python3 -m virtualenv venv
 	venv/bin/python3 -m pip install --upgrade pip
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Mon Aug 22 10:34:33 2022
+# Finished Make data base on Mon Aug 22 11:15:40 2022
 
  
