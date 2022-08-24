@@ -1874,18 +1874,8 @@ def df_mod_exame():
     print("Dados MOT_DEV inseridos")
 
 dag = DAG("insert_dados_rhp_var", default_args=default_args, schedule_interval=None)
-
+    
 t0 = PythonOperator(
-    task_id="insert_ped_lab_rhp",
-    python_callable=df_ped_lab,
-    dag=dag)
-    
-t1 = PythonOperator(
-    task_id="insert_ped_rx_rhp",
-    python_callable=df_ped_rx,
-    dag=dag)
-    
-t1 = PythonOperator(
     task_id="insert_material_rhp",
     python_callable=df_material,
     dag=dag)
@@ -1894,3 +1884,15 @@ t1 = PythonOperator(
     task_id="insert_mod_exame_rhp",
     python_callable=df_mod_exame,
     dag=dag)
+
+t2 = PythonOperator(
+    task_id="insert_ped_lab_rhp",
+    python_callable=df_ped_lab,
+    dag=dag)
+    
+t3 = PythonOperator(
+    task_id="insert_ped_rx_rhp",
+    python_callable=df_ped_rx,
+    dag=dag)
+
+t0 >> t1 >> t2 >> t3
