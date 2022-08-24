@@ -1610,31 +1610,26 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 t25 = PythonOperator(
     task_id="captura_fech_chec_rhp",
     python_callable=df_fech_chec,
-    on_failure_callback=notify_email,
     dag=dag)
 
 t26 = PythonOperator(
     task_id="captura_leito_rhp",
     python_callable=df_leito,
-    on_failure_callback=notify_email,
     dag=dag)
 
 t27 = PythonOperator(
     task_id="captura_unid_int_rhp",
     python_callable=df_unid_int,
-    on_failure_callback=notify_email,
     dag=dag)
 
 t28 = PythonOperator(
     task_id="captura_tip_acom_rhp",
     python_callable=df_tip_acom,
-    on_failure_callback=notify_email,
     dag=dag)
 
 t29 = PythonOperator(
     task_id="captura_mov_int_rhp",
     python_callable=df_mov_int,
-    on_failure_callback=notify_email,
     dag=dag)
 
 t25 >> t26 >> t27 >> t28 >> t29
