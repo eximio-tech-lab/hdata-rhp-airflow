@@ -1607,10 +1607,10 @@ dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 
 # (t1, t4, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t0
 
-t25 = PythonOperator(
-    task_id="captura_fech_chec_rhp",
-    python_callable=df_fech_chec,
-    dag=dag)
+# t25 = PythonOperator(
+#     task_id="captura_fech_chec_rhp",
+#     python_callable=df_fech_chec,
+#     dag=dag)
 
 t26 = PythonOperator(
     task_id="captura_leito_rhp",
@@ -1632,4 +1632,4 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-t25 >> t26 >> t27 >> t28 >> t29
+t26 >> t27 >> t28 >> t29
