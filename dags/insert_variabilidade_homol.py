@@ -1871,7 +1871,7 @@ def df_mod_exame():
     cursor.close
     con.close
 
-    print("Dados MOT_DEV inseridos")
+    print("Dados CD_MODALIDADE_EXAME inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)

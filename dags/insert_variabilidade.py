@@ -1787,6 +1787,308 @@ def df_itped_rx(lista_cds_ped_rx):
 
         print("Dados ITPED_RX inseridos")
 
+def df_ped_lab():
+    print("Entrou no df_ped_lab")
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.timedelta(2019, 1, 1), until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_ped_lab.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+
+        df_dim["CD_PED_LAB"] = df_dim["CD_PED_LAB"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+        df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
+        df_dim["CD_TECNICO_EXA"] = df_dim["CD_TECNICO_EXA"].fillna(0)
+        df_dim["TP_SOLICITACAO"] = df_dim["TP_SOLICITACAO"].fillna("0")
+        df_dim["CD_SET_EXA"] = df_dim["CD_SET_EXA"].fillna(0)
+        df_dim["NM_SET_EXA"] = df_dim["NM_SET_EXA"].fillna("0")
+        df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+        df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
+
+        print(df_dim.info())
+
+        lista_cds_ped_lab = df_dim['CD_PED_LAB'].to_list()
+        lista_cds_ped_lab = [str(cd) for cd in lista_cds_ped_lab]
+
+        df_stage = pd.read_sql(query_ped_lab_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage['CD_PED_LAB'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.PED_LAB (CD_PED_LAB, DT_PEDIDO, CD_ATENDIMENTO, CD_PRESTADOR, NM_USUARIO, CD_TECNICO_EXA, TP_SOLICITACAO, CD_SET_EXA, NM_SET_EXA, CD_SETOR, CD_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados PED_LAB inseridos")
+
+        df_itped_lab(lista_cds_ped_lab)
+
+def df_itped_lab(lista_cds_ped_lab):
+    print("Entrou no df_itped_lab")
+
+    lista_cds_ped_lab_dividida = np.array_split(lista_cds_ped_lab, round(len(lista_cds_ped_lab)/900) + 1)
+
+    for cds in lista_cds_ped_lab_dividida:
+        cd_ped_lab = ','.join(cds)
+
+        df_dim = pd.read_sql(query_itped_lab.format(cd_ped_lab=cd_ped_lab), connect_rhp())
+
+        df_dim["CD_PED_LAB"] = df_dim["CD_PED_LAB"].fillna(0)
+        df_dim["CD_ITPED_LAB"] = df_dim["CD_ITPED_LAB"].fillna(0)
+        df_dim["CD_EXA_LAB"] = df_dim["CD_EXA_LAB"].fillna(0)
+        df_dim["NM_EXA_LAB"] = df_dim["NM_EXA_LAB"].fillna("0")
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["SN_REALIZADO"] = df_dim["SN_REALIZADO"].fillna("0")
+        df_dim["CD_LABORATORIO"] = df_dim["CD_LABORATORIO"].fillna(0)
+        df_dim["CD_SET_EXA"] = df_dim["CD_SET_EXA"].fillna(0)
+        df_dim["NM_SET_EXA"] = df_dim["NM_SET_EXA"].fillna("0")
+        df_dim["CD_MATERIAL"] = df_dim["CD_MATERIAL"].fillna(0)
+        df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
+
+        print(df_dim.info())
+
+        df_stage = pd.read_sql(query_itped_lab_hdata.format(cd_ped_lab=cd_ped_lab), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage["CD_ITPED_LAB"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.ITPED_lAB (CD_PED_LAB, CD_ITPED_LAB, CD_EXA_LAB, NM_EXA_LAB, CD_ATENDIMENTO, SN_REALIZADO, CD_LABORATORIO, CD_SET_EXA, NM_SET_EXA, CD_MATERIAL, CD_ITPRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados ITPED_lAB inseridos")
+
+def df_ped_rx():
+    print("Entrou no df_ped_rx")
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.timedelta(2019, 1, 1), until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_ped_rx.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+
+        df_dim["CD_PED_RX"] = df_dim["CD_PED_RX"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
+        df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
+        df_dim["CD_SET_EXA"] = df_dim["CD_SET_EXA"].fillna(0)
+        df_dim["NM_SET_EXA"] = df_dim["NM_SET_EXA"].fillna("0")
+        df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+        df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
+
+        print(df_dim.info())
+
+        lista_cds_ped_rx = df_dim['CD_PED_RX'].to_list()
+        lista_cds_ped_rx = [str(cd) for cd in lista_cds_ped_rx]
+
+        df_stage = pd.read_sql(query_ped_rx_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage['CD_PED_RX'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.PED_RX (CD_PED_RX, DT_PEDIDO, CD_ATENDIMENTO, CD_PRESTADOR, NM_USUARIO, CD_SET_EXA, NM_SET_EXA, CD_SETOR, CD_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados PED_RX inseridos")
+
+        df_itped_rx(lista_cds_ped_rx)
+
+def df_itped_rx(lista_cds_ped_rx):
+    print("Entrou no df_itped_rx")
+
+    lista_cds_ped_rx_dividida = np.array_split(lista_cds_ped_rx, round(len(lista_cds_ped_rx)/900) + 1)
+
+    for cds in lista_cds_ped_rx_dividida:
+        cd_ped_rx = ','.join(cds)
+
+        df_dim = pd.read_sql(query_itped_rx.format(cd_ped_rx=cd_ped_rx), connect_rhp())
+
+        df_dim["CD_PED_RX"] = df_dim["CD_PED_RX"].fillna(0)
+        df_dim["CD_ITPED_RX"] = df_dim["CD_ITPED_RX"].fillna(0)
+        df_dim["CD_EXA_RX"] = df_dim["CD_EXA_RX"].fillna(0)
+        df_dim["CD_LAUDO"] = df_dim["CD_LAUDO"].fillna(0)
+        df_dim["SN_REALIZADO"] = df_dim["SN_REALIZADO"].fillna("0")
+        df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
+        df_dim["DS_LAUDO"] = df_dim["DS_LAUDO"].fillna("0")
+
+        print(df_dim.info())
+
+        df_stage = pd.read_sql(query_itped_rx_hdata.format(cd_ped_rx=cd_ped_rx), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage["CD_ITPED_RX"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.ITPED_RX (CD_PED_RX, CD_ITPED_RX, CD_EXA_RX, CD_LAUDO, SN_REALIZADO, CD_ITPRE_MED, DS_LAUDO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados ITPED_RX inseridos")
+
+def df_material():
+    print("Entrou no df_material")
+
+    df_dim = pd.read_sql(query_material, connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_MATERIAL"] = df_dim["CD_MATERIAL"].fillna(0)
+    df_dim["DS_MATERIAL"] = df_dim["DS_MATERIAL"].fillna("0")
+
+    print(df_dim.info())
+
+    df_stage = pd.read_sql(query_material_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_MATERIAL"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.MATERIAL (CD_MATERIAL, DS_MATERIAL) VALUES (:1, :2)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados MATERIAL inseridos")
+
+def df_mod_exame():
+    print("Entrou no df_mod_exame")
+
+    df_dim = pd.read_sql(query_mod_exame, connect_rhp())
+
+    print(df_dim)
+
+    df_dim["CD_MODALIDADE_EXAME"] = df_dim["CD_MODALIDADE_EXAME"].fillna(0)
+    df_dim["DS_MODALIDADE_EXAME"] = df_dim["DS_MODALIDADE_EXAME"].fillna("0")
+
+    print(df_dim.info())
+
+    df_stage = pd.read_sql(query_mod_exame_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_MODALIDADE_EXAME"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.MOD_EXAME (CD_MODALIDADE_EXAME, DS_MODALIDADE_EXAME) VALUES (:1, :2)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados CD_MODALIDADE_EXAME inseridos")
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
@@ -1952,5 +2254,25 @@ t55 = PythonOperator(
 #     task_id="insert_mot_dev_rhp",
 #     python_callable=df_mot_dev,
 #     dag=dag)
+    
+t58 = PythonOperator(
+    task_id="insert_material_rhp",
+    python_callable=df_material,
+    dag=dag)
+    
+t59 = PythonOperator(
+    task_id="insert_mod_exame_rhp",
+    python_callable=df_mod_exame,
+    dag=dag)
 
-t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25
+t60 = PythonOperator(
+    task_id="insert_ped_lab_rhp",
+    python_callable=df_ped_lab,
+    dag=dag)
+    
+t61 = PythonOperator(
+    task_id="insert_ped_rx_rhp",
+    python_callable=df_ped_rx,
+    dag=dag)
+
+t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61
