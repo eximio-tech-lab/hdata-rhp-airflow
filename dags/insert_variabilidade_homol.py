@@ -1753,7 +1753,7 @@ def df_itped_rx(lista_cds_ped_rx):
         df_dim["CD_ITPED_RX"] = df_dim["CD_ITPED_RX"].fillna(0)
         df_dim["CD_EXA_RX"] = df_dim["CD_EXA_RX"].fillna(0)
         df_dim["CD_LAUDO"] = df_dim["CD_LAUDO"].fillna(0)
-        df_dim["SN_REALIZADO"] = df_dim["SN_REALIZADO"].fillna(0)
+        df_dim["SN_REALIZADO"] = df_dim["SN_REALIZADO"].fillna("0")
         df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
         df_dim["DS_LAUDO"] = df_dim["DS_LAUDO"].fillna("0")
 
