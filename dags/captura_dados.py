@@ -1590,4 +1590,29 @@ t24 = PythonOperator(
     python_callable=df_usuario,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0
+t25 = PythonOperator(
+    task_id="captura_fech_chec_rhp",
+    python_callable=df_fech_chec,
+    dag=dag)
+
+t26 = PythonOperator(
+    task_id="captura_leito_rhp",
+    python_callable=df_leito,
+    dag=dag)
+
+t27 = PythonOperator(
+    task_id="captura_unid_int_rhp",
+    python_callable=df_unid_int,
+    dag=dag)
+
+t28 = PythonOperator(
+    task_id="captura_tip_acom_rhp",
+    python_callable=df_tip_acom,
+    dag=dag)
+
+t29 = PythonOperator(
+    task_id="captura_mov_int_rhp",
+    python_callable=df_mov_int,
+    dag=dag)
+
+(t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
