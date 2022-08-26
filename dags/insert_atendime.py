@@ -1391,6 +1391,7 @@ def df_unid_int():
 def df_tip_acom():
     print("Entrou no df_tip_acom")
 
+    connect_rhp()
     df_dim = pd.read_sql(query_tip_acom, connect_rhp())
 
     df_stage = pd.read_sql(query_tip_acom_hdata, connect_rhp_hdata())

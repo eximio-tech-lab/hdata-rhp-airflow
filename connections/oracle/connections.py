@@ -9,6 +9,7 @@ def connect_rhp():
     os.environ["NLS_LANG"] = ".UTF8"
     # dsn_tns = cx_Oracle.makedsn('10.0.38.7', 1521, service_name='sml')  # 172.17.0.1
     dsn_tns = cx_Oracle.makedsn('10.0.38.9', 1521, service_name='prd')  # 172.17.0.1
+    print(dsn_tns)
     return cx_Oracle.connect('hdata', 'hhhdatadata22191', dsn_tns)
 
 def connect_rhp_hdata():
