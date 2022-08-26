@@ -1283,7 +1283,7 @@ def df_fech_chec():
 
         df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"] = df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"].fillna(0)
         df_dim["CD_FECHAMENTO"] = df_dim["CD_FECHAMENTO"].fillna(0)
-        df_dim["CD_ITPRE_MED"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
+        df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
         df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna(0)
         df_dim["SN_ALTERADO"] = df_dim["SN_ALTERADO"].fillna("0")
         df_dim["SN_SUSPENSO"] = df_dim["SN_SUSPENSO"].fillna("0")
@@ -1391,7 +1391,6 @@ def df_unid_int():
 def df_tip_acom():
     print("Entrou no df_tip_acom")
 
-    connect_rhp()
     df_dim = pd.read_sql(query_tip_acom, connect_rhp())
 
     df_stage = pd.read_sql(query_tip_acom_hdata, connect_rhp_hdata())
