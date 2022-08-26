@@ -1617,19 +1617,19 @@ t26 = PythonOperator(
     python_callable=df_leito,
     dag=dag)
 
-t27 = PythonOperator(
-    task_id="captura_unid_int_rhp",
-    python_callable=df_unid_int,
-    dag=dag)
+# t27 = PythonOperator(
+#     task_id="captura_unid_int_rhp",
+#     python_callable=df_unid_int,
+#     dag=dag)
 
-t28 = PythonOperator(
-    task_id="captura_tip_acom_rhp",
-    python_callable=df_tip_acom,
-    dag=dag)
+# t28 = PythonOperator(
+#     task_id="captura_tip_acom_rhp",
+#     python_callable=df_tip_acom,
+#     dag=dag)
 
-t29 = PythonOperator(
-    task_id="captura_mov_int_rhp",
-    python_callable=df_mov_int,
-    dag=dag)
+# t29 = PythonOperator(
+#     task_id="captura_mov_int_rhp",
+#     python_callable=df_mov_int,
+#     dag=dag)
 
 # t26 >> t27 >> t28 >> t29 >> t25
