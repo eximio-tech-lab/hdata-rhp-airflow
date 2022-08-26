@@ -1628,7 +1628,7 @@ t28 = PythonOperator(
     dag=dag)
 
 t29 = PythonOperator(
-    task_id="captura_mov_int_rhp",s
+    task_id="captura_mov_int_rhp",
     python_callable=df_mov_int,
     dag=dag)
 
