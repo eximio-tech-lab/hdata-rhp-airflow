@@ -1839,7 +1839,7 @@ def df_mod_exame():
     print(df_dim)
 
     df_dim["CD_MODALIDADE_EXAME"] = df_dim["CD_MODALIDADE_EXAME"].fillna(0)
-    df_dim["DS_MODALIDADE_EXAME"] = df_dim["DS_MOT_DEV"].fillna("0")
+    df_dim["DS_MODALIDADE_EXAME"] = df_dim["DS_MODALIDADE_EXAME"].fillna("0")
 
     print(df_dim.info())
 
@@ -1872,6 +1872,9 @@ def df_mod_exame():
     con.close
 
     print("Dados MOT_DEV inseridos")
+
+dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 dag = DAG("insert_dados_rhp_var", default_args=default_args, schedule_interval=None)
     
