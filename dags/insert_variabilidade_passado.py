@@ -1445,7 +1445,7 @@ def df_exa_lab():
 def df_exa_rx():
     print("Entrou no df_exa_rx")
 
-    df_dim = pd.read_sql(query_exa_rx, connect_rhp())
+    df_dim = pd.read_sql(query_exa_rx_2, connect_rhp())
 
     print(df_dim)
 
@@ -1456,7 +1456,7 @@ def df_exa_rx():
 
     print(df_dim.info())
 
-    df_stage = pd.read_sql(query_exa_rx_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_temp_exa_rx_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage["CD_EXA_RX"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
