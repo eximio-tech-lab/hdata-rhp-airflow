@@ -1876,7 +1876,7 @@ dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
-dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval="0 6,7,8,9 * * *")
+dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7,8,9 * * *")
 
 # t25 = PythonOperator(
 #     task_id="insert_pre_med_rhp",
