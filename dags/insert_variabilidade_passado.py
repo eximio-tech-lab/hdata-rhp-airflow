@@ -1452,7 +1452,7 @@ def df_exa_rx():
     df_dim["EXA_RX_CD_PRO_FAT"] = df_dim["EXA_RX_CD_PRO_FAT"].fillna("0")
     df_dim["CD_EXA_RX"] = df_dim["CD_EXA_RX"].fillna(0)
     df_dim["DS_EXA_RX"] = df_dim["DS_EXA_RX"].fillna("0")
-    df_dim["CD_MODADLIDADE_EXAME"] = df_dim["CD_MODADLIDADE_EXAME"].fillna(0)
+    df_dim["CD_MODALIDADE_EXAME"] = df_dim["CD_MODALIDADE_EXAME"].fillna(0)
 
     print(df_dim.info())
 
@@ -1469,7 +1469,7 @@ def df_exa_rx():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.TEMP_EXA_RX (EXA_RX_CD_PRO_FAT, CD_EXA_RX, DS_EXA_RX, CD_MODADLIDADE_EXAME) VALUES (:1, :2, :3, :4)"
+    sql="INSERT INTO MV_RHP.TEMP_EXA_RX (EXA_RX_CD_PRO_FAT, CD_EXA_RX, DS_EXA_RX, CD_MODALIDADE_EXAME) VALUES (:1, :2, :3, :4)"
 
     df_list = df_diff.values.tolist()
     n = 0
