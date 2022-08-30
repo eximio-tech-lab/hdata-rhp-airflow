@@ -1617,4 +1617,4 @@ t20 = PythonOperator(
 #     python_callable=df_mov_int,
 #     dag=dag)
 
-t20 >> t25
+t20 >> t0
