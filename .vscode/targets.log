@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 29 09:08:25 2022
+# Make data base, printed on Tue Aug 30 11:59:16 2022
 
 # Variables
 
@@ -61,7 +61,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-64c62e29-99ea-4959-9081-422baffead61.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-61114441-5266-4726-8b1d-49ea3f6256d1.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -79,7 +79,7 @@ LOGNAME = raphael
 # makefile (from 'Makefile', line 1)
 PYTHON_VERSION := 3.8
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -280,8 +280,8 @@ reset-airflow:
 #  recipe to execute (from 'Makefile', line 70):
 	@docker-compose down -v || true
 	@docker-compose rm -f
- 
 	rm -f webserver_config.py
+ 
 
 venv:
 #  Phony target (prerequisite of .PHONY).
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Mon Aug 29 09:08:25 2022
+# Finished Make data base on Tue Aug 30 11:59:16 2022
 
  
