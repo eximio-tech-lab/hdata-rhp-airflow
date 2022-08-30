@@ -16,7 +16,7 @@ from queries.rhp.queries_hdata import *
 
 from utils.integrity_checker import notify_email
 
-START_DATE = airflow.utils.dates.days_ago(2)
+START_DATE = airflow.utils.dates.days_ago(0)
 
 default_args = {
     "owner": "raphael",
@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -87,7 +87,7 @@ def df_pre_med():
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
         lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
 
-        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_temp_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -100,7 +100,7 @@ def df_pre_med():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR, HR_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+        sql="INSERT INTO MV_RHP.TEMP_PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR, HR_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -1876,12 +1876,12 @@ dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
-dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7,8,9 * * *")
+dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
 
-# t25 = PythonOperator(
-#     task_id="insert_pre_med_rhp",
-#     python_callable=df_pre_med,
-#     dag=dag)
+t25 = PythonOperator(
+    task_id="insert_pre_med_rhp",
+    python_callable=df_pre_med,
+    dag=dag)
 
 # t26 = PythonOperator(
 #     task_id="insert_itpre_med_rhp",
@@ -2018,10 +2018,10 @@ dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, sc
 #     python_callable=df_exa_lab,
 #     dag=dag)
 
-t54 = PythonOperator(
-    task_id="insert_exa_rx_rhp",
-    python_callable=df_exa_rx,
-    dag=dag)
+# t54 = PythonOperator(
+#     task_id="insert_exa_rx_rhp",
+#     python_callable=df_exa_rx,
+#     dag=dag)
 
 # t55 = PythonOperator(
 #     task_id="insert_gru_fat_rhp",
