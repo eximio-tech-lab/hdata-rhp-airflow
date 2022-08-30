@@ -15,7 +15,7 @@ from queries.rhp.queries_hdata import *
 
 from utils.integrity_checker import notify_email
 
-START_DATE = airflow.utils.dates.days_ago(1)
+START_DATE = airflow.utils.dates.days_ago(0)
 
 default_args = {
     "owner": "raphael",
@@ -1465,7 +1465,7 @@ dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval="0 6,7,8,9 * * *")
+dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval="0 6 * * *")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
