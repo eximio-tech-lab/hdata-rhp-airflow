@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Aug 30 11:59:16 2022
+# Make data base, printed on Wed Aug 31 08:32:48 2022
 
 # Variables
 
@@ -61,7 +61,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-61114441-5266-4726-8b1d-49ea3f6256d1.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-bbed63cb-b9e0-443e-ab27-1f7e07c8dd5f.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -281,7 +281,6 @@ reset-airflow:
 	@docker-compose down -v || true
 	@docker-compose rm -f
 	rm -f webserver_config.py
- 
 
 venv:
 #  Phony target (prerequisite of .PHONY).
@@ -289,6 +288,7 @@ venv:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 13):
+ 
 	python3 -m virtualenv venv
 	venv/bin/python3 -m pip install --upgrade pip
 	venv/bin/python3 -m pip install --trusted-host pypi.python.org "apache-airflow[${AIRFLOW_EXTRAS}]==${AIRFLOW_VERSION}" --constraint ${CONSTRAINT}  --use-deprecated legacy-resolver
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Tue Aug 30 11:59:16 2022
+# Finished Make data base on Wed Aug 31 08:32:48 2022
 
  

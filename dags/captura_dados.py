@@ -1259,7 +1259,7 @@ def df_usuario():
 
 def df_fech_chec():
     print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1411,7 +1411,7 @@ def df_tip_acom():
 
 def df_mov_int():
     print("Entrou no df_mov_int")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2020, 11, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
