@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 10, 30), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 11, 15), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -100,7 +100,7 @@ def df_pre_med():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.TEMP_PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, HR_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+        sql="INSERT INTO MV_RHP.TEMP_PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR, HR_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
         df_list = df_diff.values.tolist()
         n = 0
