@@ -1685,7 +1685,7 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1878,20 +1878,20 @@ dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 dag = DAG("insert_dados_rhp_var", default_args=default_args, schedule_interval=None)
     
-t0 = PythonOperator(
-    task_id="insert_material_rhp",
-    python_callable=df_material,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="insert_material_rhp",
+#     python_callable=df_material,
+#     dag=dag)
     
-t1 = PythonOperator(
-    task_id="insert_mod_exame_rhp",
-    python_callable=df_mod_exame,
-    dag=dag)
+# t1 = PythonOperator(
+#     task_id="insert_mod_exame_rhp",
+#     python_callable=df_mod_exame,
+#     dag=dag)
 
-t2 = PythonOperator(
-    task_id="insert_ped_lab_rhp",
-    python_callable=df_ped_lab,
-    dag=dag)
+# t2 = PythonOperator(
+#     task_id="insert_ped_lab_rhp",
+#     python_callable=df_ped_lab,
+#     dag=dag)
     
 t3 = PythonOperator(
     task_id="insert_ped_rx_rhp",
