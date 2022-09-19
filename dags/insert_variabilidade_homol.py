@@ -1685,7 +1685,7 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 30), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
