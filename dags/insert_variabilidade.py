@@ -82,6 +82,8 @@ def df_pre_med():
         df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
+        df_dim.rename(columns={'TP_PRE_MED': 'HR_PRE_MED', 'HR_PRE_MED': 'CD_SETOR', 'CD_SETOR': 'TP_PRE_MED'}, inplace=True)
+
         print(df_dim.info())
 
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
@@ -1872,7 +1874,7 @@ def df_mod_exame():
     print("Dados CD_MODALIDADE_EXAME inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=10)
+dt_ini = dt_ontem - datetime.timedelta(days=20)
 
 # dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
 dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval="0 6,7 * * *")

@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 27), until=datetime.datetime(2022, 1, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -81,6 +81,8 @@ def df_pre_med():
         df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(0)
         df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
+
+        df_dim.rename(columns={'TP_PRE_MED': 'HR_PRE_MED', 'HR_PRE_MED': 'CD_SETOR', 'CD_SETOR': 'TP_PRE_MED'}, inplace=True)
 
         print(df_dim.info())
 
@@ -100,7 +102,7 @@ def df_pre_med():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+        sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR, HR_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -117,9 +119,7 @@ def df_pre_med():
 
         print("Dados PRE_MED inseridos")
 
-        if not df_diff.empty:
-
-            df_itpre_med(lista_cds_pre_med)
+        df_itpre_med(lista_cds_pre_med)
 
 def df_itpre_med(lista_cds_pre_med):
     print("Entrou no df_itpre_med")
@@ -1874,10 +1874,15 @@ def df_mod_exame():
     print("Dados CD_MODALIDADE_EXAME inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=5)
+dt_ini = dt_ontem - datetime.timedelta(days=30)
 
 dag = DAG("insert_dados_rhp_var", default_args=default_args, schedule_interval=None)
-    
+
+t0 = PythonOperator(
+    task_id="insert_pre_med_rhp",
+    python_callable=df_pre_med,
+    dag=dag)
+
 # t0 = PythonOperator(
 #     task_id="insert_material_rhp",
 #     python_callable=df_material,
@@ -1898,4 +1903,4 @@ t3 = PythonOperator(
     python_callable=df_ped_rx,
     dag=dag)
 
-t2 >> t3
+t0 >> t2 >> t3
