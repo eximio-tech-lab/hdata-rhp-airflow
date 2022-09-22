@@ -1874,7 +1874,7 @@ def df_mod_exame():
     print("Dados CD_MODALIDADE_EXAME inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=30)
+dt_ini = dt_ontem - datetime.timedelta(days=7)
 
 dag = DAG("insert_dados_rhp_var", default_args=default_args, schedule_interval=None)
 
