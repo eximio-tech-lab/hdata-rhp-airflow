@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Sep 19 11:20:03 2022
+# Make data base, printed on Thu Sep 22 08:35:36 2022
 
 # Variables
 
@@ -61,7 +59,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-0509a351-defd-41ae-8239-0b8eada7f086.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d7a53101-134d-451d-9c57-eadb4f694cb7.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -279,8 +277,10 @@ reset-airflow:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 70):
 	@docker-compose down -v || true
-	@docker-compose rm -f
  
+make: *** No rule to make target 'all'.  Stop.
+
+	@docker-compose rm -f
 	rm -f webserver_config.py
 
 venv:
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Mon Sep 19 11:20:03 2022
+# Finished Make data base on Thu Sep 22 08:35:36 2022
 
  
