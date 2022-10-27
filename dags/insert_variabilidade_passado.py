@@ -8,8 +8,8 @@ from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-# from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
-from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+# from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 11, 15), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -672,7 +672,7 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -732,7 +732,7 @@ def df_itreg_amb():
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -782,7 +782,7 @@ def df_reg_fat():
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -841,7 +841,7 @@ def df_itreg_fat():
 
 def df_custo_final():
     print("Entrou no df_custo_final")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -887,7 +887,7 @@ def df_custo_final():
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1031,7 +1031,7 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1077,7 +1077,7 @@ def df_remessa_fatura():
 
 def df_repasse():
     print("Entrou no df_repasse")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1166,7 +1166,7 @@ def df_it_repasse():
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1263,7 +1263,7 @@ def df_glosas():
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1572,7 +1572,7 @@ def df_mot_dev():
 
 def df_ped_lab():
     print("Entrou no df_ped_lab")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1684,7 +1684,7 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 12, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1875,8 +1875,8 @@ def df_mod_exame():
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
-# dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
-dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
+dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval=None)
+# dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
 
 t25 = PythonOperator(
     task_id="insert_pre_med_rhp",
@@ -1893,35 +1893,35 @@ t25 = PythonOperator(
 #     python_callable=df_tip_presc,
 #     dag=dag)
 
-# t28 = PythonOperator(
-#     task_id="insert_for_apl_rhp",
-#     python_callable=df_for_apl,
-#     dag=dag)
+t28 = PythonOperator(
+    task_id="insert_for_apl_rhp",
+    python_callable=df_for_apl,
+    dag=dag)
 
 # t29 = PythonOperator(
 #     task_id="insert_tip_esq_rhp",
 #     python_callable=df_tip_esq,
 #     dag=dag)
 
-# t30 = PythonOperator(
-#     task_id="insert_tip_fre_rhp",
-#     python_callable=df_tip_fre,
-#     dag=dag)
+t30 = PythonOperator(
+    task_id="insert_tip_fre_rhp",
+    python_callable=df_tip_fre,
+    dag=dag)
 
-# t32 = PythonOperator(
-#     task_id="insert_gru_pro_rhp",
-#     python_callable=df_gru_pro,
-#     dag=dag)
+t32 = PythonOperator(
+    task_id="insert_gru_pro_rhp",
+    python_callable=df_gru_pro,
+    dag=dag)
 
-# t33 = PythonOperator(
-#     task_id="insert_produto_rhp",
-#     python_callable=df_produto,
-#     dag=dag)
+t33 = PythonOperator(
+    task_id="insert_produto_rhp",
+    python_callable=df_produto,
+    dag=dag)
 
-# t34 = PythonOperator(
-#     task_id="insert_pro_fat_rhp",
-#     python_callable=df_pro_fat,
-#     dag=dag)
+t34 = PythonOperator(
+    task_id="insert_pro_fat_rhp",
+    python_callable=df_pro_fat,
+    dag=dag)
 
 # t35 = PythonOperator(
 #     task_id="insert_tuss_rhp",
@@ -1973,10 +1973,10 @@ t25 = PythonOperator(
 #     python_callable=df_quantidade_diarias,
 #     dag=dag)
 
-# t45 = PythonOperator(
-#     task_id="insert_remessa_fatura_rhp",
-#     python_callable=df_remessa_fatura,
-#     dag=dag)
+t45 = PythonOperator(
+    task_id="insert_remessa_fatura_rhp",
+    python_callable=df_remessa_fatura,
+    dag=dag)
 
 # t46 = PythonOperator(
 #     task_id="insert_repasse_rhp",
@@ -2008,25 +2008,25 @@ t25 = PythonOperator(
 #     python_callable=df_fa_custo_atendimento,
 #     dag=dag)
 
-# t52 = PythonOperator(
-#     task_id="insert_especie_rhp",
-#     python_callable=df_especie,
-#     dag=dag)
+t52 = PythonOperator(
+    task_id="insert_especie_rhp",
+    python_callable=df_especie,
+    dag=dag)
 
-# t53 = PythonOperator(
-#     task_id="insert_exa_lab_rhp",
-#     python_callable=df_exa_lab,
-#     dag=dag)
+t53 = PythonOperator(
+    task_id="insert_exa_lab_rhp",
+    python_callable=df_exa_lab,
+    dag=dag)
 
-# t54 = PythonOperator(
-#     task_id="insert_exa_rx_rhp",
-#     python_callable=df_exa_rx,
-#     dag=dag)
+t54 = PythonOperator(
+    task_id="insert_exa_rx_rhp",
+    python_callable=df_exa_rx,
+    dag=dag)
 
-# t55 = PythonOperator(
-#     task_id="insert_gru_fat_rhp",
-#     python_callable=df_gru_fat,
-#     dag=dag)
+t55 = PythonOperator(
+    task_id="insert_gru_fat_rhp",
+    python_callable=df_gru_fat,
+    dag=dag)
 
 # t56 = PythonOperator(
 #     task_id="insert_motivo_glosa_rhp",
@@ -2038,24 +2038,24 @@ t25 = PythonOperator(
 #     python_callable=df_mot_dev,
 #     dag=dag)
     
-# t58 = PythonOperator(
-#     task_id="insert_material_rhp",
-#     python_callable=df_material,
-#     dag=dag)
+t58 = PythonOperator(
+    task_id="insert_material_rhp",
+    python_callable=df_material,
+    dag=dag)
     
-# t59 = PythonOperator(
-#     task_id="insert_mod_exame_rhp",
-#     python_callable=df_mod_exame,
-#     dag=dag)
+t59 = PythonOperator(
+    task_id="insert_mod_exame_rhp",
+    python_callable=df_mod_exame,
+    dag=dag)
 
-# t60 = PythonOperator(
-#     task_id="insert_ped_lab_rhp",
-#     python_callable=df_ped_lab,
-#     dag=dag)
+t60 = PythonOperator(
+    task_id="insert_ped_lab_rhp",
+    python_callable=df_ped_lab,
+    dag=dag)
     
-# t61 = PythonOperator(
-#     task_id="insert_ped_rx_rhp",
-#     python_callable=df_ped_rx,
-#     dag=dag)
+t61 = PythonOperator(
+    task_id="insert_ped_rx_rhp",
+    python_callable=df_ped_rx,
+    dag=dag)
 
-# t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61
+t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61
