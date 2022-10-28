@@ -87,7 +87,7 @@ def df_pre_med():
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
         lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
 
-        df_stage = pd.read_sql(query_temp_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1456,7 +1456,7 @@ def df_exa_rx():
 
     print(df_dim.info())
 
-    df_stage = pd.read_sql(query_temp_exa_rx_hdata, connect_rhp_hdata())
+    df_stage = pd.read_sql(query_exa_rx_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage["CD_EXA_RX"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
