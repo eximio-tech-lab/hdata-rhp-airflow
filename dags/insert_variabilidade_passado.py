@@ -100,7 +100,7 @@ def df_pre_med():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.TEMP_PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR, HR_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+        sql="INSERT INTO MV_RHP.PRE_MED (CD_PRE_MED, CD_ATENDIMENTO, CD_PRESTADOR, CD_DOCUMENTO_CLINICO, DT_PRE_MED, TP_PRE_MED, CD_SETOR, HR_PRE_MED) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -1469,7 +1469,7 @@ def df_exa_rx():
 
     cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.TEMP_EXA_RX (EXA_RX_CD_PRO_FAT, CD_EXA_RX, DS_EXA_RX, CD_MODALIDADE_EXAME) VALUES (:1, :2, :3, :4)"
+    sql="INSERT INTO MV_RHP.EXA_RX (EXA_RX_CD_PRO_FAT, CD_EXA_RX, DS_EXA_RX, CD_MODALIDADE_EXAME) VALUES (:1, :2, :3, :4)"
 
     df_list = df_diff.values.tolist()
     n = 0
