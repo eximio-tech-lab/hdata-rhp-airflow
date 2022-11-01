@@ -82,6 +82,8 @@ def df_pre_med():
         df_dim["TP_PRE_MED"] = df_dim["TP_PRE_MED"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
 
+        df_dim.rename(columns={'TP_PRE_MED': 'HR_PRE_MED', 'HR_PRE_MED': 'CD_SETOR', 'CD_SETOR': 'TP_PRE_MED'}, inplace=True)
+
         print(df_dim.info())
 
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
