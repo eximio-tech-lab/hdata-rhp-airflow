@@ -67,13 +67,18 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_pre_med.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_pre_med.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -87,7 +92,7 @@ def df_pre_med():
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
         lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
 
-        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -672,13 +677,18 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_itreg_amb.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_itreg_amb.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -700,7 +710,7 @@ def df_itreg_amb():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_itreg_amb_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itreg_amb_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -732,13 +742,18 @@ def df_itreg_amb():
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_reg_fat.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_reg_fat.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -750,7 +765,7 @@ def df_reg_fat():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_reg_fat_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_reg_fat_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REG_FAT"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -782,13 +797,18 @@ def df_reg_fat():
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_itreg_fat.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_itreg_fat.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -809,7 +829,7 @@ def df_itreg_fat():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_itreg_fat_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itreg_fat_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -841,13 +861,18 @@ def df_itreg_fat():
 
 def df_custo_final():
     print("Entrou no df_custo_final")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_custo_final.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_custo_final.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -855,7 +880,7 @@ def df_custo_final():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_custo_final_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_custo_final_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -887,13 +912,18 @@ def df_custo_final():
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_mvto_estoque.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_mvto_estoque.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -909,7 +939,7 @@ def df_mvto_estoque():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_mvto_estoque_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_mvto_estoque_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_MVTO_ESTOQUE"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1031,13 +1061,18 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_remessa_fatura.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_remessa_fatura.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -1045,7 +1080,7 @@ def df_remessa_fatura():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_remessa_fatura_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_remessa_fatura_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REMESSA"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1077,13 +1112,18 @@ def df_remessa_fatura():
 
 def df_repasse():
     print("Entrou no df_repasse")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_repasse.format(data_ini=dat_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_repasse.format(data_ini=dat_1.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -1091,7 +1131,7 @@ def df_repasse():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_repasse_hdata.format(data_ini=dat_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_repasse_hdata.format(data_ini=dat_1.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REPASSE"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1166,13 +1206,18 @@ def df_it_repasse():
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_itent_pro.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_itent_pro.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -1184,7 +1229,7 @@ def df_itent_pro():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_itent_pro_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_itent_pro_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1263,13 +1308,18 @@ def df_glosas():
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_custo_medio_mensal.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_custo_medio_mensal.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         print(df_dim)
 
@@ -1280,7 +1330,7 @@ def df_custo_medio_mensal():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_custo_medio_mensal_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_custo_medio_mensal_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1572,13 +1622,18 @@ def df_mot_dev():
 
 def df_ped_lab():
     print("Entrou no df_ped_lab")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_ped_lab.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_ped_lab.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_PED_LAB"] = df_dim["CD_PED_LAB"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -1596,7 +1651,7 @@ def df_ped_lab():
         lista_cds_ped_lab = df_dim['CD_PED_LAB'].to_list()
         lista_cds_ped_lab = [str(cd) for cd in lista_cds_ped_lab]
 
-        df_stage = pd.read_sql(query_ped_lab_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_ped_lab_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PED_LAB'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1684,13 +1739,18 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_ped_rx.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_ped_rx.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_PED_RX"] = df_dim["CD_PED_RX"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -1706,7 +1766,7 @@ def df_ped_rx():
         lista_cds_ped_rx = df_dim['CD_PED_RX'].to_list()
         lista_cds_ped_rx = [str(cd) for cd in lista_cds_ped_rx]
 
-        df_stage = pd.read_sql(query_ped_rx_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_ped_rx_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PED_RX'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
