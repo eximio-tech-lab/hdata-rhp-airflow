@@ -67,18 +67,13 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 7, 29), until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
 
-        if dt.month == 12:
-            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
-            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
-        else:
-            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
-            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
-
-        df_dim = pd.read_sql(query_pre_med.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_pre_med.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_PRE_MED"] = df_dim["CD_PRE_MED"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -92,7 +87,7 @@ def df_pre_med():
         lista_cds_pre_med = df_dim['CD_PRE_MED'].to_list()
         lista_cds_pre_med = [str(cd) for cd in lista_cds_pre_med]
 
-        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_pre_med_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage['CD_PRE_MED'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
