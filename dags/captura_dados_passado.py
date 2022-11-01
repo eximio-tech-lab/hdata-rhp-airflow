@@ -147,7 +147,7 @@ def df_atendime():
         #                 'MV_RHP.ATENDIME',
         #                 'CD_ATENDIMENTO')
 
-        if len(*atendimentos) > 0:
+        if len(atendimentos) > 0:
             df_diagnostico_atendime(atendimentos)
 
 def df_cid():
