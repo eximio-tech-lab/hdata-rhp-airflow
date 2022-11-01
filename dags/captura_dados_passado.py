@@ -60,18 +60,13 @@ def update_cells(df_eq, table_name, CD):
 
 def df_atendime():
     print("Entrou no df_atendime")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
 
-        if dt.month == 12:
-            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
-            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
-        else:
-            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
-            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
-
-        df_dim = pd.read_sql(query_atendime.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_atendime.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
         df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
@@ -101,7 +96,7 @@ def df_atendime():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
         df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
@@ -152,7 +147,8 @@ def df_atendime():
         #                 'MV_RHP.ATENDIME',
         #                 'CD_ATENDIMENTO')
 
-        df_diagnostico_atendime(atendimentos)
+        if len(*atendimentos) > 0:
+            df_diagnostico_atendime(atendimentos)
 
 def df_cid():
     print("Entrou no df_cid")
@@ -198,7 +194,7 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -427,7 +423,7 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -865,7 +861,7 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2010, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1047,7 +1043,7 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1189,7 +1185,7 @@ def df_tip_res():
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1290,7 +1286,7 @@ def df_usuario():
 
 def df_fech_chec():
     print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1447,7 +1443,7 @@ def df_tip_acom():
 
 def df_mov_int():
     print("Entrou no df_mov_int")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2021, 4, 1), until=datetime.datetime(2021, 4, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 10, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
