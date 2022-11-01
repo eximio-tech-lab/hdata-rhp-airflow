@@ -1413,11 +1413,17 @@ def df_tip_acom():
 
     df_dim = pd.read_sql(query_tip_acom, connect_rhp())
 
+    df_dim["CD_TIP_ACOM"] = df_dim["CD_TIP_ACOM"].fillna(999888)
+    df_dim["DS_TIP_ACOM"] = df_dim["DS_TIP_ACOM"].fillna("0")
+    df_dim["VL_FATOR_CUSTO"] = df_dim["VL_FATOR_CUSTO"].fillna(999888)
+    df_dim["TP_ACOMODACAO"] = df_dim["TP_ACOMODACAO"].fillna("0")
+
     df_stage = pd.read_sql(query_tip_acom_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage["CD_TIP_ACOM"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
+
     
     print("dados para incremento")
     print(df_diff.info())
