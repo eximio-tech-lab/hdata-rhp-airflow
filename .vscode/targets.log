@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Nov  1 08:38:43 2022
+# Make data base, printed on Tue Nov  1 16:17:02 2022
 
 # Variables
 
@@ -61,7 +61,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-49bd89f6-c59b-4559-8ef8-add0f1c3f371.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-ad498a29-6056-4aaa-92f8-033d0f8c50c9.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -283,6 +283,7 @@ reset-airflow:
 	rm -f webserver_config.py
 
 venv:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -293,7 +294,6 @@ venv:
 	venv/bin/python3 -m pip install --trusted-host pypi.python.org "apache-airflow[${AIRFLOW_EXTRAS}]==${AIRFLOW_VERSION}" --constraint ${CONSTRAINT}  --use-deprecated legacy-resolver
 	venv/bin/python3 -m pip install -r airflow.requirements.txt --use-deprecated legacy-resolver
 	venv/bin/python3 -m pip install -r local.requirements.txt --use-deprecated legacy-resolver
- 
 
 clean-all: clean-pytest clean-venv reset-airflow
 #  Implicit rule search has not been done.
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Tue Nov  1 08:38:43 2022
+# Finished Make data base on Tue Nov  1 16:17:02 2022
 
  

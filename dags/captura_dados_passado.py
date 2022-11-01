@@ -196,7 +196,7 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -425,7 +425,7 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1045,7 +1045,7 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1187,7 +1187,7 @@ def df_tip_res():
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1288,7 +1288,7 @@ def df_usuario():
 
 def df_fech_chec():
     print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1451,7 +1451,7 @@ def df_tip_acom():
 
 def df_mov_int():
     print("Entrou no df_mov_int")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1642,25 +1642,25 @@ t25 = PythonOperator(
     python_callable=df_fech_chec,
     dag=dag)
 
-t26 = PythonOperator(
-    task_id="captura_leito_rhp",
-    python_callable=df_leito,
-    dag=dag)
+# t26 = PythonOperator(
+#     task_id="captura_leito_rhp",
+#     python_callable=df_leito,
+#     dag=dag)
 
-t27 = PythonOperator(
-    task_id="captura_unid_int_rhp",
-    python_callable=df_unid_int,
-    dag=dag)
+# t27 = PythonOperator(
+#     task_id="captura_unid_int_rhp",
+#     python_callable=df_unid_int,
+#     dag=dag)
 
-t28 = PythonOperator(
-    task_id="captura_tip_acom_rhp",
-    python_callable=df_tip_acom,
-    dag=dag)
+# t28 = PythonOperator(
+#     task_id="captura_tip_acom_rhp",
+#     python_callable=df_tip_acom,
+#     dag=dag)
 
 t29 = PythonOperator(
     task_id="captura_mov_int_rhp",
     python_callable=df_mov_int,
     dag=dag)
 
-# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> 
-t26 >> t27 >> t28 >> t29 >> t25
+# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> 
+t29 >> t25
