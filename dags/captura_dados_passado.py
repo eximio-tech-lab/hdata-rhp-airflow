@@ -86,8 +86,6 @@ def df_atendime():
         df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
         df_dim["NM_USUARIO_ALTA_MEDICA"] = df_dim["NM_USUARIO_ALTA_MEDICA"].fillna("0")
         df_dim["CD_SETOR"] = df_dim["CD_SETOR"].fillna(0)
-        df_dim['HR_ALTA'] = df_dim['HR_ALTA'].fillna('0 0 0')
-        df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].fillna('0 0 0')
 
         df_dim['HR_ALTA'] = df_dim['HR_ALTA'].astype(str)
         df_dim['HR_ALTA_MEDICA'] = df_dim['HR_ALTA_MEDICA'].astype(str)
@@ -99,8 +97,6 @@ def df_atendime():
         print(df_dim.info())
 
         df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
-        df_stage['HR_ALTA'] = df_stage['HR_ALTA'].fillna('0 0 0')
-        df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].fillna('0 0 0')
 
         df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
         df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
@@ -111,6 +107,8 @@ def df_atendime():
         df_diff = df_diff.drop(columns=['_merge'])
         df_diff = df_diff.reset_index(drop=True)
 
+        df_diff['HR_ALTA'] = df_diff['HR_ALTA'].fillna('0 0 0')
+        df_diff['HR_ALTA_MEDICA'] = df_diff['HR_ALTA_MEDICA'].fillna('0 0 0')
         df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
         df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
