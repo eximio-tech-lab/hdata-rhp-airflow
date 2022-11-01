@@ -1506,10 +1506,10 @@ dt_ini = dt_ontem - datetime.timedelta(days=5)
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval="0 6 * * *")
 
-t0 = PythonOperator(
-    task_id="captura_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="captura_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="captura_cid_rhp",
@@ -1656,5 +1656,5 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> 
-t0 >> t26 >> t27 >> t28 >> t29 >> t25
+# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> 
+t26 >> t27 >> t28 >> t29 >> t25
