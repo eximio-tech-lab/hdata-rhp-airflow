@@ -1288,7 +1288,7 @@ def df_usuario():
 
 def df_fech_chec():
     print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 5, 7), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1657,10 +1657,10 @@ t25 = PythonOperator(
 #     python_callable=df_tip_acom,
 #     dag=dag)
 
-t29 = PythonOperator(
-    task_id="captura_mov_int_rhp",
-    python_callable=df_mov_int,
-    dag=dag)
+# t29 = PythonOperator(
+#     task_id="captura_mov_int_rhp",
+#     python_callable=df_mov_int,
+#     dag=dag)
 
-# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> 
-t29 >> t25
+# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> 
+t25
