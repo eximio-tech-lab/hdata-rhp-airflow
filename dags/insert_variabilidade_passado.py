@@ -2118,4 +2118,4 @@ t61 = PythonOperator(
     python_callable=df_ped_rx,
     dag=dag)
 
-t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61
+t25 >> t58 >> t59 >> t60 >> t61
