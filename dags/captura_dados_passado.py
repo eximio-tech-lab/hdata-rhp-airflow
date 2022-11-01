@@ -1288,7 +1288,7 @@ def df_usuario():
 
 def df_fech_chec():
     print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 5, 7), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 5, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
