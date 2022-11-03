@@ -1620,7 +1620,7 @@ def df_mot_dev():
 
 def df_ped_lab():
     print("Entrou no df_ped_lab")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1737,7 +1737,7 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1936,10 +1936,10 @@ dt_ini = dt_ontem - datetime.timedelta(days=5)
 dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval=None)
 # dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
 
-t25 = PythonOperator(
-    task_id="insert_pre_med_rhp",
-    python_callable=df_pre_med,
-    dag=dag)
+# t25 = PythonOperator(
+#     task_id="insert_pre_med_rhp",
+#     python_callable=df_pre_med,
+#     dag=dag)
 
 # # t26 = PythonOperator(
 # #     task_id="insert_itpre_med_rhp",
@@ -2116,4 +2116,4 @@ t61 = PythonOperator(
     python_callable=df_ped_rx,
     dag=dag)
 
-t25 >> t58 >> t59 >> t60 >> t61
+t58 >> t59 >> t60 >> t61
