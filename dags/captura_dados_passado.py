@@ -863,7 +863,7 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2010, 1, 1), until=datetime.datetime(2022,11,2)):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022,11,2)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
