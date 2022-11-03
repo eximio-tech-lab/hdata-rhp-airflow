@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 3, 13), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 3, 26), until=datetime.datetime(2022, 6, 30)):
         data_1 = dt
         data_2 = dt
 
