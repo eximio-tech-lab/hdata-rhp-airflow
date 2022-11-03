@@ -59,18 +59,13 @@ def update_cells(df_eq, table_name, CD):
 
 def df_atendime():
     print("Entrou no df_atendime")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
 
-        if dt.month == 12:
-            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
-            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
-        else:
-            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
-            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
-
-        df_dim = pd.read_sql(query_atendime.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_atendime.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_MULTI_EMPRESA"] = df_dim["CD_MULTI_EMPRESA"].fillna(0)
         df_dim["CD_PACIENTE"] = df_dim["CD_PACIENTE"].fillna(0)
@@ -100,7 +95,7 @@ def df_atendime():
 
         print(df_dim.info())
 
-        df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_atendime_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_stage['HR_ALTA'] = df_stage['HR_ALTA'].astype(str)
         df_stage['HR_ALTA_MEDICA'] = df_stage['HR_ALTA_MEDICA'].astype(str)
