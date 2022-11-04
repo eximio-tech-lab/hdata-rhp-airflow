@@ -2096,15 +2096,15 @@ dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, sc
 # #     python_callable=df_mot_dev,
 # #     dag=dag)
     
-t58 = PythonOperator(
-    task_id="insert_material_rhp",
-    python_callable=df_material,
-    dag=dag)
+# t58 = PythonOperator(
+#     task_id="insert_material_rhp",
+#     python_callable=df_material,
+#     dag=dag)
     
-t59 = PythonOperator(
-    task_id="insert_mod_exame_rhp",
-    python_callable=df_mod_exame,
-    dag=dag)
+# t59 = PythonOperator(
+#     task_id="insert_mod_exame_rhp",
+#     python_callable=df_mod_exame,
+#     dag=dag)
 
 t60 = PythonOperator(
     task_id="insert_ped_lab_rhp",
@@ -2116,4 +2116,4 @@ t61 = PythonOperator(
     python_callable=df_ped_rx,
     dag=dag)
 
-t58 >> t59 >> t60 >> t61
+t60 >> t61
