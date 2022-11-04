@@ -8,8 +8,8 @@ from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-# from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
-from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+# from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
@@ -60,7 +60,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_atendime():
     print("Entrou no df_atendime")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
         data_1 = dt
         data_2 = dt
 
@@ -107,6 +107,8 @@ def df_atendime():
         df_diff = df_diff.drop(columns=['_merge'])
         df_diff = df_diff.reset_index(drop=True)
 
+        df_diff['HR_ALTA'] = df_diff['HR_ALTA'].fillna('0 0 0')
+        df_diff['HR_ALTA_MEDICA'] = df_diff['HR_ALTA_MEDICA'].fillna('0 0 0')
         df_diff['HR_ALTA'] = pd.to_datetime(df_diff['HR_ALTA'])
         df_diff['HR_ALTA_MEDICA'] = pd.to_datetime(df_diff['HR_ALTA_MEDICA'])
 
@@ -147,7 +149,8 @@ def df_atendime():
         #                 'MV_RHP.ATENDIME',
         #                 'CD_ATENDIMENTO')
 
-        df_diagnostico_atendime(atendimentos)
+        if len(atendimentos) > 0:
+            df_diagnostico_atendime(atendimentos)
 
 def df_cid():
     print("Entrou no df_cid")
@@ -193,20 +196,25 @@ def df_cid():
 
 def df_classificacao_risco():
     print("Entrou no df_classificacao_risco")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_classificacao_risco.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_CLASSIFICACAO_RISCO"] = df_dim["CD_CLASSIFICACAO_RISCO"].fillna(0)
         df_dim["CD_COR_REFERENCIA"] = df_dim["CD_COR_REFERENCIA"].fillna(0)
         df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
         df_dim["CD_CLASSIFICACAO"] = df_dim["CD_CLASSIFICACAO"].fillna(0)
 
-        df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_classificacao_risco_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_CLASSIFICACAO_RISCO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -417,20 +425,25 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_documento_clinico.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
         df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
 
-        df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -850,17 +863,22 @@ def df_pagu_objeto():
 
 def df_registro_alta():
     print("Entrou no df_registro_alta")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_registro_alta.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_registro_alta.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
         
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
 
-        df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_registro_alta_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1027,19 +1045,24 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_tempo_processo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_tempo_processo.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
 
-        df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=data_2.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1164,20 +1187,25 @@ def df_tip_res():
 
 def df_triagem_atendimento():
     print("Entrou no df_triagem_atendimento")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_triagem_atendimento.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
         df_dim["CD_SINTOMA_AVALIACAO"] = df_dim["CD_SINTOMA_AVALIACAO"].fillna(0)
         df_dim["DS_SENHA"] = df_dim["DS_SENHA"].fillna("0")
 
-        df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_triagem_atendimento_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_TRIAGEM_ATENDIMENTO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1260,13 +1288,18 @@ def df_usuario():
 
 def df_fech_chec():
     print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_fech_chec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_fech_chec.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"] = df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"].fillna(0)
         df_dim["CD_FECHAMENTO"] = df_dim["CD_FECHAMENTO"].fillna(0)
@@ -1275,7 +1308,7 @@ def df_fech_chec():
         df_dim["SN_ALTERADO"] = df_dim["SN_ALTERADO"].fillna("0")
         df_dim["SN_SUSPENSO"] = df_dim["SN_SUSPENSO"].fillna("0")
 
-        df_stage = pd.read_sql(query_fech_chec_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_fech_chec_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_FECHAMENTO_HORARIO_CHECAGEM"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1380,11 +1413,17 @@ def df_tip_acom():
 
     df_dim = pd.read_sql(query_tip_acom, connect_rhp())
 
+    df_dim["CD_TIP_ACOM"] = df_dim["CD_TIP_ACOM"].fillna(999888)
+    df_dim["DS_TIP_ACOM"] = df_dim["DS_TIP_ACOM"].fillna("0")
+    df_dim["VL_FATOR_CUSTO"] = df_dim["VL_FATOR_CUSTO"].fillna(999888)
+    df_dim["TP_ACOMODACAO"] = df_dim["TP_ACOMODACAO"].fillna("0")
+
     df_stage = pd.read_sql(query_tip_acom_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage["CD_TIP_ACOM"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
     df_diff = df_diff.drop(columns=['_merge'])
     df_diff = df_diff.reset_index(drop=True)
+
     
     print("dados para incremento")
     print(df_diff.info())
@@ -1412,13 +1451,18 @@ def df_tip_acom():
 
 def df_mov_int():
     print("Entrou no df_mov_int")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        if dt.month == 12:
+            data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year + 1, 1, 1)
+        else:
+            data_fim = datetime.datetime(dt.year, dt.month + 1, 1) - datetime.timedelta(1)
+            first_day_next_month = datetime.datetime(dt.year, dt.month + 1, 1)
 
-        df_dim = pd.read_sql(query_mov_int.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(dt.strftime('%d/%m/%Y'), ' a ', data_fim.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_mov_int.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_MOV_INT"] = df_dim["CD_MOV_INT"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -1432,7 +1476,7 @@ def df_mov_int():
         df_dim["CD_TIP_ACOM"] = df_dim["CD_TIP_ACOM"].fillna(0)
         df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
 
-        df_stage = pd.read_sql(query_mov_int_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_mov_int_hdata.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=data_fim.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_MOV_INT"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1463,7 +1507,7 @@ def df_mov_int():
         print("Dados MOV_INT inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=4)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval=None)
@@ -1473,125 +1517,120 @@ t0 = PythonOperator(
     python_callable=df_atendime,
     dag=dag)
 
-# t1 = PythonOperator(
-#     task_id="captura_cid_rhp",
-#     python_callable=df_cid,
-#     dag=dag)
+t1 = PythonOperator(
+    task_id="captura_cid_rhp",
+    python_callable=df_cid,
+    dag=dag)
 
 t2 = PythonOperator(
     task_id="captura_classificacao_risco_rhp",
     python_callable=df_classificacao_risco,
     dag=dag)
 
-# t3 = PythonOperator(
-#     task_id="captura_classificacao_rhp",
-#     python_callable=df_classificacao,
-#     dag=dag)
+t3 = PythonOperator(
+    task_id="captura_classificacao_rhp",
+    python_callable=df_classificacao,
+    dag=dag)
 
-# t4 = PythonOperator(
-#     task_id="captura_convenio_rhp",
-#     python_callable=df_convenio,
-#     dag=dag)
+t4 = PythonOperator(
+    task_id="captura_convenio_rhp",
+    python_callable=df_convenio,
+    dag=dag)
 
-# t5 = PythonOperator(
-#     task_id="captura_cor_referencia_rhp",
-#     python_callable=df_cor_referencia,
-#     dag=dag)
+t5 = PythonOperator(
+    task_id="captura_cor_referencia_rhp",
+    python_callable=df_cor_referencia,
+    dag=dag)
 
 t7 = PythonOperator(
     task_id="captura_documento_clinico_rhp",
     python_callable=df_documento_clinico,
     dag=dag)
 
-# t8 = PythonOperator(
-#     task_id="captura_esp_med_rhp",
-#     python_callable=df_esp_med,
-#     dag=dag)
+t8 = PythonOperator(
+    task_id="captura_esp_med_rhp",
+    python_callable=df_esp_med,
+    dag=dag)
 
-# t9 = PythonOperator(
-#     task_id="captura_especialidad_rhp",
-#     python_callable=df_especialidad,
-#     dag=dag)
+t9 = PythonOperator(
+    task_id="captura_especialidad_rhp",
+    python_callable=df_especialidad,
+    dag=dag)
 
-# t30 = PythonOperator(
-#     task_id="captura_gru_cid_rhp",
-#     python_callable=df_gru_cid,
-#     dag=dag)
+t10 = PythonOperator(
+    task_id="captura_gru_cid_rhp",
+    python_callable=df_gru_cid,
+    dag=dag)
 
-# t10 = PythonOperator(
-#     task_id="captura_prestador_rhp",
-#     python_callable=df_prestador,
-#     dag=dag)
+t11 = PythonOperator(
+    task_id="captura_prestador_rhp",
+    python_callable=df_prestador,
+    dag=dag)
 
-# t11 = PythonOperator(
-#     task_id="captura_mot_alt_rhp",
-#     python_callable=df_mot_alt,
-#     dag=dag)
+t12 = PythonOperator(
+    task_id="captura_multi_empresa_rhp",
+    python_callable=df_multi_empresa,
+    dag=dag)
 
-# t12 = PythonOperator(
-#     task_id="captura_multi_empresa_rhp",
-#     python_callable=df_multi_empresa,
-#     dag=dag)
+t13 = PythonOperator(
+    task_id="captura_ori_ate_rhp",
+    python_callable=df_ori_ate,
+    dag=dag)
 
-# t13 = PythonOperator(
-#     task_id="captura_ori_ate_rhp",
-#     python_callable=df_ori_ate,
-#     dag=dag)
+t14 = PythonOperator(
+    task_id="captura_paciente_rhp",
+    python_callable=df_paciente,
+    dag=dag)
 
-# t14 = PythonOperator(
-#     task_id="captura_paciente_rhp",
-#     python_callable=df_paciente,
-#     dag=dag)
-
-# t15 = PythonOperator(
-#     task_id="captura_pagu_objeto_rhp",
-#     python_callable=df_pagu_objeto,
-#     dag=dag)
+t15 = PythonOperator(
+    task_id="captura_pagu_objeto_rhp",
+    python_callable=df_pagu_objeto,
+    dag=dag)
 
 t16 = PythonOperator(
     task_id="captura_registro_alta_rhp",
     python_callable=df_registro_alta,
     dag=dag)
 
-# t17 = PythonOperator(
-#     task_id="captura_setor_rhp",
-#     python_callable=df_setor,
-#     dag=dag)
+t17 = PythonOperator(
+    task_id="captura_setor_rhp",
+    python_callable=df_setor,
+    dag=dag)
 
-# t18 = PythonOperator(
-#     task_id="captura_sgru_cid_rhp",
-#     python_callable=df_sgru_cid,
-#     dag=dag)
+t18 = PythonOperator(
+    task_id="captura_sgru_cid_rhp",
+    python_callable=df_sgru_cid,
+    dag=dag)
 
-# t19 = PythonOperator(
-#     task_id="captura_sintoma_avaliacao_rhp",
-#     python_callable=df_sintoma_avaliacao,
-#     dag=dag)
+t19 = PythonOperator(
+    task_id="captura_sintoma_avaliacao_rhp",
+    python_callable=df_sintoma_avaliacao,
+    dag=dag)
 
 t20 = PythonOperator(
     task_id="captura_tempo_processo_rhp",
     python_callable=df_tempo_processo,
     dag=dag)
 
-# t21 = PythonOperator(
-#     task_id="captura_tip_mar_rhp",
-#     python_callable=df_tip_mar,
-#     dag=dag)
+t21 = PythonOperator(
+    task_id="captura_tip_mar_rhp",
+    python_callable=df_tip_mar,
+    dag=dag)
 
-# t22 = PythonOperator(
-#     task_id="captura_tip_res_rhp",
-#     python_callable=df_tip_res,
-#     dag=dag)
+t22 = PythonOperator(
+    task_id="captura_tip_res_rhp",
+    python_callable=df_tip_res,
+    dag=dag)
 
 t23 = PythonOperator(
     task_id="captura_triagem_atendimento_rhp",
     python_callable=df_triagem_atendimento,
     dag=dag)
 
-# t24 = PythonOperator(
-#     task_id="captura_usuario_rhp",
-#     python_callable=df_usuario,
-#     dag=dag)
+t24 = PythonOperator(
+    task_id="captura_usuario_rhp",
+    python_callable=df_usuario,
+    dag=dag)
 
 t25 = PythonOperator(
     task_id="captura_fech_chec_rhp",
@@ -1618,5 +1657,4 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-# (t1, t3, t4, t5, t8, t9, t10, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24, t30) >> 
-t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
