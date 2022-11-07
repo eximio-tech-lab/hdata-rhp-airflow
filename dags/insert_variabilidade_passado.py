@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 3, 26), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
         data_1 = dt
         data_2 = dt
 
@@ -675,7 +675,7 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -740,7 +740,7 @@ def df_itreg_amb():
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -795,7 +795,7 @@ def df_reg_fat():
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -859,7 +859,7 @@ def df_itreg_fat():
 
 def df_custo_final():
     print("Entrou no df_custo_final")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -910,7 +910,7 @@ def df_custo_final():
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1059,7 +1059,7 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1110,7 +1110,7 @@ def df_remessa_fatura():
 
 def df_repasse():
     print("Entrou no df_repasse")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1204,7 +1204,7 @@ def df_it_repasse():
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1306,7 +1306,7 @@ def df_glosas():
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 21), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1620,7 +1620,7 @@ def df_mot_dev():
 
 def df_ped_lab():
     print("Entrou no df_ped_lab")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1737,7 +1737,7 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=datetime.datetime(2022, 6, 30)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1936,175 +1936,175 @@ dt_ini = dt_ontem - datetime.timedelta(days=5)
 dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval=None)
 # dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
 
-# t25 = PythonOperator(
-#     task_id="insert_pre_med_rhp",
-#     python_callable=df_pre_med,
+t25 = PythonOperator(
+    task_id="insert_pre_med_rhp",
+    python_callable=df_pre_med,
+    dag=dag)
+
+# t26 = PythonOperator(
+#     task_id="insert_itpre_med_rhp",
+#     python_callable=df_itpre_med,
 #     dag=dag)
 
-# # t26 = PythonOperator(
-# #     task_id="insert_itpre_med_rhp",
-# #     python_callable=df_itpre_med,
-# #     dag=dag)
-
-# # t27 = PythonOperator(
-# #     task_id="insert_tip_presc_rhp",
-# #     python_callable=df_tip_presc,
-# #     dag=dag)
-
-# t28 = PythonOperator(
-#     task_id="insert_for_apl_rhp",
-#     python_callable=df_for_apl,
+# t27 = PythonOperator(
+#     task_id="insert_tip_presc_rhp",
+#     python_callable=df_tip_presc,
 #     dag=dag)
 
-# # t29 = PythonOperator(
-# #     task_id="insert_tip_esq_rhp",
-# #     python_callable=df_tip_esq,
-# #     dag=dag)
+t28 = PythonOperator(
+    task_id="insert_for_apl_rhp",
+    python_callable=df_for_apl,
+    dag=dag)
 
-# t30 = PythonOperator(
-#     task_id="insert_tip_fre_rhp",
-#     python_callable=df_tip_fre,
+# t29 = PythonOperator(
+#     task_id="insert_tip_esq_rhp",
+#     python_callable=df_tip_esq,
 #     dag=dag)
 
-# t32 = PythonOperator(
-#     task_id="insert_gru_pro_rhp",
-#     python_callable=df_gru_pro,
+t30 = PythonOperator(
+    task_id="insert_tip_fre_rhp",
+    python_callable=df_tip_fre,
+    dag=dag)
+
+t32 = PythonOperator(
+    task_id="insert_gru_pro_rhp",
+    python_callable=df_gru_pro,
+    dag=dag)
+
+t33 = PythonOperator(
+    task_id="insert_produto_rhp",
+    python_callable=df_produto,
+    dag=dag)
+
+t34 = PythonOperator(
+    task_id="insert_pro_fat_rhp",
+    python_callable=df_pro_fat,
+    dag=dag)
+
+# t35 = PythonOperator(
+#     task_id="insert_tuss_rhp",
+#     python_callable=df_tuss,
 #     dag=dag)
 
-# t33 = PythonOperator(
-#     task_id="insert_produto_rhp",
-#     python_callable=df_produto,
+# t36 = PythonOperator(
+#     task_id="insert_uni_pro_rhp",
+#     python_callable=df_uni_pro,
 #     dag=dag)
 
-# t34 = PythonOperator(
-#     task_id="insert_pro_fat_rhp",
-#     python_callable=df_pro_fat,
+# t37 = PythonOperator(
+#     task_id="insert_reg_amb_rhp",
+#     python_callable=df_reg_amb,
 #     dag=dag)
 
-# # t35 = PythonOperator(
-# #     task_id="insert_tuss_rhp",
-# #     python_callable=df_tuss,
-# #     dag=dag)
-
-# # t36 = PythonOperator(
-# #     task_id="insert_uni_pro_rhp",
-# #     python_callable=df_uni_pro,
-# #     dag=dag)
-
-# # t37 = PythonOperator(
-# #     task_id="insert_reg_amb_rhp",
-# #     python_callable=df_reg_amb,
-# #     dag=dag)
-
-# # t38 = PythonOperator(
-# #     task_id="insert_itreg_amb_rhp",
-# #     python_callable=df_itreg_amb,
-# #     dag=dag)
-
-# # t39 = PythonOperator(
-# #     task_id="insert_reg_fat_rhp",
-# #     python_callable=df_reg_fat,
-# #     dag=dag)
-
-# # t40 = PythonOperator(
-# #     task_id="insert_itreg_fat_rhp",
-# #     python_callable=df_itreg_fat,
-# #     dag=dag)
-
-# # t41 = PythonOperator(
-# #     task_id="insert_custo_final_rhp",
-# #     python_callable=df_custo_final,
-# #     dag=dag)
-
-# # t42 = PythonOperator(
-# #     task_id="insert_mvto_estoque_rhp",
-# #     python_callable=df_mvto_estoque,
-# #     dag=dag)
-
-# # t43 = PythonOperator(
-# #     task_id="insert_itmvto_estoque_rhp",
-# #     python_callable=df_itmvto_estoque,
-# #     dag=dag)
-
-# # t44 = PythonOperator(
-# #     task_id="insert_quantidade_diarias_rhp",
-# #     python_callable=df_quantidade_diarias,
-# #     dag=dag)
-
-# t45 = PythonOperator(
-#     task_id="insert_remessa_fatura_rhp",
-#     python_callable=df_remessa_fatura,
+# t38 = PythonOperator(
+#     task_id="insert_itreg_amb_rhp",
+#     python_callable=df_itreg_amb,
 #     dag=dag)
 
-# # t46 = PythonOperator(
-# #     task_id="insert_repasse_rhp",
-# #     python_callable=df_repasse,
-# #     dag=dag)
-
-# # t47 = PythonOperator(
-# #     task_id="insert_it_repasse_rhp",
-# #     python_callable=df_it_repasse,
-# #     dag=dag)
-
-# # t48 = PythonOperator(
-# #     task_id="insert_itent_pro_rhp",
-# #     python_callable=df_itent_pro,
-# #     dag=dag)
-
-# # t49 = PythonOperator(
-# #     task_id="insert_glosas_rhp",
-# #     python_callable=df_glosas,
-# #     dag=dag)
-
-# # t50 = PythonOperator(
-# #     task_id="insert_custo_medio_mensal_rhp",
-# #     python_callable=df_custo_medio_mensal,
-# #     dag=dag)
-
-# # t51 = PythonOperator(
-# #     task_id="insert_fa_custo_atendimento_rhp",
-# #     python_callable=df_fa_custo_atendimento,
-# #     dag=dag)
-
-# t52 = PythonOperator(
-#     task_id="insert_especie_rhp",
-#     python_callable=df_especie,
+# t39 = PythonOperator(
+#     task_id="insert_reg_fat_rhp",
+#     python_callable=df_reg_fat,
 #     dag=dag)
 
-# t53 = PythonOperator(
-#     task_id="insert_exa_lab_rhp",
-#     python_callable=df_exa_lab,
+# t40 = PythonOperator(
+#     task_id="insert_itreg_fat_rhp",
+#     python_callable=df_itreg_fat,
 #     dag=dag)
 
-# t54 = PythonOperator(
-#     task_id="insert_exa_rx_rhp",
-#     python_callable=df_exa_rx,
+# t41 = PythonOperator(
+#     task_id="insert_custo_final_rhp",
+#     python_callable=df_custo_final,
 #     dag=dag)
 
-# t55 = PythonOperator(
-#     task_id="insert_gru_fat_rhp",
-#     python_callable=df_gru_fat,
+# t42 = PythonOperator(
+#     task_id="insert_mvto_estoque_rhp",
+#     python_callable=df_mvto_estoque,
 #     dag=dag)
 
-# # t56 = PythonOperator(
-# #     task_id="insert_motivo_glosa_rhp",
-# #     python_callable=df_motivo_glosa,
-# #     dag=dag)
+# t43 = PythonOperator(
+#     task_id="insert_itmvto_estoque_rhp",
+#     python_callable=df_itmvto_estoque,
+#     dag=dag)
 
-# # t57 = PythonOperator(
-# #     task_id="insert_mot_dev_rhp",
-# #     python_callable=df_mot_dev,
-# #     dag=dag)
-    
-# t58 = PythonOperator(
-#     task_id="insert_material_rhp",
-#     python_callable=df_material,
+# t44 = PythonOperator(
+#     task_id="insert_quantidade_diarias_rhp",
+#     python_callable=df_quantidade_diarias,
+#     dag=dag)
+
+t45 = PythonOperator(
+    task_id="insert_remessa_fatura_rhp",
+    python_callable=df_remessa_fatura,
+    dag=dag)
+
+# t46 = PythonOperator(
+#     task_id="insert_repasse_rhp",
+#     python_callable=df_repasse,
+#     dag=dag)
+
+# t47 = PythonOperator(
+#     task_id="insert_it_repasse_rhp",
+#     python_callable=df_it_repasse,
+#     dag=dag)
+
+# t48 = PythonOperator(
+#     task_id="insert_itent_pro_rhp",
+#     python_callable=df_itent_pro,
+#     dag=dag)
+
+# t49 = PythonOperator(
+#     task_id="insert_glosas_rhp",
+#     python_callable=df_glosas,
+#     dag=dag)
+
+# t50 = PythonOperator(
+#     task_id="insert_custo_medio_mensal_rhp",
+#     python_callable=df_custo_medio_mensal,
+#     dag=dag)
+
+# t51 = PythonOperator(
+#     task_id="insert_fa_custo_atendimento_rhp",
+#     python_callable=df_fa_custo_atendimento,
+#     dag=dag)
+
+t52 = PythonOperator(
+    task_id="insert_especie_rhp",
+    python_callable=df_especie,
+    dag=dag)
+
+t53 = PythonOperator(
+    task_id="insert_exa_lab_rhp",
+    python_callable=df_exa_lab,
+    dag=dag)
+
+t54 = PythonOperator(
+    task_id="insert_exa_rx_rhp",
+    python_callable=df_exa_rx,
+    dag=dag)
+
+t55 = PythonOperator(
+    task_id="insert_gru_fat_rhp",
+    python_callable=df_gru_fat,
+    dag=dag)
+
+# t56 = PythonOperator(
+#     task_id="insert_motivo_glosa_rhp",
+#     python_callable=df_motivo_glosa,
+#     dag=dag)
+
+# t57 = PythonOperator(
+#     task_id="insert_mot_dev_rhp",
+#     python_callable=df_mot_dev,
 #     dag=dag)
     
-# t59 = PythonOperator(
-#     task_id="insert_mod_exame_rhp",
-#     python_callable=df_mod_exame,
-#     dag=dag)
+t58 = PythonOperator(
+    task_id="insert_material_rhp",
+    python_callable=df_material,
+    dag=dag)
+    
+t59 = PythonOperator(
+    task_id="insert_mod_exame_rhp",
+    python_callable=df_mod_exame,
+    dag=dag)
 
 t60 = PythonOperator(
     task_id="insert_ped_lab_rhp",
@@ -2116,4 +2116,4 @@ t61 = PythonOperator(
     python_callable=df_ped_rx,
     dag=dag)
 
-t60 >> t61
+t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61
