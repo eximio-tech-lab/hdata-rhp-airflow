@@ -8,8 +8,8 @@ from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
-# from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+# from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
@@ -67,7 +67,7 @@ def update_cells(df_eq, table_name, CD):
 
 def df_pre_med():
     print("Entrou no df_pre_med")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -675,7 +675,7 @@ def df_reg_amb():
 
 def df_itreg_amb():
     print("Entrou no df_itreg_amb")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -740,7 +740,7 @@ def df_itreg_amb():
 
 def df_reg_fat():
     print("Entrou no df_reg_fat")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -795,7 +795,7 @@ def df_reg_fat():
 
 def df_itreg_fat():
     print("Entrou no df_itreg_fat")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -859,7 +859,7 @@ def df_itreg_fat():
 
 def df_custo_final():
     print("Entrou no df_custo_final")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -910,7 +910,7 @@ def df_custo_final():
 
 def df_mvto_estoque():
     print("Entrou no df_mvto_estoque")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1059,7 +1059,7 @@ def df_quantidade_diarias():
 
 def df_remessa_fatura():
     print("Entrou no df_remessa_fatura")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1110,7 +1110,7 @@ def df_remessa_fatura():
 
 def df_repasse():
     print("Entrou no df_repasse")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1204,7 +1204,7 @@ def df_it_repasse():
 
 def df_itent_pro():
     print("Entrou no df_itent_pro")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1306,7 +1306,7 @@ def df_glosas():
 
 def df_custo_medio_mensal():
     print("Entrou no df_custo_medio_mensal")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1620,7 +1620,7 @@ def df_mot_dev():
 
 def df_ped_lab():
     print("Entrou no df_ped_lab")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1737,7 +1737,7 @@ def df_itped_lab(lista_cds_ped_lab):
 
 def df_ped_rx():
     print("Entrou no df_ped_rx")
-    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12, 31)):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=dt_ini, until=dt_ontem):
 
         if dt.month == 12:
             data_fim = datetime.datetime(dt.year + 1, 1, 1) - datetime.timedelta(1)
@@ -1931,7 +1931,8 @@ def df_mod_exame():
     print("Dados CD_MODALIDADE_EXAME inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=5)
+# dt_ini = dt_ontem - datetime.timedelta(days=5)
+dt_ini = datetime.datetime(2022, 7, 1)
 
 dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval=None)
 # dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
