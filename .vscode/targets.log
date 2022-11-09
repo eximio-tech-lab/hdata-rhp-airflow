@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Nov  8 08:47:18 2022
+# Make data base, printed on Wed Nov  9 10:30:58 2022
 
 # Variables
 
@@ -31,7 +29,7 @@ CURDIR := /home/raphael/hdata-airflow
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"9c6e3137636fcc64dd70abba850f180e.pt-br","_translationsConfigFile":"/home/raphael/.vscode-server/data/clp/9c6e3137636fcc64dd70abba850f180e.pt-br/tcf.json","_cacheRoot":"/home/raphael/.vscode-server/data/clp/9c6e3137636fcc64dd70abba850f180e.pt-br","_resolvedLanguagePackCoreLocation":"/home/raphael/.vscode-server/data/clp/9c6e3137636fcc64dd70abba850f180e.pt-br/8fa188b2b301d36553cbc9ce1b0a146ccb93351f","_corruptedFile":"/home/raphael/.vscode-server/data/clp/9c6e3137636fcc64dd70abba850f180e.pt-br/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"b2a596efb1baf6871dcb16cfb1962735.pt-br","_translationsConfigFile":"/home/raphael/.vscode-server/data/clp/b2a596efb1baf6871dcb16cfb1962735.pt-br/tcf.json","_cacheRoot":"/home/raphael/.vscode-server/data/clp/b2a596efb1baf6871dcb16cfb1962735.pt-br","_resolvedLanguagePackCoreLocation":"/home/raphael/.vscode-server/data/clp/b2a596efb1baf6871dcb16cfb1962735.pt-br/8fa188b2b301d36553cbc9ce1b0a146ccb93351f","_corruptedFile":"/home/raphael/.vscode-server/data/clp/b2a596efb1baf6871dcb16cfb1962735.pt-br/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /home/raphael/.vscode-server/bin/8fa188b2b301d36553cbc9ce1b0a146ccb93351f/node
 # makefile (from 'Makefile', line 1)
@@ -61,7 +59,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-0b2492b3-d629-4ece-9141-12c5974d52f3.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-3144df2c-ca29-42e1-9591-bb8fcb496429.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -279,6 +277,9 @@ reset-airflow:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 70):
 	@docker-compose down -v || true
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 	@docker-compose rm -f
 	rm -f webserver_config.py
 
@@ -290,7 +291,6 @@ venv:
 #  recipe to execute (from 'Makefile', line 13):
 	python3 -m virtualenv venv
 	venv/bin/python3 -m pip install --upgrade pip
- 
 	venv/bin/python3 -m pip install --trusted-host pypi.python.org "apache-airflow[${AIRFLOW_EXTRAS}]==${AIRFLOW_VERSION}" --constraint ${CONSTRAINT}  --use-deprecated legacy-resolver
 	venv/bin/python3 -m pip install -r airflow.requirements.txt --use-deprecated legacy-resolver
 	venv/bin/python3 -m pip install -r local.requirements.txt --use-deprecated legacy-resolver
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Tue Nov  8 08:47:18 2022
+# Finished Make data base on Wed Nov  9 10:30:58 2022
 
  
