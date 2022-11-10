@@ -8,8 +8,8 @@ from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
-# from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+# from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
@@ -1514,10 +1514,10 @@ def df_mov_int():
 
         print("Dados MOV_INT inseridos")
 
-# dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
+dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 # dt_ini = dt_ontem - datetime.timedelta(days=5)
-dt_ontem = datetime.datetime(2021, 12, 31)
-dt_ini = datetime.datetime(2019, 1, 1)
+# dt_ontem = datetime.datetime(2021, 12, 31)
+dt_ini = datetime.datetime(2022, 7, 1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval=None)
