@@ -8,8 +8,8 @@ from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-# from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
-from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+from connections.oracle.connections_sml import connect_rhp, connect_rhp_hdata, engine_rhp, connect
+# from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
 from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
