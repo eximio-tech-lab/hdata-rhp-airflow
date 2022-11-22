@@ -1873,6 +1873,59 @@ def df_mod_exame():
 
     print("Dados CD_MODALIDADE_EXAME inseridos")
 
+def df_mov_exame():
+    print("Entrou no df_mov_exame")
+    dt_ini = datetime.datetime(2022, 7, 1)
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_mov_exame.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+
+        df_dim["CD_LOG_MOVIMENTO_EXAME"] = df_dim["CD_LOG_MOVIMENTO_EXAME"].fillna(0)
+        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+        df_dim["CD_PED_LAB_RX"] = df_dim["CD_PED_LAB_RX"].fillna(0)
+        df_dim["CD_ITPED_LAB_RX"] = df_dim["CD_ITPED_LAB_RX"].fillna(0)
+        df_dim["CD_EXA_LAB"] = df_dim["CD_EXA_LAB"].fillna(0)
+        df_dim["DS_MOVIMENTO"] = df_dim["DS_MOVIMENTO"].fillna("0")
+        df_dim["CD_EXA_RX"] = df_dim["CD_EXA_RX"].fillna(0)
+        df_dim["TP_EXAME"] = df_dim["TP_EXAME"].fillna("0")
+        df_dim["CD_USUARIO_RESPONSAVEL"] = df_dim["CD_USUARIO_RESPONSAVEL"].fillna(0)
+
+        print(df_dim.info())
+
+        df_stage = pd.read_sql(query_mov_exame_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage['CD_LOG_MOVIMENTO_EXAME'],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.LOG_MOV_EXAME (CD_LOG_MOVIMENTO_EXAME, CD_ATENDIMENTO, CD_PED_LAB_RX, CD_ITPED_LAB_RX, CD_EXA_LAB, DS_MOVIMENTO, DT_MOVIMENTO, CD_EXA_RX, TP_EXAME, HR_MOVIMENTO, CD_USUARIO_RESPONSAVEL) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados LOG_MOV_EXAME inseridos")
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 # dt_ini = datetime.datetime(2022, 7, 1)
@@ -2059,5 +2112,10 @@ t61 = PythonOperator(
     task_id="insert_ped_rx_rhp",
     python_callable=df_ped_rx,
     dag=dag)
+    
+t62 = PythonOperator(
+    task_id="insert_mov_exame_rhp",
+    python_callable=df_mov_exame,
+    dag=dag)
 
-t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61
+t28 >> t30 >> t32 >> t33 >> t34 >> t45 >> t52 >> t53 >> t54 >> t55 >> t25 >> t58 >> t59 >> t60 >> t61 >> t62
