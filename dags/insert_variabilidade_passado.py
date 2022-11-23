@@ -1987,9 +1987,10 @@ def df_mov_exame():
 
         print("Dados LOG_MOV_EXAME inseridos")
 
-dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
+# dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 # dt_ini = dt_ontem - datetime.timedelta(days=5)
-dt_ini = datetime.datetime(2022, 1, 1)
+dt_ini = datetime.datetime(2019, 1, 1)
+dt_ontem = datetime.datetime(2021, 12, 31)
 
 dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval=None)
 # dag = DAG("insert_dados_rhp_variabilidade_antigo", default_args=default_args, schedule_interval="0 6,7 * * *")
