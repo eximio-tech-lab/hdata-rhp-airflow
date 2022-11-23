@@ -1875,7 +1875,7 @@ def df_mod_exame():
 
 def df_mov_exame():
     print("Entrou no df_mov_exame")
-    dt_ini = datetime.datetime(2022, 7, 1)
+    
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
