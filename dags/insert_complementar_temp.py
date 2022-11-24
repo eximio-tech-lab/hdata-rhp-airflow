@@ -175,7 +175,7 @@ def df_documento_clinico():
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=7)
-dt_ini = datetime.datetime(2019, 1, 1)
+dt_ini = datetime.datetime(2022, 1, 1)
 dt_ontem = datetime.datetime(2022, 11, 22)
 
 dag = DAG("insert_complementar_temp", default_args=default_args, schedule_interval=None)
