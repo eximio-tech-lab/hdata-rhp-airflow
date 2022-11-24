@@ -12,7 +12,7 @@ query_cor_referencia_hdata = 'SELECT CD_COR_REFERENCIA, NM_COR FROM MV_RHP.SACR_
 
 query_diagnostico_atendime_hdata = 'SELECT CD_CID, CD_DIAGNOSTICO_ATENDIME, CD_ATENDIMENTO FROM MV_RHP.DIAGNOSTICO_ATENDIME WHERE CD_ATENDIMENTO IN ({atendimentos})'
 
-query_documento_clinico_hdata = "SELECT CD_OBJETO, cd_atendimento, cd_tipo_documento, tp_status, DH_CRIACAO FROM MV_RHP.PW_DOCUMENTO_CLINICO WHERE DH_CRIACAO >= TO_DATE('{data_ini}', 'DD/MM/YYYY') AND DH_CRIACAO < TO_DATE('{data_fim}', 'DD/MM/YYYY') + INTERVAL '1' DAY AND CD_TIPO_DOCUMENTO = 36"
+query_documento_clinico_hdata = "SELECT CD_OBJETO, cd_atendimento, cd_tipo_documento, tp_status, DH_CRIACAO FROM MV_RHP.PW_DOCUMENTO_CLINICO WHERE DH_CRIACAO >= TO_DATE('{data_ini}', 'DD/MM/YYYY') AND DH_CRIACAO < TO_DATE('{data_fim}', 'DD/MM/YYYY') + INTERVAL '1' DAY"
 
 query_esp_med_hdata = 'SELECT CD_ESPECIALID, CD_PRESTADOR, SN_ESPECIAL_PRINCIPAL FROM MV_RHP.ESP_MED'
 
