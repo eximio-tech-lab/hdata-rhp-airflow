@@ -185,6 +185,9 @@ t0 = PythonOperator(
     python_callable=df_tempo_processo,
     dag=dag)
 
+t1 = PythonOperator(
+    task_id="insert_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
-
-t0
+t0 >> t1
