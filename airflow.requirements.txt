@@ -21,3 +21,4 @@ apache-airflow-backport-providers-amazon
 striprtf==0.0.14
 pika
 objdict
+GitPython
