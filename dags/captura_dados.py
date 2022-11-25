@@ -24,7 +24,7 @@ default_args = {
     "email": ["raphael.queiroz@eximio.med.br"],
     "email_on_failure": False,
     "email_on_retry": False,
-    "retries": 0,
+    "retries": 2,
     "retry_delay": timedelta(minutes=0),
     "provide_context": True,
 }
