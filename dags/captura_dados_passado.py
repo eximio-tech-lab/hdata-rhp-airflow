@@ -1514,28 +1514,69 @@ def df_mov_int():
 
         print("Dados MOV_INT inseridos")
 
+def df_tipo_tempo_processo():
+    print("Entrou no df_tip_acom")
+
+    df_dim = pd.read_sql(query_tipo_tempo_processo, connect_rhp())
+
+    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(999888)
+    df_dim["DS_TIPO_TEMPO_PROCESSO"] = df_dim["DS_TIPO_TEMPO_PROCESSO"].fillna("0")
+    df_dim["CD_CATEGORIA_PROCESSO"] = df_dim["CD_CATEGORIA_PROCESSO"].fillna(999888)
+    df_dim["DS_EXPLICACAO"] = df_dim["DS_EXPLICACAO"].fillna("0")
+
+    df_stage = pd.read_sql(query_tipo_tempo_processo_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_TIPO_TEMPO_PROCESSO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
+    
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.SACR_TIPO_TEMPO_PROCESSO (CD_TIPO_TEMPO_PROCESSO, DS_TIPO_TEMPO_PROCESSO, CD_CATEGORIA_PROCESSO, DS_EXPLICACAO) VALUES (:1, :2, :3, :4)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados SACR_TIPO_TEMPO_PROCESSO inseridos")
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-# dt_ini = dt_ontem - datetime.timedelta(days=5)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 # dt_ontem = datetime.datetime(2021, 12, 31)
-dt_ini = datetime.datetime(2022, 7, 1)
+# dt_ini = datetime.datetime(2022, 7, 1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval=None)
 
-t0 = PythonOperator(
-    task_id="captura_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="captura_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="captura_cid_rhp",
 #     python_callable=df_cid,
 #     dag=dag)
 
-t2 = PythonOperator(
-    task_id="captura_classificacao_risco_rhp",
-    python_callable=df_classificacao_risco,
-    dag=dag)
+# t2 = PythonOperator(
+#     task_id="captura_classificacao_risco_rhp",
+#     python_callable=df_classificacao_risco,
+#     dag=dag)
 
 # t3 = PythonOperator(
 #     task_id="captura_classificacao_rhp",
@@ -1552,10 +1593,10 @@ t2 = PythonOperator(
 #     python_callable=df_cor_referencia,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="captura_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="captura_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="captura_esp_med_rhp",
@@ -1597,10 +1638,10 @@ t7 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-t16 = PythonOperator(
-    task_id="captura_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="captura_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="captura_setor_rhp",
@@ -1617,10 +1658,10 @@ t16 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="captura_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="captura_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="captura_tip_mar_rhp",
@@ -1632,40 +1673,45 @@ t20 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-t23 = PythonOperator(
-    task_id="captura_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t23 = PythonOperator(
+#     task_id="captura_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="captura_usuario_rhp",
 #     python_callable=df_usuario,
 #     dag=dag)
 
-t25 = PythonOperator(
-    task_id="captura_fech_chec_rhp",
-    python_callable=df_fech_chec,
-    dag=dag)
+# t25 = PythonOperator(
+#     task_id="captura_fech_chec_rhp",
+#     python_callable=df_fech_chec,
+#     dag=dag)
 
-t26 = PythonOperator(
-    task_id="captura_leito_rhp",
-    python_callable=df_leito,
-    dag=dag)
+# t26 = PythonOperator(
+#     task_id="captura_leito_rhp",
+#     python_callable=df_leito,
+#     dag=dag)
 
-t27 = PythonOperator(
-    task_id="captura_unid_int_rhp",
-    python_callable=df_unid_int,
-    dag=dag)
+# t27 = PythonOperator(
+#     task_id="captura_unid_int_rhp",
+#     python_callable=df_unid_int,
+#     dag=dag)
 
-t28 = PythonOperator(
-    task_id="captura_tip_acom_rhp",
-    python_callable=df_tip_acom,
-    dag=dag)
+# t28 = PythonOperator(
+#     task_id="captura_tip_acom_rhp",
+#     python_callable=df_tip_acom,
+#     dag=dag)
 
-t29 = PythonOperator(
-    task_id="captura_mov_int_rhp",
-    python_callable=df_mov_int,
+# t29 = PythonOperator(
+#     task_id="captura_mov_int_rhp",
+#     python_callable=df_mov_int,
+#     dag=dag)
+
+t30 = PythonOperator(
+    task_id="captura_tipo_tempo_processo_rhp",
+    python_callable=df_tipo_tempo_processo,
     dag=dag)
 
 # (t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> 
-t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
+# t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
