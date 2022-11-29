@@ -22,8 +22,7 @@ def testing(**context):
     error_message("NOTIFICAÇÃO DE TESTE",
             ["lucas.freire@hdata.med.br","raphael.queiroz@hdata.med.br"],
             ["mensagem vinda do RHP",
-            "sucesso"
-            ],
+            "sucesso"],
             type='Stage')
     print('OK!')
 
