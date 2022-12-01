@@ -1035,6 +1035,7 @@ def df_sintoma_avaliacao():
 
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
+    dt_ini = datetime.datetime(2022, 2, 15)
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
@@ -1604,10 +1605,10 @@ t7 = PythonOperator(
 #     python_callable=df_pagu_objeto,
 #     dag=dag)
 
-t16 = PythonOperator(
-    task_id="captura_registro_alta_rhp",
-    python_callable=df_registro_alta,
-    dag=dag)
+# t16 = PythonOperator(
+#     task_id="captura_registro_alta_rhp",
+#     python_callable=df_registro_alta,
+#     dag=dag)
 
 # t17 = PythonOperator(
 #     task_id="captura_setor_rhp",
@@ -1639,10 +1640,10 @@ t20 = PythonOperator(
 #     python_callable=df_tip_res,
 #     dag=dag)
 
-t23 = PythonOperator(
-    task_id="captura_triagem_atendimento_rhp",
-    python_callable=df_triagem_atendimento,
-    dag=dag)
+# t23 = PythonOperator(
+#     task_id="captura_triagem_atendimento_rhp",
+#     python_callable=df_triagem_atendimento,
+#     dag=dag)
 
 # t24 = PythonOperator(
 #     task_id="captura_usuario_rhp",
@@ -1674,4 +1675,4 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
+t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
