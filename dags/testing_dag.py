@@ -26,7 +26,7 @@ def testing(**context):
             type='Stage')
     print('OK!')
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval='10,15,20,25,30,35,40 17 * * *')
+dag = DAG("testing_dag", default_args=default_args, schedule_interval=None)
 
 t0 = PythonOperator(
     task_id="testing",
