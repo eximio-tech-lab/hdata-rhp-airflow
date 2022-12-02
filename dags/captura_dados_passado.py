@@ -1561,10 +1561,10 @@ t2 = PythonOperator(
 #     python_callable=df_cor_referencia,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="captura_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="captura_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="captura_esp_med_rhp",
@@ -1676,4 +1676,4 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
+t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
