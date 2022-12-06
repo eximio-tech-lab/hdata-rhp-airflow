@@ -444,12 +444,19 @@ def df_documento_clinico():
         df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
         print(df_stage.info())
 
-        df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
+        if not df_stage.empty:
+            ini = 0
+            fim = 10000
+            for _ in range(len(df_stage)):
+                df_diff = df_dim[ini:fim].merge(df_stage["CD_OBJETO"][ini:fim],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+                df_diff = df_diff.drop(columns=['_merge'])
+                df_diff = df_diff.reset_index(drop=True)
 
-        print("dados para incremento")
-        print(df_diff.info())
+                print("dados para incremento")
+                print(df_diff.info())
+
+                ini = fim
+                fim = fim + 10000
 
         # con = connect_rhp_hdata()
 
