@@ -423,7 +423,6 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    # dt_ini = datetime.datetime(2022, 6, 9)
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
