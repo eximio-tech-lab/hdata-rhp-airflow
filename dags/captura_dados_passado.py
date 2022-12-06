@@ -433,8 +433,12 @@ def df_documento_clinico():
 
         print(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
         df_dim_dado = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(df_dim_dado.info())
+        print(query_documento_clinico_tempo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
         df_dim_tempo = pd.read_sql(query_documento_clinico_tempo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(df_dim_tempo.info())
         df_dim = df_dim_dado.merge(df_dim_tempo["CD_OBJETO"], indicator = True, how='left')
+        print(df_dim.info())
 
         df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
