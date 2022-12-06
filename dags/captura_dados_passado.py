@@ -447,7 +447,7 @@ def df_documento_clinico():
         if not df_stage.empty:
             ini = 0
             fim = 10000
-            for _ in range(len(df_stage)):
+            for _ in range((len(df_stage) // 100) + 1):
                 df_diff = df_dim[ini:fim].merge(df_stage["CD_OBJETO"][ini:fim],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
                 df_diff = df_diff.drop(columns=['_merge'])
                 df_diff = df_diff.reset_index(drop=True)
