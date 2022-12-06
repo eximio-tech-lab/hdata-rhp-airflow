@@ -458,24 +458,44 @@ def df_documento_clinico():
                 ini = fim
                 fim = fim + 10000
 
-        # con = connect_rhp_hdata()
+                con = connect_rhp_hdata()
 
-        # cursor = con.cursor()
+                cursor = con.cursor()
 
-        # sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+                sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
-        # df_list = df_diff.values.tolist()
-        # n = 0
-        # cols = []
-        # for i in df_diff.iterrows():
-        #     cols.append(df_list[n])
-        #     n += 1
+                df_list = df_diff.values.tolist()
+                n = 0
+                cols = []
+                for i in df_diff.iterrows():
+                    cols.append(df_list[n])
+                    n += 1
 
-        # cursor.executemany(sql, cols)
+                cursor.executemany(sql, cols)
 
-        # con.commit()
-        # cursor.close
-        # con.close
+                con.commit()
+                cursor.close
+                con.close
+
+        else:
+            con = connect_rhp_hdata()
+
+            cursor = con.cursor()
+
+            sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+
+            df_list = df_dim.values.tolist()
+            n = 0
+            cols = []
+            for i in df_dim.iterrows():
+                cols.append(df_list[n])
+                n += 1
+
+            cursor.executemany(sql, cols)
+
+            con.commit()
+            cursor.close
+            con.close
 
         print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
