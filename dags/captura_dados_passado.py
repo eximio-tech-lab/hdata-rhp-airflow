@@ -431,7 +431,10 @@ def df_documento_clinico():
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-        df_dim = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
+        df_dim_dado = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim_tempo = pd.read_sql(query_documento_clinico_tempo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = df_dim_dado.merge(df_dim_tempo["CD_OBJETO"], indicator = True, how='left')
 
         df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -439,6 +442,7 @@ def df_documento_clinico():
         df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
         df_dim["NM_DOCUMENTO"] = df_dim["NM_DOCUMENTO"].fillna("0")
 
+        print(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
         df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
