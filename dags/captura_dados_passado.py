@@ -432,12 +432,7 @@ def df_documento_clinico():
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
         print(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
-        df_dim_dado = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
-        print(df_dim_dado.info())
-        print(query_documento_clinico_tempo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
-        df_dim_tempo = pd.read_sql(query_documento_clinico_tempo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
-        print(df_dim_tempo.info())
-        df_dim = df_dim_dado.merge(df_dim_tempo["CD_OBJETO"], indicator = True, how='left')
+        df_dim = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
         print(df_dim.info())
 
         df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
@@ -448,6 +443,7 @@ def df_documento_clinico():
 
         print(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
         df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        print(df_stage.info())
 
         df_diff = df_dim.merge(df_stage["CD_OBJETO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -456,35 +452,26 @@ def df_documento_clinico():
         print("dados para incremento")
         print(df_diff.info())
 
-        con = connect_rhp_hdata()
+        # con = connect_rhp_hdata()
 
-        cursor = con.cursor()
+        # cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+        # sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
-        df_list = df_diff.values.tolist()
-        n = 0
-        cols = []
-        for i in df_diff.iterrows():
-            cols.append(df_list[n])
-            n += 1
+        # df_list = df_diff.values.tolist()
+        # n = 0
+        # cols = []
+        # for i in df_diff.iterrows():
+        #     cols.append(df_list[n])
+        #     n += 1
 
-        cursor.executemany(sql, cols)
+        # cursor.executemany(sql, cols)
 
-        con.commit()
-        cursor.close
-        con.close
+        # con.commit()
+        # cursor.close
+        # con.close
 
         print("Dados PW_DOCUMENTO_CLINICO inseridos")
-
-        df_upd = df_dim[df_dim['CD_OBJETO'].isin(df_stage['CD_OBJETO'])]
-
-        print("dados para update")
-        print(df_upd.info())
-
-        # if not df_upd.empty:
-
-        #     update_cells(df_upd, 'MV_RHP.PW_DOCUMENTO_CLINICO', 'CD_OBJETO')
 
 def df_esp_med():
     print("Entrou no df_esp_med")
