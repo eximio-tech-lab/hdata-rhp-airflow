@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Dec  5 08:27:40 2022
+# Make data base, printed on Tue Dec  6 08:25:27 2022
 
 # Variables
 
@@ -61,7 +61,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-08bc5202-9c4d-4dff-9f47-9afec7f4977b.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-e393c9d6-5bfb-4f0a-8ab0-176bb853773a.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -279,6 +279,7 @@ reset-airflow:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 70):
 	@docker-compose down -v || true
+ 
 	@docker-compose rm -f
 	rm -f webserver_config.py
 
@@ -295,7 +296,6 @@ venv:
 	venv/bin/python3 -m pip install -r local.requirements.txt --use-deprecated legacy-resolver
 
 clean-all: clean-pytest clean-venv reset-airflow
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Mon Dec  5 08:27:40 2022
+# Finished Make data base on Tue Dec  6 08:25:27 2022
 
  

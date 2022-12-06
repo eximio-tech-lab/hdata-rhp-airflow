@@ -423,7 +423,7 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    dt_ini = datetime.datetime(2022, 6, 9)
+    # dt_ini = datetime.datetime(2022, 6, 9)
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
@@ -437,6 +437,7 @@ def df_documento_clinico():
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
         df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
+        df_dim["NM_DOCUMENTO"] = df_dim["NM_DOCUMENTO"].fillna("0")
 
         df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
@@ -451,7 +452,7 @@ def df_documento_clinico():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO) VALUES (:1, :2, :3, :4, :5)"
+        sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -1525,17 +1526,17 @@ def df_tipo_tempo_processo():
     print("Dados SACR_TIPO_TEMPO_PROCESSO inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-# dt_ini = dt_ontem - datetime.timedelta(days=5)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 # dt_ontem = datetime.datetime(2021, 12, 31)
-dt_ini = datetime.datetime(2022, 1, 1)
+# dt_ini = datetime.datetime(2022, 1, 1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_interval=None)
 
-t0 = PythonOperator(
-    task_id="captura_atendime_rhp",
-    python_callable=df_atendime,
-    dag=dag)
+# t0 = PythonOperator(
+#     task_id="captura_atendime_rhp",
+#     python_callable=df_atendime,
+#     dag=dag)
 
 # t1 = PythonOperator(
 #     task_id="captura_cid_rhp",
@@ -1562,10 +1563,10 @@ t0 = PythonOperator(
 #     python_callable=df_cor_referencia,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="captura_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="captura_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="captura_esp_med_rhp",
@@ -1652,29 +1653,29 @@ t0 = PythonOperator(
 #     python_callable=df_usuario,
 #     dag=dag)
 
-t25 = PythonOperator(
-    task_id="captura_fech_chec_rhp",
-    python_callable=df_fech_chec,
-    dag=dag)
+# t25 = PythonOperator(
+#     task_id="captura_fech_chec_rhp",
+#     python_callable=df_fech_chec,
+#     dag=dag)
 
-t26 = PythonOperator(
-    task_id="captura_leito_rhp",
-    python_callable=df_leito,
-    dag=dag)
+# t26 = PythonOperator(
+#     task_id="captura_leito_rhp",
+#     python_callable=df_leito,
+#     dag=dag)
 
-t27 = PythonOperator(
-    task_id="captura_unid_int_rhp",
-    python_callable=df_unid_int,
-    dag=dag)
+# t27 = PythonOperator(
+#     task_id="captura_unid_int_rhp",
+#     python_callable=df_unid_int,
+#     dag=dag)
 
-t28 = PythonOperator(
-    task_id="captura_tip_acom_rhp",
-    python_callable=df_tip_acom,
-    dag=dag)
+# t28 = PythonOperator(
+#     task_id="captura_tip_acom_rhp",
+#     python_callable=df_tip_acom,
+#     dag=dag)
 
-t29 = PythonOperator(
-    task_id="captura_mov_int_rhp",
-    python_callable=df_mov_int,
-    dag=dag)
+# t29 = PythonOperator(
+#     task_id="captura_mov_int_rhp",
+#     python_callable=df_mov_int,
+#     dag=dag)
 
-t0 >> t26 >> t27 >> t28 >> t29 >> t25
+# t0 >> t26 >> t27 >> t28 >> t29 >> t25
