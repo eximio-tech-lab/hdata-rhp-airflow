@@ -14,7 +14,7 @@ query_diagnostico_atendime_hdata = 'SELECT CD_CID, CD_DIAGNOSTICO_ATENDIME, CD_A
 
 query_documento_clinico_hdata = "SELECT CD_OBJETO, cd_atendimento, cd_tipo_documento, tp_status, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO FROM MV_RHP.PW_DOCUMENTO_CLINICO WHERE DH_CRIACAO >= TO_DATE('{data_ini}', 'DD/MM/YYYY') AND DH_CRIACAO < TO_DATE('{data_fim}', 'DD/MM/YYYY') + INTERVAL '1' DAY"
 
-query_documento_clinico_new_hdata = "SELECT CODIGO_UNICO, CD_OBJETO, cd_atendimento, cd_tipo_documento, tp_status, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO FROM MV_RHP.PW_DOCUMENTO_CLINICO_NEW WHERE DH_CRIACAO >= TO_DATE('{data_ini}', 'DD/MM/YYYY') AND DH_CRIACAO < TO_DATE('{data_fim}', 'DD/MM/YYYY') + INTERVAL '1' DAY"
+query_documento_clinico_new_hdata = "SELECT CODIGO_UNICO, CD_OBJETO, cd_atendimento, cd_tipo_documento, tp_status, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR FROM MV_RHP.PW_DOCUMENTO_CLINICO_NEW WHERE DH_CRIACAO >= TO_DATE('{data_ini}', 'DD/MM/YYYY') AND DH_CRIACAO < TO_DATE('{data_fim}', 'DD/MM/YYYY') + INTERVAL '1' DAY"
 
 query_esp_med_hdata = 'SELECT CD_ESPECIALID, CD_PRESTADOR, SN_ESPECIAL_PRINCIPAL FROM MV_RHP.ESP_MED'
 
