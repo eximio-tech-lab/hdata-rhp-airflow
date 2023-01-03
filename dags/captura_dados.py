@@ -1682,4 +1682,4 @@ t30 = PythonOperator(
     python_callable=df_editor_clinico,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t30 >> t25
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24, t30) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
