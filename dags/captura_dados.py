@@ -1485,6 +1485,46 @@ def df_mov_int():
 
         print("Dados MOV_INT inseridos")
 
+def df_editor_clinico():
+    print("Entrou no df_editor_clinico")
+
+    df_dim = pd.read_sql(query_editor_clinico, connect_rhp())
+
+    df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
+    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(999888)
+    df_dim["CD_DOCUMENTO"] = df_dim["CD_DOCUMENTO"].fillna(999888)
+
+    df_stage = pd.read_sql(query_editor_clinico_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_EDITOR_CLINICO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
+    
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO) VALUES (:1, :2, :3)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+
+    cursor.executemany(sql, cols)
+
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados PW_EDITOR_CLINICO inseridos")
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 # dt_ini = datetime.datetime(2022, 6, 1)
@@ -1637,4 +1677,9 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25
+t30 = PythonOperator(
+    task_id="captura_editor_clinico",
+    python_callable=df_editor_clinico,
+    dag=dag)
+
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t20 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t30 >> t25
