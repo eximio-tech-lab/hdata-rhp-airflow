@@ -453,7 +453,7 @@ def df_diagnostico_atendime(atendimentos):
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 10, 26), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 12, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -462,6 +462,7 @@ def df_documento_clinico():
         df_dim = pd.read_sql(query_documento_clinico_new.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
         print(df_dim.info())
 
+        df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(0)
         df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
@@ -474,7 +475,7 @@ def df_documento_clinico():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO_NEW (CODIGO_UNICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
+        sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO_NEW (CODIGO_UNICO, CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
 
         df_list = df_dim.values.tolist()
         n = 0
@@ -1616,10 +1617,10 @@ dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_inter
 #     python_callable=df_cor_referencia,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="captura_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="captura_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="captura_esp_med_rhp",
@@ -1731,9 +1732,9 @@ dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_inter
 #     python_callable=df_mov_int,
 #     dag=dag)
 
-t30 = PythonOperator(
-    task_id="captura_editor_clinico",
-    python_callable=df_editor_clinico,
-    dag=dag)
+# t30 = PythonOperator(
+#     task_id="captura_editor_clinico",
+#     python_callable=df_editor_clinico,
+#     dag=dag)
 
 # t0 >> t26 >> t27 >> t28 >> t29 >> t25
