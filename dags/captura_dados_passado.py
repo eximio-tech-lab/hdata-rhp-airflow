@@ -453,7 +453,7 @@ def df_diagnostico_atendime(atendimentos):
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2020, 1, 1), until=datetime.datetime(2022, 11, 30)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 11, 30)):
         data_1 = dt
         data_2 = dt
 
@@ -1053,7 +1053,7 @@ def df_sintoma_avaliacao():
 def df_tempo_processo():
     print("Entrou no df_tempo_processo")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021,12,31)):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 12, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 11, 30)):
         data_1 = dt
         data_2 = dt
 
@@ -1617,10 +1617,10 @@ dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_inter
 #     python_callable=df_cor_referencia,
 #     dag=dag)
 
-# t7 = PythonOperator(
-#     task_id="captura_documento_clinico_rhp",
-#     python_callable=df_documento_clinico,
-#     dag=dag)
+t7 = PythonOperator(
+    task_id="captura_documento_clinico_rhp",
+    python_callable=df_documento_clinico,
+    dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="captura_esp_med_rhp",
@@ -1737,4 +1737,4 @@ t20 = PythonOperator(
 #     python_callable=df_editor_clinico,
 #     dag=dag)
 
-# t0 >> t26 >> t27 >> t28 >> t29 >> t25
+t20 >> t7

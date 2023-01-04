@@ -427,6 +427,7 @@ def df_documento_clinico():
         df_dim = pd.read_sql(query_documento_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
         print(df_dim.info())
 
+        df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(0)
         df_dim["CD_OBJETO"] = df_dim["CD_OBJETO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
@@ -441,7 +442,7 @@ def df_documento_clinico():
             ini = 0
             fim = 10000
             for _ in range((len(df_stage) // 10000) + 1):
-                df_diff = df_dim[ini:fim].merge(df_stage["CD_OBJETO"][ini:fim],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+                df_diff = df_dim[ini:fim].merge(df_stage["CD_DOCUMENTO_CLINICO"][ini:fim],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
                 df_diff = df_diff.drop(columns=['_merge'])
                 df_diff = df_diff.reset_index(drop=True)
 
@@ -455,7 +456,7 @@ def df_documento_clinico():
 
                 cursor = con.cursor()
 
-                sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
+                sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
 
                 df_list = df_diff.values.tolist()
                 n = 0
@@ -1061,6 +1062,7 @@ def df_tempo_processo():
         df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
         df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
+        df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
 
         df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=data_2.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
@@ -1075,7 +1077,7 @@ def df_tempo_processo():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO, NM_USUARIO) VALUES (:1, :2, :3, :4)"
+        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO, NM_USUARIO, CD_TRIAGEM_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
 
         df_list = df_diff.values.tolist()
         n = 0
