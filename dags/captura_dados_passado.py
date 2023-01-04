@@ -453,7 +453,7 @@ def df_diagnostico_atendime(atendimentos):
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2022, 11, 30)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2019, 11, 13), until=datetime.datetime(2022, 11, 30)):
         data_1 = dt
         data_2 = dt
 
@@ -1682,10 +1682,10 @@ t7 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-t20 = PythonOperator(
-    task_id="captura_tempo_processo_rhp",
-    python_callable=df_tempo_processo,
-    dag=dag)
+# t20 = PythonOperator(
+#     task_id="captura_tempo_processo_rhp",
+#     python_callable=df_tempo_processo,
+#     dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="captura_tip_mar_rhp",
@@ -1737,4 +1737,4 @@ t20 = PythonOperator(
 #     python_callable=df_editor_clinico,
 #     dag=dag)
 
-t20 >> t7
+# t20 >> t7
