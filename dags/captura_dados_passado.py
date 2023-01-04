@@ -1617,10 +1617,10 @@ dag = DAG("captura_dados_rhp_antigos", default_args=default_args, schedule_inter
 #     python_callable=df_cor_referencia,
 #     dag=dag)
 
-t7 = PythonOperator(
-    task_id="captura_documento_clinico_rhp",
-    python_callable=df_documento_clinico,
-    dag=dag)
+# t7 = PythonOperator(
+#     task_id="captura_documento_clinico_rhp",
+#     python_callable=df_documento_clinico,
+#     dag=dag)
 
 # t8 = PythonOperator(
 #     task_id="captura_esp_med_rhp",
@@ -1682,10 +1682,10 @@ t7 = PythonOperator(
 #     python_callable=df_sintoma_avaliacao,
 #     dag=dag)
 
-# t20 = PythonOperator(
-#     task_id="captura_tempo_processo_rhp",
-#     python_callable=df_tempo_processo,
-#     dag=dag)
+t20 = PythonOperator(
+    task_id="captura_tempo_processo_rhp",
+    python_callable=df_tempo_processo,
+    dag=dag)
 
 # t21 = PythonOperator(
 #     task_id="captura_tip_mar_rhp",
