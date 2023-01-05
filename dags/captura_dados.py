@@ -1058,6 +1058,7 @@ def df_tempo_processo():
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
         df_dim = pd.read_sql(query_tempo_processo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        print(df_dim.info())
 
         df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
         df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
@@ -1065,6 +1066,7 @@ def df_tempo_processo():
         df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
 
         df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=data_2.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        print(df_stage.info())
 
         df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])

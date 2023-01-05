@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jan  4 12:00:54 2023
+# Make data base, printed on Thu Jan  5 08:29:00 2023
 
 # Variables
 
@@ -61,7 +61,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 PWD = /home/raphael/hdata-airflow
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-45b066ec-a21b-4c8f-9e19-c72290bd0aea.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-9bf0d48c-937e-48e9-b6a2-f4a856894e44.sock
 # environment
 WSL_INTEROP = /run/WSL/12_interop
 # makefile (from 'Makefile', line 4)
@@ -281,6 +281,7 @@ reset-airflow:
 	@docker-compose down -v || true
 	@docker-compose rm -f
 	rm -f webserver_config.py
+ 
 
 venv:
 #  Phony target (prerequisite of .PHONY).
@@ -291,7 +292,6 @@ venv:
 	python3 -m virtualenv venv
 	venv/bin/python3 -m pip install --upgrade pip
 	venv/bin/python3 -m pip install --trusted-host pypi.python.org "apache-airflow[${AIRFLOW_EXTRAS}]==${AIRFLOW_VERSION}" --constraint ${CONSTRAINT}  --use-deprecated legacy-resolver
- 
 	venv/bin/python3 -m pip install -r airflow.requirements.txt --use-deprecated legacy-resolver
 	venv/bin/python3 -m pip install -r local.requirements.txt --use-deprecated legacy-resolver
 
@@ -351,6 +351,6 @@ internal-test: internal-install-local-deps
 # strcache performance: lookups = 87 / hit rate = 43%
 # hash-table stats:
 # Load=49/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Wed Jan  4 12:00:54 2023
+# Finished Make data base on Thu Jan  5 08:29:00 2023
 
  
