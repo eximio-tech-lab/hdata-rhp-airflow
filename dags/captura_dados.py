@@ -433,6 +433,8 @@ def df_documento_clinico():
         df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
         df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
         df_dim["NM_DOCUMENTO"] = df_dim["NM_DOCUMENTO"].fillna("0")
+        df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna("0")
+        df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
 
         print(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
         df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
@@ -456,7 +458,7 @@ def df_documento_clinico():
 
                 cursor = con.cursor()
 
-                sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+                sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
 
                 df_list = df_diff.values.tolist()
                 n = 0
@@ -476,7 +478,7 @@ def df_documento_clinico():
 
             cursor = con.cursor()
 
-            sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO) VALUES (:1, :2, :3, :4, :5, :6, :7, :8)"
+            sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
 
             df_list = df_dim.values.tolist()
             n = 0
