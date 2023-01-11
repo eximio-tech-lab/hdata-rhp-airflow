@@ -433,7 +433,7 @@ def df_documento_clinico():
         df_dim["CD_TIPO_DOCUMENTO"] = df_dim["CD_TIPO_DOCUMENTO"].fillna(0)
         df_dim["TP_STATUS"] = df_dim["TP_STATUS"].fillna("0")
         df_dim["NM_DOCUMENTO"] = df_dim["NM_DOCUMENTO"].fillna("0")
-        df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna(0)
+        df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna("0")
         df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
 
         print(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
