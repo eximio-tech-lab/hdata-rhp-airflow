@@ -147,6 +147,7 @@ def df_atendime():
         #                 'CD_ATENDIMENTO')
 
         df_diagnostico_atendime(atendimentos)
+        df_tempo_processo()(atendimentos)
 
 def df_cid():
     print("Entrou no df_cid")
@@ -1051,62 +1052,57 @@ def df_sintoma_avaliacao():
     print("dados para update")
     print(df_upd.info())
 
-def df_tempo_processo():
+def df_tempo_processo(atendimentos):
     print("Entrou no df_tempo_processo")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+    df_dim = pd.read_sql(query_tempo_processo.format(atendimentos=atendimentos), connect_rhp())
+    
+    print(df_dim.info())
 
-        df_dim = pd.read_sql(query_tempo_processo.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
-        
-        print(df_dim.info())
+    df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
+    df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
+    df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
+    df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
 
-        df_dim["CD_TIPO_TEMPO_PROCESSO"] = df_dim["CD_TIPO_TEMPO_PROCESSO"].fillna(0)
-        df_dim["CD_ATENDIMENTO"] = df_dim["CD_ATENDIMENTO"].fillna(0)
-        df_dim["NM_USUARIO"] = df_dim["NM_USUARIO"].fillna("0")
-        df_dim["CD_TRIAGEM_ATENDIMENTO"] = df_dim["CD_TRIAGEM_ATENDIMENTO"].fillna(0)
+    df_stage = pd.read_sql(query_tempo_processo_hdata.format(atendimentos=atendimentos), connect_rhp_hdata())
+    print(df_stage.info())
 
-        df_stage = pd.read_sql(query_tempo_processo_hdata.format(data_ini=data_2.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
-        print(df_stage.info())
+    df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
 
-        df_diff = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
+    print("dados para incremento")
+    print(df_diff.info())
 
-        print("dados para incremento")
-        print(df_diff.info())
+    con = connect_rhp_hdata()
 
-        con = connect_rhp_hdata()
+    cursor = con.cursor()
 
-        cursor = con.cursor()
+    sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO, NM_USUARIO, CD_TRIAGEM_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
 
-        sql="INSERT INTO MV_RHP.SACR_TEMPO_PROCESSO (DH_PROCESSO, CD_TIPO_TEMPO_PROCESSO, CD_ATENDIMENTO, NM_USUARIO, CD_TRIAGEM_ATENDIMENTO) VALUES (:1, :2, :3, :4, :5)"
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
 
-        df_list = df_diff.values.tolist()
-        n = 0
-        cols = []
-        for i in df_diff.iterrows():
-            cols.append(df_list[n])
-            n += 1
+    cursor.executemany(sql, cols)
 
-        cursor.executemany(sql, cols)
+    con.commit()
+    cursor.close
+    con.close
 
-        con.commit()
-        cursor.close
-        con.close
+    print("Dados SACR_TEMPO_PROCESSO inseridos")
 
-        print("Dados SACR_TEMPO_PROCESSO inseridos")
+    # df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
+    # df_upd = df_upd.drop(columns=['_merge'])
+    # df_upd = df_upd.reset_index(drop=True)
 
-        # df_upd = df_dim.merge(df_stage,indicator = True, how='left').loc[lambda x : x['_merge'] =='both']
-        # df_upd = df_upd.drop(columns=['_merge'])
-        # df_upd = df_upd.reset_index(drop=True)
+    # print("dados para update")
+    # print(df_upd.info())
 
-        # print("dados para update")
-        # print(df_upd.info())
-
-        # update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
+    # update_cells(df_upd, 'MV_RHP.SACR_TEMPO_PROCESSO', 'CD_ATENDIMENTO')
 
 def df_tip_mar():
     print("Entrou no df_tip_mar")
