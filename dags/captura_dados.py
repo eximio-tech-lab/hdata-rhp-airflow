@@ -147,7 +147,7 @@ def df_atendime():
         #                 'CD_ATENDIMENTO')
 
         df_diagnostico_atendime(atendimentos)
-        df_tempo_processo()(atendimentos)
+        df_tempo_processo(atendimentos)
 
 def df_cid():
     print("Entrou no df_cid")
