@@ -65,7 +65,7 @@ def update_all_cid():
     
     print("Dados inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="30 11 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="10 11 * * *")
 
 t0 = PythonOperator(
     task_id="update_all_cid",
