@@ -15,7 +15,7 @@ START_DATE = airflow.utils.dates.days_ago(2)
 default_args = {
     "owner": "Lucas R. Freire",
     "depends_on_past": False,
-    "start_date": START_DATE,
+    "start_date": datetime.datetime(2023,1,24),
     "email": ["airflow@airflow.com"],
     "email_on_failure": False,
     "email_on_retry": False,
@@ -65,7 +65,7 @@ def update_all_cid():
     
     print("Dados inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="0 5 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="30 11 * * *")
 
 t0 = PythonOperator(
     task_id="update_all_cid",
