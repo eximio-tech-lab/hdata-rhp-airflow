@@ -27,9 +27,9 @@ default_args = {
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 
 def testing(**context):
-    error_message("NOTIFICAÇÃO DE TESTE",
+    error_message("CIDs ATUALIZADOS RHP",
             ["lucas.freire@hdata.med.br","raphael.queiroz@hdata.med.br"],
-            ["mensagem vinda do RHP",
+            ["--------",
             "sucesso"],
             type='Stage')
     print('OK!')
@@ -69,7 +69,7 @@ dag = DAG("testing_dag", default_args=default_args, schedule_interval="10 11 * *
 
 t0 = PythonOperator(
     task_id="update_all_cid",
-    python_callable=update_all_cid,
+    python_callable=testing,
     dag=dag
 )
 
