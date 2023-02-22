@@ -1490,43 +1490,47 @@ def df_mov_int():
 
 def df_editor_clinico():
     print("Entrou no df_editor_clinico")
+    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
 
-    df_dim = pd.read_sql(query_editor_clinico, connect_rhp())
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
-    df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
-    df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(999888)
-    df_dim["CD_DOCUMENTO"] = df_dim["CD_DOCUMENTO"].fillna(999888)
+        df_dim = pd.read_sql(query_editor_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
-    df_stage = pd.read_sql(query_editor_clinico_hdata, connect_rhp_hdata())
+        df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
+        df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(999888)
+        df_dim["CD_DOCUMENTO"] = df_dim["CD_DOCUMENTO"].fillna(999888)
 
-    df_diff = df_dim.merge(df_stage["CD_EDITOR_CLINICO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
+        df_stage = pd.read_sql(query_editor_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-    
-    print("dados para incremento")
-    print(df_diff.info())
+        df_diff = df_dim.merge(df_stage["CD_EDITOR_CLINICO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        print("dados para incremento")
+        print(df_diff.info())
 
-    con = connect_rhp_hdata()
+        con = connect_rhp_hdata()
 
-    cursor = con.cursor()
+        cursor = con.cursor()
 
-    sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO) VALUES (:1, :2, :3)"
+        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO) VALUES (:1, :2, :3)"
 
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
 
-    cursor.executemany(sql, cols)
+        cursor.executemany(sql, cols)
 
-    con.commit()
-    cursor.close
-    con.close
+        con.commit()
+        cursor.close
+        con.close
 
-    print("Dados PW_EDITOR_CLINICO inseridos")
+        print("Dados PW_EDITOR_CLINICO inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
