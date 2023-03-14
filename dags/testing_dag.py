@@ -29,12 +29,11 @@ default_args = {
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 
 def testing(**context):
-    df_documento_clinico()
-    error_message("CIDs ATUALIZADOS RHP",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-            "sucesso"],
-            type='Stage')
+    # error_message("CIDs ATUALIZADOS RHP",
+    #         ["lucas.freire@hdata.med.br"],
+    #         ["--------",
+    #         "sucesso"],
+    #         type='Stage')
     print('OK!')
 
 def df_documento_clinico():
