@@ -38,7 +38,7 @@ def testing(**context):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 5, 30), until=dt_ontem):
     # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
@@ -165,7 +165,7 @@ def update_all_cid():
     
     print("Dados inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="20 14 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="20 18 * * *")
 
 t0 = PythonOperator(
     task_id="update_all_pw_doc_clinico",
