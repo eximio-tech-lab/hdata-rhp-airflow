@@ -165,13 +165,13 @@ def update_all_cid():
     
     print("Dados inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="20 18 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="20 4 * * *")
 
-t0 = PythonOperator(
-    task_id="update_all_pw_doc_clinico",
-    python_callable=df_documento_clinico,
-    dag=dag
-)
+# t0 = PythonOperator(
+#     task_id="update_all_pw_doc_clinico",
+#     python_callable=df_documento_clinico,
+#     dag=dag
+# )
 
 t1 = PythonOperator(
     task_id="update_all_pw_editor_clinico",
@@ -179,4 +179,4 @@ t1 = PythonOperator(
     dag=dag
 )
 
-t0 >> t1
+t1
