@@ -174,8 +174,8 @@ dag = DAG("testing_dag", default_args=default_args, schedule_interval="20 4 * * 
 # )
 
 t1 = PythonOperator(
-    task_id="update_all_pw_editor_clinico",
-    python_callable=df_editor_clinico,
+    task_id="test",
+    python_callable=testing,
     dag=dag
 )
 
