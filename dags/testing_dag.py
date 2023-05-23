@@ -9,8 +9,8 @@ from datetime import timedelta
 from utils.teams_robot import error_message
 from queries.rhp.queries_temp import query_update_all_cid
 from connections.oracle.connections import connect_rhp, connect_rhp_hdata
-from queries.rhp.queries import query_documento_clinico_fec, query_editor_clinico_fec
-from queries.rhp.queries_hdata import query_documento_clinico_hdata_fec, query_editor_clinico_hdata_fec
+from queries.rhp.queries import query_documento_clinico_fec, query_editor_clinico_fec, query_editor_campo
+from queries.rhp.queries_hdata import query_documento_clinico_hdata_fec, query_editor_clinico_hdata_fec, query_editor_campo_hdata
 
 START_DATE = airflow.utils.dates.days_ago(2)
 
@@ -29,11 +29,12 @@ default_args = {
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 
 def testing(**context):
-    # error_message("CIDs ATUALIZADOS RHP",
-    #         ["lucas.freire@hdata.med.br"],
-    #         ["--------",
-    #         "sucesso"],
-    #         type='Stage')
+    error_message("Chamada para campo sucesso RHP",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+            "sucesso"],
+            type='Stage')
+    df_editor_campo()
     print('OK!')
 
 def df_documento_clinico():
@@ -98,7 +99,6 @@ def df_editor_clinico():
         data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
-
         df_dim = pd.read_sql(query_editor_clinico_fec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
 
         df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
@@ -165,7 +165,57 @@ def update_all_cid():
     
     print("Dados inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="20 4 * * *")
+def df_editor_campo():
+    print("Entrou no editor_campo")
+    try:
+        df_dim = pd.read_sql(query_editor_campo, connect_rhp())
+    except Exception as e:
+        error_message("Erro Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+             "Recuperar dados view",
+            str(e)],
+            type='Stage')
+        raise ValueError(e)
+
+    df_stage = pd.read_sql(query_editor_campo_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_CAMPO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.EDITOR_CAMPO (CD_CAMPO, DS_CAMPO) VALUES (:1, :2)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+    try:
+        cursor.executemany(sql, cols)
+    except Exception as e:
+        error_message("Erro Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+            "Erro de inserção",
+            str(e)],
+            type='Stage')
+        raise ValueError(e)
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados editor_campo inseridos")
+
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="10 20 * * *")
 
 # t0 = PythonOperator(
 #     task_id="update_all_pw_doc_clinico",
