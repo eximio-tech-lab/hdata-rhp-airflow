@@ -34,7 +34,8 @@ def testing(**context):
             ["--------",
             "sucesso"],
             type='Stage')
-    df_editor_campo()
+    # df_editor_campo()
+    df_editor_clinico()
     print('OK!')
 
 def df_documento_clinico():
@@ -93,17 +94,27 @@ def df_documento_clinico():
 
 def df_editor_clinico():
     print("Entrou no df_editor_clinico")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
     # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
-        df_dim = pd.read_sql(query_editor_clinico_fec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        try:
+            df_dim = pd.read_sql(query_editor_clinico_fec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        except Exception as e:
+            error_message("Erro Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+             "Recuperar dados view editor clinico",
+            str(e)],
+            type='Stage')
+            raise ValueError(e)
 
         df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
         df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(999888)
         df_dim["CD_DOCUMENTO"] = df_dim["CD_DOCUMENTO"].fillna(999888)
+        df_dim["CD_EDITOR_REGISTRO"] = df_dim["CD_EDITOR_REGISTRO"].fillna(999888)
 
         df_stage = pd.read_sql(query_editor_clinico_hdata_fec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
@@ -117,7 +128,7 @@ def df_editor_clinico():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO) VALUES (:1, :2, :3)"
+        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO, CD_EDITOR_REGISTRO) VALUES (:1, :2, :3, :4)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -125,8 +136,16 @@ def df_editor_clinico():
         for i in df_diff.iterrows():
             cols.append(df_list[n])
             n += 1
-
-        cursor.executemany(sql, cols)
+        try:
+            cursor.executemany(sql, cols)
+        except Exception as e:
+            error_message("Erro Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+             "erro de inserção",
+            str(e)],
+            type='Stage')
+            raise ValueError(e)
 
         con.commit()
         cursor.close
@@ -215,7 +234,7 @@ def df_editor_campo():
 
     print("Dados editor_campo inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="10,20,30,40,50,0 12,13,14,15 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="40 13 * * *")
 
 # t0 = PythonOperator(
 #     task_id="update_all_pw_doc_clinico",
