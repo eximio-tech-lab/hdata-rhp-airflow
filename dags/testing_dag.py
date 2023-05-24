@@ -215,7 +215,7 @@ def df_editor_campo():
 
     print("Dados editor_campo inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="10,20,30,40,50,0 20,21,22,23,19,18,17,15 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval="10,20,30,40,50,0 12,13,14,15 * * *")
 
 # t0 = PythonOperator(
 #     task_id="update_all_pw_doc_clinico",
