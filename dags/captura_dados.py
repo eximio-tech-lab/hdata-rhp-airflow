@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import datetime
 
+from utils.teams_robot import error_message
 from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
@@ -1498,10 +1499,9 @@ def df_editor_clinico():
         print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
 
         df_dim = pd.read_sql(query_editor_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
-
-        df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
-        df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(999888)
-        df_dim["CD_DOCUMENTO"] = df_dim["CD_DOCUMENTO"].fillna(999888)
+        df_dim = df_dim.where(pd.notnull(df_dim), None)
+        df_dim = df_dim.convert_dtypes()
+        df_dim = df_dim.replace({np.nan: None})
 
         df_stage = pd.read_sql(query_editor_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
@@ -1515,7 +1515,7 @@ def df_editor_clinico():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO) VALUES (:1, :2, :3)"
+        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO, CD_EDITOR_REGISTRO) VALUES (:1, :2, :3, :4)"
 
         df_list = df_diff.values.tolist()
         n = 0
@@ -1531,6 +1531,100 @@ def df_editor_clinico():
         con.close
 
         print("Dados PW_EDITOR_CLINICO inseridos")
+
+def df_editor_campo():
+    print("Entrou no editor_campo")
+    try:
+        df_dim = pd.read_sql(query_editor_campo, connect_rhp())
+    except Exception as e:
+        error_message("Erro Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+             "Recuperar dados view",
+            str(e)],
+            type='Stage')
+        raise ValueError(e)
+
+    df_stage = pd.read_sql(query_editor_campo_hdata, connect_rhp_hdata())
+
+    df_diff = df_dim.merge(df_stage["CD_CAMPO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+    df_diff = df_diff.drop(columns=['_merge'])
+    df_diff = df_diff.reset_index(drop=True)
+
+    print("dados para incremento")
+    print(df_diff.info())
+
+    con = connect_rhp_hdata()
+
+    cursor = con.cursor()
+
+    sql="INSERT INTO MV_RHP.EDITOR_CAMPO (CD_CAMPO, DS_CAMPO) VALUES (:1, :2)"
+
+    df_list = df_diff.values.tolist()
+    n = 0
+    cols = []
+    for i in df_diff.iterrows():
+        cols.append(df_list[n])
+        n += 1
+    try:
+        cursor.executemany(sql, cols)
+    except Exception as e:
+        error_message("Erro Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+            "Erro de inserção",
+            str(e)],
+            type='Stage')
+        raise ValueError(e)
+    con.commit()
+    cursor.close
+    con.close
+
+    print("Dados editor_campo inseridos")
+
+def df_registro_documento():
+    print("Entrou no df_registro_documento")
+    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+        data_1 = dt
+        data_2 = dt
+
+        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+
+        df_dim = pd.read_sql(query_registro_documento.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = df_dim.where(pd.notnull(df_dim), None)
+        df_dim = df_dim.convert_dtypes()
+        df_dim = df_dim.replace({np.nan: None})
+
+        df_stage = pd.read_sql(query_registro_documento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+
+        df_diff = df_dim.merge(df_stage["CD_REGISTRO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        df_diff = df_diff.drop(columns=['_merge'])
+        df_diff = df_diff.reset_index(drop=True)
+        print("dados para incremento")
+        print(df_diff.info())
+
+        con = connect_rhp_hdata()
+
+        cursor = con.cursor()
+
+        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_REGISTRO, SN_FECHADO, CD_CAMPO, DS_VALOR, LO_VALOR) \
+            VALUES (:1, :2, :3, :4, :5)"
+
+        df_list = df_diff.values.tolist()
+        n = 0
+        cols = []
+        for i in df_diff.iterrows():
+            cols.append(df_list[n])
+            n += 1
+
+        cursor.executemany(sql, cols)
+
+        con.commit()
+        cursor.close
+        con.close
+
+        print("Dados registro_documento inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=8)
@@ -1689,4 +1783,14 @@ t30 = PythonOperator(
     python_callable=df_editor_clinico,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t30
+t31 = PythonOperator(
+    task_id="captura_editor_campo",
+    python_callable=df_editor_campo,
+    dag=dag)
+
+t32 = PythonOperator(
+    task_id="captura_registro_documento",
+    python_callable=df_registro_documento,
+    dag=dag)
+
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t30 >> t31 >> t32
