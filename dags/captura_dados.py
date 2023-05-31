@@ -1491,8 +1491,8 @@ def df_mov_int():
 
 def df_editor_clinico():
     print("Entrou no df_editor_clinico")
-    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
+    # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1584,8 +1584,8 @@ def df_editor_campo():
 
 def df_registro_documento():
     print("Entrou no df_registro_documento")
-    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
+    # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
