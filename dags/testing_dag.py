@@ -35,7 +35,7 @@ def testing(**context):
             "sucesso"],
             type='Stage')
     # df_editor_campo()
-    df_editor_clinico()
+    # df_editor_clinico()
     print('OK!')
 
 def df_documento_clinico():
