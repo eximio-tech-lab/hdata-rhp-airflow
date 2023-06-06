@@ -1608,7 +1608,7 @@ def df_registro_documento():
 
         cursor = con.cursor()
 
-        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_REGISTRO, SN_FECHADO, CD_CAMPO, DS_VALOR, LO_VALOR) \
+        sql="INSERT INTO MV_RHP.REGISTRO_DOCUMENTO (CD_REGISTRO, SN_FECHADO, CD_CAMPO, DS_VALOR, LO_VALOR) \
             VALUES (:1, :2, :3, :4, :5)"
 
         df_list = df_diff.values.tolist()
