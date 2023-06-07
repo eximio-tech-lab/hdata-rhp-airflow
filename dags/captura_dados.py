@@ -1605,7 +1605,7 @@ dt_ini = dt_ontem - datetime.timedelta(days=8)
 # dt_ini = datetime.datetime(2022, 6, 1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
-dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 6,7 * * *")
+dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 6 * * *")
 
 t0 = PythonOperator(
     task_id="captura_atendime_rhp",
