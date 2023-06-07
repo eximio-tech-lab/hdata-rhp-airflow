@@ -418,8 +418,8 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2019, 1, 1), until=datetime.datetime(2021, 12,31)):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
+    # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -438,47 +438,16 @@ def df_documento_clinico():
         df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna("0")
         df_dim["CD_PRESTADOR"] = df_dim["CD_PRESTADOR"].fillna(0)
 
-        print(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')))
-        df_stage = pd.read_sql(query_documento_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
-        print(df_stage.info())
 
-        if not df_stage.empty:
-            ini = 0
-            fim = 10000
-            for _ in range((len(df_stage) // 10000) + 1):
-                df_diff = df_dim[ini:fim].merge(df_stage["CD_DOCUMENTO_CLINICO"][ini:fim],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-                df_diff = df_diff.drop(columns=['_merge'])
-                df_diff = df_diff.reset_index(drop=True)
-
-                print("dados para incremento")
-                print(df_diff.info())
-
-                ini = fim
-                fim = fim + 10000
-
-                con = connect_rhp_hdata()
-
-                cursor = con.cursor()
-
-                sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
-
-                df_list = df_diff.values.tolist()
-                n = 0
-                cols = []
-                for i in df_diff.iterrows():
-                    cols.append(df_list[n])
-                    n += 1
-
-                cursor.executemany(sql, cols)
-
-                con.commit()
-                cursor.close
-                con.close
-
-        else:
+        if not df_dim.empty:
             con = connect_rhp_hdata()
-
             cursor = con.cursor()
+            list_cd_documento = list(df_dim["CD_DOCUMENTO_CLINICO"])
+            range_cd = int(len(list_cd_documento) / 999) + 1
+            list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
+            for cds in list_cds:
+                cursor.execute('DELETE FROM MV_RHP.PW_DOCUMENTO_CLINICO WHERE CD_DOCUMENTO_CLINICO IN {cds}'.format(cds=tuple(cds)))
+                con.commit()
 
             sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
 
@@ -495,7 +464,12 @@ def df_documento_clinico():
             cursor.close
             con.close
 
-        print("Dados PW_DOCUMENTO_CLINICO inseridos")
+    error_message("Carga Rhp",
+            ["lucas.freire@hdata.med.br"],
+            ["--------",
+            "documento clinico finalizado"],
+            type='Stage')
+    print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
 def df_esp_med():
     print("Entrou no df_esp_med")
@@ -1793,4 +1767,4 @@ t32 = PythonOperator(
     python_callable=df_registro_documento,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t7 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t30 >> t31 >> t32
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32
