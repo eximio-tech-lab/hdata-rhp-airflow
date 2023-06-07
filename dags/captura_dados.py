@@ -418,8 +418,8 @@ def df_diagnostico_atendime(atendimentos):
 
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
-    for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
-    # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    # for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -442,12 +442,12 @@ def df_documento_clinico():
         if not df_dim.empty:
             con = connect_rhp_hdata()
             cursor = con.cursor()
-            list_cd_documento = list(df_dim["CD_DOCUMENTO_CLINICO"])
-            range_cd = int(len(list_cd_documento) / 999) + 1
-            list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
-            for cds in list_cds:
-                cursor.execute('DELETE FROM MV_RHP.PW_DOCUMENTO_CLINICO WHERE CD_DOCUMENTO_CLINICO IN {cds}'.format(cds=tuple(cds)))
-                con.commit()
+            # list_cd_documento = list(df_dim["CD_DOCUMENTO_CLINICO"])
+            # range_cd = int(len(list_cd_documento) / 999) + 1
+            # list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
+            # for cds in list_cds:
+            #     cursor.execute('DELETE FROM MV_RHP.PW_DOCUMENTO_CLINICO WHERE CD_DOCUMENTO_CLINICO IN {cds}'.format(cds=tuple(cds)))
+            #     con.commit()
 
             sql="INSERT INTO MV_RHP.PW_DOCUMENTO_CLINICO (CD_DOCUMENTO_CLINICO, CD_OBJETO, CD_ATENDIMENTO, CD_TIPO_DOCUMENTO, TP_STATUS, DH_CRIACAO, DH_FECHAMENTO, NM_DOCUMENTO, CD_USUARIO, CD_PRESTADOR) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
 
