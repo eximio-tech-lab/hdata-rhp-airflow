@@ -1558,8 +1558,8 @@ def df_editor_campo():
 
 def df_registro_documento():
     print("Entrou no df_registro_documento")
-    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 1, 1), until=dt_ontem):
+    # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
 
@@ -1570,13 +1570,13 @@ def df_registro_documento():
         df_dim = df_dim.convert_dtypes()
         df_dim = df_dim.replace({np.nan: None})
 
-        df_stage = pd.read_sql(query_registro_documento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        # df_stage = pd.read_sql(query_registro_documento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
-        df_diff = df_dim.merge(df_stage["CD_REGISTRO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
-        print("dados para incremento")
-        print(df_diff.info())
+        # df_diff = df_dim.merge(df_stage["CD_REGISTRO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
+        # df_diff = df_diff.drop(columns=['_merge'])
+        # df_diff = df_diff.reset_index(drop=True)
+        # print("dados para incremento")
+        print(df_dim.info())
 
         con = connect_rhp_hdata()
 
@@ -1585,10 +1585,10 @@ def df_registro_documento():
         sql="INSERT INTO MV_RHP.REGISTRO_DOCUMENTO (CD_REGISTRO, SN_FECHADO, CD_CAMPO, DS_VALOR, LO_VALOR) \
             VALUES (:1, :2, :3, :4, :5)"
 
-        df_list = df_diff.values.tolist()
+        df_list = df_dim.values.tolist()
         n = 0
         cols = []
-        for i in df_diff.iterrows():
+        for i in df_dim.iterrows():
             cols.append(df_list[n])
             n += 1
 
