@@ -1556,7 +1556,7 @@ def df_editor_campo():
 
 def df_registro_documento():
     print("Entrou no df_registro_documento")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2021, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 5, 13), until=dt_ontem):
     # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
@@ -1567,6 +1567,7 @@ def df_registro_documento():
         df_dim = df_dim.where(pd.notnull(df_dim), None)
         df_dim = df_dim.convert_dtypes()
         df_dim = df_dim.replace({np.nan: None})
+        df_dim['LO_VALOR'] = df_dim['LO_VALOR'][:4000]
 
         # df_stage = pd.read_sql(query_registro_documento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
