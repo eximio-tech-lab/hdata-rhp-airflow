@@ -96,7 +96,7 @@ def df_documento_clinico():
 def df_editor_clinico():
     print("Entrou no df_editor_clinico")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 3, 1), until=dt_ontem):
 
         print(dt.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
 
