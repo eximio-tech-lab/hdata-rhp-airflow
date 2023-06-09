@@ -1,5 +1,6 @@
 import airflow
 import pandas as pd
+import numpy as np
 import datetime
 from datetime import timedelta, date
 from dateutil import rrule
@@ -9,8 +10,8 @@ from datetime import timedelta
 from utils.teams_robot import error_message
 from queries.rhp.queries_temp import query_update_all_cid
 from connections.oracle.connections import connect_rhp, connect_rhp_hdata
-from queries.rhp.queries import query_documento_clinico_fec, query_editor_clinico_fec, query_editor_campo
-from queries.rhp.queries_hdata import query_documento_clinico_hdata_fec, query_editor_clinico_hdata_fec, query_editor_campo_hdata
+from queries.rhp.queries import query_documento_clinico_fec, query_editor_clinico, query_editor_campo
+from queries.rhp.queries_hdata import query_documento_clinico_hdata_fec, query_editor_clinico_hdata, query_editor_campo_hdata
 
 START_DATE = airflow.utils.dates.days_ago(2)
 
@@ -35,7 +36,7 @@ def testing(**context):
             "sucesso"],
             type='Stage')
     # df_editor_campo()
-    # df_editor_clinico()
+    df_editor_clinico()
     print('OK!')
 
 def df_documento_clinico():
@@ -94,58 +95,38 @@ def df_documento_clinico():
 
 def df_editor_clinico():
     print("Entrou no df_editor_clinico")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
-    # for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
+    for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2022, 1, 1), until=dt_ontem):
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
-        try:
-            df_dim = pd.read_sql(query_editor_clinico_fec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
-        except Exception as e:
-            error_message("Erro Carga Rhp",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-             "Recuperar dados view editor clinico",
-            str(e)],
-            type='Stage')
-            raise ValueError(e)
+        print(dt.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
 
-        df_dim["CD_EDITOR_CLINICO"] = df_dim["CD_EDITOR_CLINICO"].fillna(999888)
-        df_dim["CD_DOCUMENTO_CLINICO"] = df_dim["CD_DOCUMENTO_CLINICO"].fillna(999888)
-        df_dim["CD_DOCUMENTO"] = df_dim["CD_DOCUMENTO"].fillna(999888)
-        df_dim["CD_EDITOR_REGISTRO"] = df_dim["CD_EDITOR_REGISTRO"].fillna(999888)
-
-        df_stage = pd.read_sql(query_editor_clinico_hdata_fec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
-
-        df_diff = df_dim.merge(df_stage["CD_EDITOR_CLINICO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
-        print("dados para incremento")
-        print(df_diff.info())
-
+        df_dim = pd.read_sql(query_editor_clinico.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = df_dim.where(pd.notnull(df_dim), None)
+        df_dim = df_dim.convert_dtypes()
+        df_dim = df_dim.replace({np.nan: None})
         con = connect_rhp_hdata()
-
         cursor = con.cursor()
+        if not df_dim.empty:
+            list_cd_documento = list(df_dim["CD_EDITOR_CLINICO"])
+            range_cd = int(len(list_cd_documento) / 999) + 1
+            list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
+            for cds in list_cds:
+                cursor.execute('DELETE FROM MV_RHP.PW_EDITOR_CLINICO WHERE CD_EDITOR_CLINICO IN {cds}'.format(cds=tuple(cds)))
+                con.commit()
+
+        print("dados para incremento")
+        print(df_dim.info())
 
         sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO, CD_EDITOR_REGISTRO) VALUES (:1, :2, :3, :4)"
 
-        df_list = df_diff.values.tolist()
+        df_list = df_dim.values.tolist()
         n = 0
         cols = []
-        for i in df_diff.iterrows():
+        for i in df_dim.iterrows():
             cols.append(df_list[n])
             n += 1
-        try:
-            cursor.executemany(sql, cols)
-        except Exception as e:
-            error_message("Erro Carga Rhp",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-             "erro de inserção",
-            str(e)],
-            type='Stage')
-            raise ValueError(e)
+
+        cursor.executemany(sql, cols)
 
         con.commit()
         cursor.close
@@ -234,7 +215,7 @@ def df_editor_campo():
 
     print("Dados editor_campo inseridos")
 
-dag = DAG("testing_dag", default_args=default_args, schedule_interval="40 13 * * *")
+dag = DAG("testing_dag", default_args=default_args, schedule_interval=None)
 
 # t0 = PythonOperator(
 #     task_id="update_all_pw_doc_clinico",
