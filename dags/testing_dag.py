@@ -106,13 +106,13 @@ def df_editor_clinico():
         df_dim = df_dim.replace({np.nan: None})
         con = connect_rhp_hdata()
         cursor = con.cursor()
-        # if not df_dim.empty:
-        #     list_cd_documento = list(df_dim["CD_EDITOR_CLINICO"])
-        #     range_cd = int(len(list_cd_documento) / 999) + 1
-        #     list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
-        #     for cds in list_cds:
-        #         cursor.execute('DELETE FROM MV_RHP.PW_EDITOR_CLINICO WHERE CD_EDITOR_CLINICO IN {cds}'.format(cds=tuple(cds)))
-        #         con.commit()
+        if not df_dim.empty:
+            list_cd_documento = list(df_dim["CD_EDITOR_CLINICO"])
+            range_cd = int(len(list_cd_documento) / 999) + 1
+            list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
+            for cds in list_cds:
+                cursor.execute('DELETE FROM MV_RHP.PW_EDITOR_CLINICO WHERE CD_EDITOR_CLINICO IN {cds}'.format(cds=tuple(cds)))
+                con.commit()
 
         print("dados para incremento")
         print(df_dim.info())

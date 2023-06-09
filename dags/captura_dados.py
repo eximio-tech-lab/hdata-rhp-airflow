@@ -1467,34 +1467,32 @@ def df_editor_clinico():
     print("Entrou no df_editor_clinico")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
+        print(dt.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
 
-        df_dim = pd.read_sql(query_editor_clinico.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_editor_clinico.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
         df_dim = df_dim.where(pd.notnull(df_dim), None)
         df_dim = df_dim.convert_dtypes()
         df_dim = df_dim.replace({np.nan: None})
-
-        df_stage = pd.read_sql(query_editor_clinico_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
-
-        df_diff = df_dim.merge(df_stage["CD_EDITOR_CLINICO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
-        print("dados para incremento")
-        print(df_diff.info())
-
         con = connect_rhp_hdata()
-
         cursor = con.cursor()
+        if not df_dim.empty:
+            list_cd_documento = list(df_dim["CD_EDITOR_CLINICO"])
+            range_cd = int(len(list_cd_documento) / 999) + 1
+            list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
+            for cds in list_cds:
+                cursor.execute('DELETE FROM MV_RHP.PW_EDITOR_CLINICO WHERE CD_EDITOR_CLINICO IN {cds}'.format(cds=tuple(cds)))
+                con.commit()
+
+        print("dados para incremento")
+        print(df_dim.info())
 
         sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO, CD_EDITOR_REGISTRO) VALUES (:1, :2, :3, :4)"
 
-        df_list = df_diff.values.tolist()
+        df_list = df_dim.values.tolist()
         n = 0
         cols = []
-        for i in df_diff.iterrows():
+        for i in df_dim.iterrows():
             cols.append(df_list[n])
             n += 1
 
