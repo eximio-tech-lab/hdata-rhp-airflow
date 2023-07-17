@@ -168,7 +168,7 @@ def update_alta():
     divider_atend = [cds_atendimentos[i::range_cds] for i in range(range_cds)]
     for atends in divider_atend:
         print('Atualizando + 1 de '+str(range_cds))
-        df_altas_atualizadas = pd.read_sql('SELECT CD_ATENDIMENTO, CD_MOT_ALT, HR_ALTA, HR_ALTA_MEDICA, DT_ALTA \
+        df_altas_atualizadas = pd.read_sql('SELECT CD_ATENDIMENTO, CD_MOT_ALT, HR_ALTA, HR_ALTA_MEDICA \
                             FROM DBAMV.VW_EXIMIO_ATENDIME WHERE CD_ATENDIMENTO IN {cds_atendimento}'\
                             .format(cds_atendimento=tuple(atends)),connect_rhp())
         df_altas_atualizadas['CD_MOT_ALT'] = df_altas_atualizadas['CD_MOT_ALT'].fillna(0)
