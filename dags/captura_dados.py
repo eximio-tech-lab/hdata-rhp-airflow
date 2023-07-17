@@ -160,10 +160,7 @@ def update_alta():
     print("Preparando para atualizar altas")
     df_altas_zeradas = pd.read_sql('''SELECT CD_ATENDIMENTO 
                                     FROM MV_RHP.ATENDIME 
-                                    WHERE CD_MOT_ALT = 0 
-                                        OR HR_ALTA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
-                                        OR HR_ALTA_MEDICA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
-                                        OR DT_ALTA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
+                                    WHERE HR_ALTA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
                                         ''',connect_rhp_hdata())
     print(df_altas_zeradas.info())
     cds_atendimentos = list(df_altas_zeradas['CD_ATENDIMENTO']) 
