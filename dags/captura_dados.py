@@ -453,6 +453,7 @@ def df_diagnostico_atendime(atendimentos):
 def df_documento_clinico():
     print("Entrou no df_documento_clinico")
     # for dt in rrule.rrule(rrule.WEEKLY, dtstart=datetime.datetime(2019, 1, 1), until=dt_ontem):
+    dt_ini = datetime.datetime(2023, 1, 1)
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
@@ -1500,6 +1501,7 @@ def df_mov_int():
 def df_editor_clinico():
     print("Entrou no df_editor_clinico")
     # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
+    dt_ini = datetime.datetime(2023,1,1)
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
 
         print(dt.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
@@ -1591,6 +1593,7 @@ def df_editor_campo():
 def df_registro_documento():
     print("Entrou no df_registro_documento")
     # for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 5, 13), until=dt_ontem):
+    dt_ini = datetime.datetime(2023,1,1)
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
         data_1 = dt
         data_2 = dt
@@ -1635,7 +1638,7 @@ def df_registro_documento():
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=8)
-# dt_ini = datetime.datetime(2022, 1, 1)
+# dt_ini = datetime.datetime(2023, 1, 1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
 dag = DAG("captura_dados_rhp", default_args=default_args, schedule_interval="0 6 * * *")
