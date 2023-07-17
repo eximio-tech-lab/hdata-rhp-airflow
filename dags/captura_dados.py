@@ -32,9 +32,11 @@ default_args = {
 
 HOSPITAL = "REAL HOSPITAL PORTGUES"
 
+
 def update_cells(df_eq, table_name, CD):
+    cols = df_eq.dtypes[df_eq.dtypes=='datetime64[ns]'].index
     d = df_eq.to_dict(orient='split')
-    print(d)
+    #print(d)
     for dado in d['data']:
         for i in range(len(dado) - 1):
             conn = connect_rhp_hdata()
@@ -43,17 +45,21 @@ def update_cells(df_eq, table_name, CD):
             query = ''
             query = 'UPDATE {nome_tabela} '.format(nome_tabela=table_name)
             if pd.isna(dado[i + 1]):
-                query += 'SET {nome_coluna} is null '.format(nome_coluna=d['columns'][i + 1])
+                query += 'SET {nome_coluna} = null '.format(nome_coluna=d['columns'][i + 1])
             else:
-                if type(dado[i + 1]) == np.int64 or type(dado[i + 1]) == np.float64:
+                print(type(dado[i + 1]))
+                if type(dado[i + 1]) == np.int64 or type(dado[i + 1]) == np.float64 or type(dado[i + 1]) == int:
                     query += 'SET {nome_coluna} = {novo_valor} '.format(nome_coluna=d['columns'][i + 1],
+                                                            novo_valor=dado[i + 1])
+                elif d['columns'][i + 1] in cols:
+                    query += 'SET {nome_coluna} = TIMESTAMP \'{novo_valor}\' '.format(nome_coluna=d['columns'][i + 1],
                                                             novo_valor=dado[i + 1])
                 else:
                     query += 'SET {nome_coluna} = \'{novo_valor}\' '.format(nome_coluna=d['columns'][i + 1],
                                                             novo_valor=dado[i + 1])
             query += 'WHERE {cd} IN({todos_cds})'.format(cd=CD, todos_cds=dado[0])
 
-            # print(query)
+            #print(query)
             cursor.execute(query)
             conn.commit()
             conn.close()
@@ -149,6 +155,34 @@ def df_atendime():
 
         df_diagnostico_atendime(atendimentos)
         df_tempo_processo(atendimentos)
+
+def update_alta():
+    print("Preparando para atualizar altas")
+    df_altas_zeradas = pd.read_sql('''SELECT CD_ATENDIMENTO 
+                                    FROM MV_RHP.ATENDIME 
+                                    WHERE CD_MOT_ALT = 0 
+                                        OR HR_ALTA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
+                                        OR HR_ALTA_MEDICA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
+                                        OR DT_ALTA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
+                                        ''',connect_rhp_hdata())
+    cds_atendimentos = list(df_altas_zeradas['CD_ATENDIMENTO']) 
+    range_cds = int(len(cds_atendimentos) / 999) + 1
+    divider_atend = [cds_atendimentos[i::range_cds] for i in range(range_cds)]
+    for atends in divider_atend:
+        df_altas_atualizadas = pd.read_sql('SELECT CD_ATENDIMENTO, CD_MOT_ALT, HR_ALTA, HR_ALTA_MEDICA, DT_ALTA \
+                            FROM DBAMV.VW_EXIMIO_ATENDIME WHERE CD_ATENDIMENTO IN {cds_atendimento}'\
+                            .format(cds_atendimento=tuple(atends)),connect_rhp())
+        df_altas_atualizadas['CD_MOT_ALT'] = df_altas_atualizadas['CD_MOT_ALT'].fillna(0)
+        df_altas_atualizadas['CD_MOT_ALT'] = df_altas_atualizadas['CD_MOT_ALT'].astype(int)
+        print(df_altas_atualizadas)
+        if not df_altas_atualizadas.empty:
+            update_cells(df_eq=df_altas_atualizadas,
+                        table_name='ATENDIME',
+                        CD='CD_ATENDIMENTO')
+                    
+        del df_altas_atualizadas
+    
+    print('Altas atualizadas!')
 
 def df_cid():
     print("Entrou no df_cid")
@@ -1766,4 +1800,10 @@ t32 = PythonOperator(
     python_callable=df_registro_documento,
     dag=dag)
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32
+t33 = PythonOperator(
+    task_id="update_altas",
+    python_callable=update_alta,
+    dag=dag
+)
+
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32 >> t33
