@@ -165,10 +165,12 @@ def update_alta():
                                         OR HR_ALTA_MEDICA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
                                         OR DT_ALTA < TO_TIMESTAMP('01/01/2000','DD/MM/YYYY')
                                         ''',connect_rhp_hdata())
+    print(df_altas_zeradas.info())
     cds_atendimentos = list(df_altas_zeradas['CD_ATENDIMENTO']) 
     range_cds = int(len(cds_atendimentos) / 999) + 1
     divider_atend = [cds_atendimentos[i::range_cds] for i in range(range_cds)]
     for atends in divider_atend:
+        print('Atualizando + 1 de '+str(range_cds))
         df_altas_atualizadas = pd.read_sql('SELECT CD_ATENDIMENTO, CD_MOT_ALT, HR_ALTA, HR_ALTA_MEDICA, DT_ALTA \
                             FROM DBAMV.VW_EXIMIO_ATENDIME WHERE CD_ATENDIMENTO IN {cds_atendimento}'\
                             .format(cds_atendimento=tuple(atends)),connect_rhp())
