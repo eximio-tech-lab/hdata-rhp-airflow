@@ -16,7 +16,7 @@ from queries.rhp.queries_hdata import *
 
 from utils.integrity_checker import notify_email
 
-START_DATE = airflow.utils.dates.days_ago(1)
+START_DATE = airflow.utils.dates.days_ago(2)
 
 default_args = {
     "owner": "raphael",
@@ -1927,7 +1927,7 @@ def df_mov_exame():
         print("Dados LOG_MOV_EXAME inseridos")
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=30)
+dt_ini = dt_ontem - datetime.timedelta(days=7)
 # dt_ini = datetime.datetime(2022, 7, 1)
 
 # dag = DAG("insert_dados_rhp_variabilidade", default_args=default_args, schedule_interval=None)
