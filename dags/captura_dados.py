@@ -14,7 +14,7 @@ from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
-from utils.upsert_default import by_date_upsert
+from utils.upsert_default import by_date_upsert_two_pk
 from utils.integrity_checker import notify_email
 
 START_DATE = airflow.utils.dates.days_ago(1)
@@ -1801,12 +1801,13 @@ t31 = PythonOperator(
 
 t32 = PythonOperator(
     task_id="captura_registro_documento",
-    python_callable=by_date_upsert,
+    python_callable=by_date_upsert_two_pk,
     op_kwargs={
         'query_origem': query_registro_documento,
         'tabela_destino': 'REGISTRO_DOCUMENTO',
         'pk' : 'CD_REGISTRO',
-        'inicio' : dt_ini,
+        'pk2': 'CD_CAMPO',
+        'inicio' : datetime.datetime(2023,6,1),
         'fim' : dt_ontem,
         'mending_callback' : limit_lo_valor
     },

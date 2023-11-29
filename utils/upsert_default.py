@@ -112,39 +112,43 @@ def by_date_upsert(inicio, fim, query_origem, tabela_destino, pk, mending_callba
                 else:
                     df.to_sql(tabela_destino, connect_string(), schema=HOSPITAL, if_exists='replace', index=False, dtype=type_mapping)
 
-def by_date_upsert_two_pk(inicio, fim, query_origem, tabela_destino, pk, pk2):
+def by_date_upsert_two_pk(inicio, fim, query_origem, tabela_destino, pk, pk2, mending_callback = '0'):
     for dt in rrule.rrule(rrule.DAILY, dtstart=inicio, until=fim):
         print(str(dt))
-        df = pd.read_sql(query_origem.format(dt=dt.strftime('%d/%m/%Y')), source_engine())
-        df.columns = [x.upper() for x in df.columns]
-        print(df.info())
-        if not df.empty:
-            cols = df.dtypes[df.dtypes=='object'].index
-            type_mapping = {col : DateTime if ('DT' in col or 'DAT' in col) else String(255) for col in cols }
-            if check_table(tabela_destino):
-                con = connect_hdata()
-                cursor = con.cursor()
-                if int(len(df)) > 1:
-                    pks = list(df[[pk,pk2]].apply(tuple,axis=1))
-                    range_pk = int(len(pks) / 999) + 1
-                    list_pks = [pks[i::range_pk] for i in range(range_pk)]
-                    for seqs in list_pks:
-                        cursor.execute('DELETE FROM {table} where ({pk},{pk2}) in {seqs}'.format(table=tabela_destino,
-                                                                                        pk=pk,
-                                                                                        pk2=pk2,
-                                                                                        seqs=tuple(seqs)))
+        #df = pd.read_sql(query_origem.format(dt=dt.strftime('%d/%m/%Y')), source_engine())
+        for df in pd.read_sql(query_origem.format(dt=dt.strftime('%d/%m/%Y')), source_engine(),  chunksize=10000):
+            df.columns = [x.upper() for x in df.columns]
+            print(df.info())
+            if not df.empty:
+                cols = df.dtypes[df.dtypes=='object'].index
+                if not isinstance(mending_callback, str):
+                    df = mending_callback(df)
+                print(df.info())
+                type_mapping = {col : DateTime if ('DT' in col or 'DAT' in col) else String(255) for col in cols }
+                if check_table(tabela_destino):
+                    con = connect_hdata()
+                    cursor = con.cursor()
+                    if int(len(df)) > 1:
+                        pks = list(df[[pk,pk2]].apply(tuple,axis=1))
+                        range_pk = int(len(pks) / 999) + 1
+                        list_pks = [pks[i::range_pk] for i in range(range_pk)]
+                        for seqs in list_pks:
+                            cursor.execute('DELETE FROM {table} where ({pk},{pk2}) in {seqs}'.format(table=tabela_destino,
+                                                                                            pk=pk,
+                                                                                            pk2=pk2,
+                                                                                            seqs=tuple(seqs)))
+                            con.commit()
+                    else:
+                        cursor.execute('DELETE FROM {table} where {pk} = {seq} and {pk2} = {seq2}'.format(table=tabela_destino,
+                                                                                            pk=pk,
+                                                                                            pk2=pk2,
+                                                                                            seq=df[pk][0],
+                                                                                            seq2=df[pk2][0]))
                         con.commit()
+                    con.close()
+                    df.to_sql(tabela_destino, connect_string(), schema=HOSPITAL, if_exists='append', index=False, dtype=type_mapping)
                 else:
-                    cursor.execute('DELETE FROM {table} where {pk} = {seq} and {pk2} = {seq2}'.format(table=tabela_destino,
-                                                                                        pk=pk,
-                                                                                        pk2=pk2,
-                                                                                        seq=df[pk][0],
-                                                                                        seq2=df[pk2][0]))
-                    con.commit()
-                con.close()
-                df.to_sql(tabela_destino, connect_string(), schema=HOSPITAL, if_exists='append', index=False, dtype=type_mapping)
-            else:
-                df.to_sql(tabela_destino, connect_string(), schema=HOSPITAL, if_exists='replace', index=False, dtype=type_mapping)
+                    df.to_sql(tabela_destino, connect_string(), schema=HOSPITAL, if_exists='replace', index=False, dtype=type_mapping)
 
 def by_pk_upsert(query_search_pk, query_origem, tabela_destino, pk, search_engine, mending_callback='0'):
     df_pks = pd.read_sql(query_search_pk, search_engine)
