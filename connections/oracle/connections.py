@@ -22,7 +22,7 @@ def connect():
     return connect_rhp_hdata_2
 
 def connect_string():
-    connect_hdata_2 = 'oracle+cx_oracle://' + 'MV_RHP' + ':' + 'MV_RHP' + '@' + 'orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com' + ':' + '61521' + '/ORCL'
+    connect_hdata_2 = 'oracle+cx_oracle://' + 'MV_RHP' + ':' + 'MVRHP' + '@' + 'orclstage-1.cxp7emb18yqw.us-east-2.rds.amazonaws.com' + ':' + '61521' + '/ORCL'
     return connect_hdata_2
 
 def engine():
