@@ -5,7 +5,7 @@ from sqlalchemy import DateTime, String
 from dateutil import rrule
 from connections.oracle.connections import connect_rhp as source_engine, connect_rhp_hdata as connect_hdata, connect_string
 
-HOSPITAL = "RHP"
+HOSPITAL = "MV_RHP"
 
 def update_cells(df_eq, table_name, CD):
     cols = df_eq.dtypes[df_eq.dtypes=='datetime64[ns]'].index
