@@ -14,6 +14,7 @@ from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
+from utils.upsert_default import by_date_upsert
 from utils.integrity_checker import notify_email
 
 START_DATE = airflow.utils.dates.days_ago(1)
@@ -1594,18 +1595,15 @@ def df_registro_documento():
     print("Entrou no df_registro_documento")
     # for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 5, 13), until=dt_ontem):
     for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
+        print(dt.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
 
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
-
-        df_dim = pd.read_sql(query_registro_documento.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
+        df_dim = pd.read_sql(query_registro_documento.format(dt=dt.strftime('%d/%m/%Y')), connect_rhp())
         df_dim = df_dim.where(pd.notnull(df_dim), None)
         df_dim = df_dim.convert_dtypes()
         df_dim = df_dim.replace({np.nan: None})
         df_dim['LO_VALOR'] = df_dim['LO_VALOR'][:4000]
 
-        df_stage = pd.read_sql(query_registro_documento_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
+        df_stage = pd.read_sql(query_registro_documento_hdata.format(dt=dt.strftime('%d/%m/%Y')), connect_rhp_hdata())
 
         df_diff = df_dim.merge(df_stage["CD_REGISTRO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
         df_diff = df_diff.drop(columns=['_merge'])
@@ -1634,6 +1632,10 @@ def df_registro_documento():
         con.close
 
         print("Dados registro_documento inseridos")
+
+def limit_lo_valor(df):
+    df['LO_VALOR'] = df['LO_VALOR'][:4000]
+    return df
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=8)
@@ -1799,8 +1801,23 @@ t31 = PythonOperator(
 
 t32 = PythonOperator(
     task_id="captura_registro_documento",
-    python_callable=df_registro_documento,
-    dag=dag)
+    python_callable=by_date_upsert,
+    op_kwargs={
+        'query_origem': query_registro_documento,
+        'tabela_destino': 'REGISTRO_DOCUMENTO',
+        'pk' : 'CD_REGISTRO',
+        'inicio' : dt_ini,
+        'fim' : dt_ontem,
+        'mending_callback' : limit_lo_valor
+    },
+    on_failure_callback=notify_email,
+    dag=dag
+)
+
+# t32 = PythonOperator(
+#     task_id="captura_registro_documento",
+#     python_callable=df_registro_documento,
+#     dag=dag)
 
 t33 = PythonOperator(
     task_id="update_altas",
