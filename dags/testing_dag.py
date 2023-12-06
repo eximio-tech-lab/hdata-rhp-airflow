@@ -30,13 +30,6 @@ default_args = {
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 
 def testing(**context):
-    error_message("Chamada para campo sucesso RHP",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-            "sucesso"],
-            type='Stage')
-    # df_editor_campo()
-    df_editor_clinico()
     print('OK!')
 
 def df_documento_clinico():

@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import datetime
 
-from utils.teams_robot import error_message
+# from utils.teams_robot import error_message
 from datetime import timedelta, date
 from dateutil import rrule
 from airflow import DAG
@@ -500,11 +500,6 @@ def df_documento_clinico():
             cursor.close
             con.close
 
-    error_message("Carga Rhp",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-            "documento clinico finalizado"],
-            type='Stage')
     print("Dados PW_DOCUMENTO_CLINICO inseridos")
 
 def df_esp_med():
@@ -1543,17 +1538,8 @@ def df_editor_clinico():
 
 def df_editor_campo():
     print("Entrou no editor_campo")
-    try:
-        df_dim = pd.read_sql(query_editor_campo, connect_rhp())
-    except Exception as e:
-        error_message("Erro Carga Rhp",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-             "Recuperar dados view",
-            str(e)],
-            type='Stage')
-        raise ValueError(e)
-
+    df_dim = pd.read_sql(query_editor_campo, connect_rhp())
+    
     df_stage = pd.read_sql(query_editor_campo_hdata, connect_rhp_hdata())
 
     df_diff = df_dim.merge(df_stage["CD_CAMPO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
@@ -1575,16 +1561,7 @@ def df_editor_campo():
     for i in df_diff.iterrows():
         cols.append(df_list[n])
         n += 1
-    try:
-        cursor.executemany(sql, cols)
-    except Exception as e:
-        error_message("Erro Carga Rhp",
-            ["lucas.freire@hdata.med.br"],
-            ["--------",
-            "Erro de inserção",
-            str(e)],
-            type='Stage')
-        raise ValueError(e)
+    cursor.executemany(sql, cols)
     con.commit()
     cursor.close
     con.close
