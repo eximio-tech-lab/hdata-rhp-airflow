@@ -1615,7 +1615,7 @@ def limit_lo_valor(df):
     return df
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=8)
+dt_ini = dt_ontem - datetime.timedelta(days=18)
 # dt_ini = datetime.datetime(2023, 1, 1)
 
 # dag = DAG("insert_dados_rhp", default_args=default_args, schedule_interval=None)
