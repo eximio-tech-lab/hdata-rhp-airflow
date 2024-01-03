@@ -14,7 +14,7 @@ from collections import OrderedDict as od
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
-from utils.upsert_default import by_date_upsert_two_pk
+from utils.upsert_default import by_date_upsert_two_pk, by_date_upsert
 from utils.integrity_checker import notify_email
 
 START_DATE = airflow.utils.dates.days_ago(1)
@@ -1788,19 +1788,25 @@ t32 = PythonOperator(
         'fim' : dt_ontem,
         'mending_callback' : limit_lo_valor
     },
-    on_failure_callback=notify_email,
     dag=dag
 )
 
-# t32 = PythonOperator(
-#     task_id="captura_registro_documento",
-#     python_callable=df_registro_documento,
-#     dag=dag)
-
 t33 = PythonOperator(
+    task_id="VW_EXIMIO_PW_ENCAMINHAMENTO",
+    python_callable=by_date_upsert,
+    op_kwargs={
+        'inicio' : datetime.datetime(2023,11,1),
+        'fim' : dt_ontem,
+        'query_origem' : query_encaminhamento_esp,
+        'tabela_destino' : 'VW_EXIMIO_PW_ENCAMINHAMENTO',
+        'pk' : 'CD_ENCAMINHAMENTO'},
+    dag=dag
+)
+
+t34 = PythonOperator(
     task_id="update_altas",
     python_callable=update_alta,
     dag=dag
 )
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32 >> t33
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32 >> t33 >> t34
