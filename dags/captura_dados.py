@@ -1792,13 +1792,13 @@ t32 = PythonOperator(
 )
 
 t33 = PythonOperator(
-    task_id="VW_EXIMIO_PW_ENCAMINHAMENTO",
+    task_id="upsert_pw_encaminhamento",
     python_callable=by_date_upsert,
     op_kwargs={
         'inicio' : datetime.datetime(2023,11,1),
         'fim' : dt_ontem,
         'query_origem' : query_encaminhamento_esp,
-        'tabela_destino' : 'VW_EXIMIO_PW_ENCAMINHAMENTO',
+        'tabela_destino' : 'PW_ENCAMINHAMENTO',
         'pk' : 'CD_ENCAMINHAMENTO'},
     dag=dag
 )
