@@ -1741,10 +1741,23 @@ t24 = PythonOperator(
     python_callable=df_usuario,
     dag=dag)
 
+# t25 = PythonOperator(
+#     task_id="captura_fech_chec_rhp",
+#     python_callable=df_fech_chec,
+#     dag=dag)
+
 t25 = PythonOperator(
     task_id="captura_fech_chec_rhp",
-    python_callable=df_fech_chec,
-    dag=dag)
+    python_callable=by_date_upsert,
+    op_kwargs={
+        'query_origem': query_fech_chec,
+        'tabela_destino': 'CD_FECHAMENTO_HORARIO_CHECAGEM',
+        'pk' : 'PW_HR_FECHADO_CHEC',
+        'inicio' : datetime.datetime(2023,1,1),
+        'fim' : dt_ontem
+    },
+    dag=dag
+)
 
 t26 = PythonOperator(
     task_id="captura_leito_rhp",
@@ -1795,7 +1808,7 @@ t33 = PythonOperator(
     task_id="upsert_pw_encaminhamento",
     python_callable=by_date_upsert,
     op_kwargs={
-        'inicio' : datetime.datetime(2023,12,15),
+        'inicio' : dt_ini,
         'fim' : dt_ontem,
         'query_origem' : query_encaminhamento_esp,
         'tabela_destino' : 'PW_ENCAMINHAMENTO',
