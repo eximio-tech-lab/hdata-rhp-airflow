@@ -1753,7 +1753,7 @@ t25 = PythonOperator(
         'query_origem': query_fech_chec,
         'tabela_destino': 'CD_FECHAMENTO_HORARIO_CHECAGEM',
         'pk' : 'PW_HR_FECHADO_CHEC',
-        'inicio' : datetime.datetime(2023,1,1),
+        'inicio' : dt_ini,
         'fim' : dt_ontem
     },
     dag=dag
