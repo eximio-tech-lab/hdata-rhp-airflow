@@ -1751,8 +1751,8 @@ t25 = PythonOperator(
     python_callable=by_date_upsert,
     op_kwargs={
         'query_origem': query_fech_chec,
-        'tabela_destino': 'CD_FECHAMENTO_HORARIO_CHECAGEM',
-        'pk' : 'PW_HR_FECHADO_CHEC',
+        'tabela_destino': 'PW_HR_FECHADO_CHEC',
+        'pk' : 'CD_FECHAMENTO_HORARIO_CHECAGEM',
         'inicio' : datetime.datetime(2023,10,28),
         'fim' : datetime.datetime(2023,11,2)
     },
