@@ -1816,10 +1816,23 @@ t33 = PythonOperator(
     dag=dag
 )
 
+t35 = PythonOperator(
+    task_id="upsert_new_prescr_check",
+    python_callable=by_date_upsert_two_pk,
+    op_kwargs={
+        'query_origem': query_new_prescr_check,
+        'tabela_destino': 'HRITPRE_CONS',
+        'pk' : 'CD_ITPRE_MED',
+        'pk2': 'DH_CHECAGEM',
+        'inicio' : datetime.datetime(2022,1,1),
+        'fim' : datetime.datetime(2022,6,30)},
+    dag=dag
+)
+
 t34 = PythonOperator(
     task_id="update_altas",
     python_callable=update_alta,
     dag=dag
 )
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32 >> t33 >> t34
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32 >> t33 >> t35 >> t34
