@@ -1,21 +1,17 @@
 import airflow
-import unidecode
 import pandas as pd
 import numpy as np
 import datetime
 
-# from utils.teams_robot import error_message
-from datetime import timedelta, date
+from datetime import timedelta
 from dateutil import rrule
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from connections.oracle.connections import connect_rhp, connect_rhp_hdata, engine_rhp, connect
-from collections import OrderedDict as od
+from connections.oracle.connections import connect_rhp, connect_rhp_hdata
 from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
 from utils.upsert_default import by_date_upsert_two_pk, by_date_upsert
-from utils.integrity_checker import notify_email
 
 START_DATE = airflow.utils.dates.days_ago(1)
 
@@ -1290,53 +1286,6 @@ def df_usuario():
     print("dados para update")
     print(df_upd.info())
 
-def df_fech_chec():
-    print("Entrou no df_fech_chec")
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-        data_1 = dt
-        data_2 = dt
-
-        print(data_1.strftime('%d/%m/%Y'), ' a ', data_2.strftime('%d/%m/%Y'))
-
-        df_dim = pd.read_sql(query_fech_chec.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp())
-
-        df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"] = df_dim["CD_FECHAMENTO_HORARIO_CHECAGEM"].fillna(0)
-        df_dim["CD_FECHAMENTO"] = df_dim["CD_FECHAMENTO"].fillna(0)
-        df_dim["CD_ITPRE_MED"] = df_dim["CD_ITPRE_MED"].fillna(0)
-        df_dim["CD_USUARIO"] = df_dim["CD_USUARIO"].fillna(0)
-        df_dim["SN_ALTERADO"] = df_dim["SN_ALTERADO"].fillna("0")
-        df_dim["SN_SUSPENSO"] = df_dim["SN_SUSPENSO"].fillna("0")
-
-        df_stage = pd.read_sql(query_fech_chec_hdata.format(data_ini=data_1.strftime('%d/%m/%Y'), data_fim=data_2.strftime('%d/%m/%Y')), connect_rhp_hdata())
-
-        df_diff = df_dim.merge(df_stage["CD_FECHAMENTO_HORARIO_CHECAGEM"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-        df_diff = df_diff.drop(columns=['_merge'])
-        df_diff = df_diff.reset_index(drop=True)
-        
-        print("dados para incremento")
-        print(df_diff.info())
-
-        con = connect_rhp_hdata()
-
-        cursor = con.cursor()
-
-        sql="INSERT INTO MV_RHP.PW_HR_FECHADO_CHEC (CD_FECHAMENTO_HORARIO_CHECAGEM, CD_FECHAMENTO, CD_ITPRE_MED, CD_USUARIO, DH_CHECAGEM, SN_ALTERADO, SN_SUSPENSO) VALUES (:1, :2, :3, :4, :5, :6, :7)"
-
-        df_list = df_diff.values.tolist()
-        n = 0
-        cols = []
-        for i in df_diff.iterrows():
-            cols.append(df_list[n])
-            n += 1
-
-        cursor.executemany(sql, cols)
-
-        con.commit()
-        cursor.close
-        con.close
-
-        print("Dados PW_HR_FECHADO_CHEC inseridos")
-
 def df_leito():
     print("Entrou no df_leito")
 
@@ -1494,80 +1443,6 @@ def df_mov_int():
 
         print("Dados MOV_INT inseridos")
 
-def df_editor_clinico():
-    print("Entrou no df_editor_clinico")
-    # for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime.datetime(2023, 1, 1), until=dt_ontem):
-    dt_ini = datetime.datetime(2023,1,1)
-    for dt in rrule.rrule(rrule.DAILY, dtstart=dt_ini, until=dt_ontem):
-
-        print(dt.strftime('%d/%m/%Y'), ' a ', dt.strftime('%d/%m/%Y'))
-
-        df_dim = pd.read_sql(query_editor_clinico.format(data_ini=dt.strftime('%d/%m/%Y'), data_fim=dt.strftime('%d/%m/%Y')), connect_rhp())
-        df_dim = df_dim.where(pd.notnull(df_dim), None)
-        df_dim = df_dim.convert_dtypes()
-        df_dim = df_dim.replace({np.nan: None})
-        con = connect_rhp_hdata()
-        cursor = con.cursor()
-        if not df_dim.empty:
-            list_cd_documento = list(df_dim["CD_EDITOR_CLINICO"])
-            range_cd = int(len(list_cd_documento) / 999) + 1
-            list_cds = [list_cd_documento[i::range_cd] for i in range(range_cd)]
-            for cds in list_cds:
-                cursor.execute('DELETE FROM MV_RHP.PW_EDITOR_CLINICO WHERE CD_EDITOR_CLINICO IN {cds}'.format(cds=tuple(cds)))
-                con.commit()
-
-        print("dados para incremento")
-        print(df_dim.info())
-
-        sql="INSERT INTO MV_RHP.PW_EDITOR_CLINICO (CD_EDITOR_CLINICO, CD_DOCUMENTO_CLINICO, CD_DOCUMENTO, CD_EDITOR_REGISTRO) VALUES (:1, :2, :3, :4)"
-
-        df_list = df_dim.values.tolist()
-        n = 0
-        cols = []
-        for i in df_dim.iterrows():
-            cols.append(df_list[n])
-            n += 1
-
-        cursor.executemany(sql, cols)
-
-        con.commit()
-        cursor.close
-        con.close
-
-        print("Dados PW_EDITOR_CLINICO inseridos")
-
-def df_editor_campo():
-    print("Entrou no editor_campo")
-    df_dim = pd.read_sql(query_editor_campo, connect_rhp())
-    
-    df_stage = pd.read_sql(query_editor_campo_hdata, connect_rhp_hdata())
-
-    df_diff = df_dim.merge(df_stage["CD_CAMPO"],indicator = True, how='left').loc[lambda x : x['_merge'] !='both']
-    df_diff = df_diff.drop(columns=['_merge'])
-    df_diff = df_diff.reset_index(drop=True)
-
-    print("dados para incremento")
-    print(df_diff.info())
-
-    con = connect_rhp_hdata()
-
-    cursor = con.cursor()
-
-    sql="INSERT INTO MV_RHP.EDITOR_CAMPO (CD_CAMPO, DS_CAMPO) VALUES (:1, :2)"
-
-    df_list = df_diff.values.tolist()
-    n = 0
-    cols = []
-    for i in df_diff.iterrows():
-        cols.append(df_list[n])
-        n += 1
-    cursor.executemany(sql, cols)
-    con.commit()
-    cursor.close
-    con.close
-
-    print("Dados editor_campo inseridos")
-
 def df_registro_documento():
     print("Entrou no df_registro_documento")
     # for dt in rrule.rrule(rrule.DAILY, dtstart=datetime.datetime(2023, 5, 13), until=dt_ontem):
@@ -1609,10 +1484,6 @@ def df_registro_documento():
         con.close
 
         print("Dados registro_documento inseridos")
-
-def limit_lo_valor(df):
-    df['LO_VALOR'] = df['LO_VALOR'][:4000]
-    return df
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=7)
@@ -1716,11 +1587,6 @@ t19 = PythonOperator(
     python_callable=df_sintoma_avaliacao,
     dag=dag)
 
-# t20 = PythonOperator(
-#     task_id="captura_tempo_processo_rhp",
-#     python_callable=df_tempo_processo,
-#     dag=dag)
-
 t21 = PythonOperator(
     task_id="captura_tip_mar_rhp",
     python_callable=df_tip_mar,
@@ -1740,24 +1606,6 @@ t24 = PythonOperator(
     task_id="captura_usuario_rhp",
     python_callable=df_usuario,
     dag=dag)
-
-# t25 = PythonOperator(
-#     task_id="captura_fech_chec_rhp",
-#     python_callable=df_fech_chec,
-#     dag=dag)
-
-t25 = PythonOperator(
-    task_id="captura_fech_chec_rhp",
-    python_callable=by_date_upsert,
-    op_kwargs={
-        'query_origem': query_fech_chec,
-        'tabela_destino': 'PW_HR_FECHADO_CHEC',
-        'pk' : 'CD_FECHAMENTO_HORARIO_CHECAGEM',
-        'inicio' : dt_ini,
-        'fim' : dt_ontem
-    },
-    dag=dag
-)
 
 t26 = PythonOperator(
     task_id="captura_leito_rhp",
@@ -1779,60 +1627,10 @@ t29 = PythonOperator(
     python_callable=df_mov_int,
     dag=dag)
 
-t30 = PythonOperator(
-    task_id="captura_editor_clinico",
-    python_callable=df_editor_clinico,
-    dag=dag)
-
-t31 = PythonOperator(
-    task_id="captura_editor_campo",
-    python_callable=df_editor_campo,
-    dag=dag)
-
-t32 = PythonOperator(
-    task_id="captura_registro_documento",
-    python_callable=by_date_upsert_two_pk,
-    op_kwargs={
-        'query_origem': query_registro_documento,
-        'tabela_destino': 'REGISTRO_DOCUMENTO',
-        'pk' : 'CD_REGISTRO',
-        'pk2': 'CD_CAMPO',
-        'inicio' : dt_ini,
-        'fim' : dt_ontem,
-        'mending_callback' : limit_lo_valor
-    },
-    dag=dag
-)
-
-t33 = PythonOperator(
-    task_id="upsert_pw_encaminhamento",
-    python_callable=by_date_upsert,
-    op_kwargs={
-        'inicio' : dt_ini,
-        'fim' : dt_ontem,
-        'query_origem' : query_encaminhamento_esp,
-        'tabela_destino' : 'PW_ENCAMINHAMENTO',
-        'pk' : 'CD_ENCAMINHAMENTO'},
-    dag=dag
-)
-
-t35 = PythonOperator(
-    task_id="upsert_new_prescr_check",
-    python_callable=by_date_upsert_two_pk,
-    op_kwargs={
-        'query_origem': query_new_prescr_check,
-        'tabela_destino': 'HRITPRE_CONS',
-        'pk' : 'CD_ITPRE_MED',
-        'pk2': 'DH_CHECAGEM',
-        'inicio' : datetime.datetime(2022,1,1),
-        'fim' : datetime.datetime(2022,6,30)},
-    dag=dag
-)
-
 t34 = PythonOperator(
     task_id="update_altas",
     python_callable=update_alta,
     dag=dag
 )
 
-(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t25 >> t7 >> t30 >> t31 >> t32 >> t33 >> t35 >> t34
+(t1, t3, t4, t5, t8, t9, t10, t11, t12, t13, t14, t15, t17, t18, t19, t21, t22, t24) >> t16 >> t23 >> t2 >> t0 >> t26 >> t27 >> t28 >> t29 >> t7 >> t34
