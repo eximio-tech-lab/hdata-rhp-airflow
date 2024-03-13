@@ -11,6 +11,7 @@ services:
       - 5432:5432
     volumes:
       - postgres:/var/lib/postgresql/data
+    restart: unless-stopped
 
   initdb:
     build: .
@@ -64,6 +65,7 @@ services:
       timeout: 10s
       retries: 5
     command: airflow webserver
+    restart: unless-stopped
 
   scheduler:
     build: .
@@ -87,6 +89,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+    restart: unless-stopped
 
 
 #  test:
