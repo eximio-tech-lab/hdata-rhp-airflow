@@ -1,5 +1,5 @@
-PYTHON_VERSION := 3.8
-AIRFLOW_VERSION := 2.0.0
+PYTHON_VERSION := 3.7
+AIRFLOW_VERSION := 2.6.3
 # Must be comma-separated, no spaces
 AIRFLOW_EXTRAS := postgres
 CONSTRAINT := https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt
