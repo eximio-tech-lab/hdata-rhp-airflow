@@ -22,4 +22,4 @@ striprtf==0.0.14
 pika
 objdict
 GitPython
-sqlalchemy
+apache-airflow-providers-oracle
