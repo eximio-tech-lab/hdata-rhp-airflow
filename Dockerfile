@@ -9,7 +9,7 @@ RUN alien ./oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm
 RUN apt-get install libaio1
 RUN dpkg -i ./oracle-instantclient19.5-basic_19.5.0.0.0-2_amd64.deb
 RUN rm -rf ./oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm
-RUN sh -c "echo /usr/lib/oracle/18.5/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
+RUN sh -c "echo /usr/lib/oracle/19.5/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
 RUN ldconfig
 
 # Install Airflow pre-requisites: https://airflow.apache.org/docs/apache-airflow/2.0.0/installation.html#getting-airflow
