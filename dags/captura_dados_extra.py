@@ -151,9 +151,9 @@ def limit_lo_valor(df):
     return df
 
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
-dt_ini = dt_ontem - datetime.timedelta(days=7)
+dt_ini = dt_ontem - datetime.timedelta(days=5)
 
-dag = DAG("captura_dados_extra_rhp", default_args=default_args, schedule_interval="20 4 * * *")
+dag = DAG("captura_dados_extra_rhp", default_args=default_args, schedule_interval="0 4 * * *")
 
 t1 = PythonOperator(
     task_id="captura_fech_chec_rhp",
