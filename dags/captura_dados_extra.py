@@ -13,6 +13,7 @@ from queries.rhp.queries import *
 from queries.rhp.queries_hdata import *
 
 from utils.upsert_default import by_date_upsert_two_pk, by_date_upsert
+from utils.teams_robot import error_message
 
 START_DATE = airflow.utils.dates.days_ago(1)
 
@@ -148,6 +149,12 @@ def limit_lo_valor(df):
     df['LO_VALOR'] = df['LO_VALOR'][:4000]
     return df
 
+def call_bot():
+    error_message("Carga Rhp",
+        ["lucas.freire@hdata.med.br"],
+        ["Sucesso!"],
+        type='Stage')
+
 dt_ontem = datetime.datetime.today() - datetime.timedelta(days=1)
 dt_ini = dt_ontem - datetime.timedelta(days=5)
 
@@ -203,6 +210,11 @@ t5 = PythonOperator(
     dag=dag
 )
 
+te = PythonOperator(
+    task_id="captura_teste_chamada_bot",
+    python_callable=call_bot,
+    dag=dag)
+
 t6 = PythonOperator(
     task_id="upsert_new_prescr_check",
     python_callable=by_date_upsert_two_pk,
@@ -216,4 +228,4 @@ t6 = PythonOperator(
     dag=dag
 )
 
-t1 >> t2 >> t3 >> t4 >> t5 >> t6
+t1 >> t2 >> t3 >> t4 >> t5 >> te >> t6
